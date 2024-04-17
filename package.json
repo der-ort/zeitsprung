@@ -1,0 +1,19 @@
+{
+  "name": "zeitsprung",
+  "version": "1.0.1",
+  "description": "Blogging in time and space.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/der-ort/zeitsprung.git"
+  },
+  "author": "Daniel Ort",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/der-ort/zeitsprung/issues"
+  },
+  "homepage": "https://github.com/der-ort/zeitsprung#readme"
+}
