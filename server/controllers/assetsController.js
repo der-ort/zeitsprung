@@ -1,31 +1,37 @@
+const assetsModel = require('../models/assetsModel');
+
 // ASSETS
 
-exports.getAllAssetsByTripId = ctx => {
+exports.getAllAssetsByTripId = async ctx => {
     try{
-        ctx.body = assetsModel.getAllAssetsByTripId(ctx.request.params.tripId)
-        ctx.status(200); // SUCCESS 200
+        const tripId = ctx.params.tripId;
+        ctx.body = await assetsModel.getAllAssetsByTripId(tripId)
+        ctx.status = 200; // SUCCESS 200
     } catch (err) {
         ctx.body = err;
-        ctx.status(500);
+        console.log(err)
+        ctx.status = 500;
     }
 }
 
-exports.getAllAssetsByDayId = ctx => {
+exports.getAllAssetsByDayId = async ctx => {
     try{
-        ctx.body = assetsModel.getAllAssetsByDayId(ctx.request.params.dayId)
-        ctx.status(200); // SUCCESS 200
+        const dayId = ctx.params.dayId;
+        ctx.body = await assetsModel.getAllAssetsByDayId(dayId)
+        ctx.status = 200; // SUCCESS 200
     } catch (err) {
         ctx.body = err;
-        ctx.status(500);
+        ctx.status = 500;
     }
 }
 
-exports.saveTripAssets = ctx => {
+exports.saveTripAssets = async ctx => {
     try{
-        ctx.body = assetsModel.saveTripAssets(ctx.request.params.tripId)
-        ctx.status(200); // SUCCESS 200
+        const tripId = ctx.params.tripId;
+        ctx.body = await assetsModel.saveTripAssets(tripId)
+        ctx.status = 200; // SUCCESS 200
     } catch (err) {
         ctx.body = err;
-        ctx.status(500);
+        ctx.status = 500;
     }
 }

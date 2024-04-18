@@ -1,6 +1,6 @@
 'use strict';
 
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize, DataTypes, Op } = require('sequelize');
 
 const database = 'cw_zeitsprung';
 const username = 'postgres';
@@ -25,4 +25,4 @@ sequelize.sync({ force: false, alter: true })
     .then(() => console.log("All models were synchronized successfully."))
     .catch(error => console.error("Error synchronizing models:", error));
 
-module.exports = { sequelize, DataTypes };
+module.exports = { sequelize, DataTypes, Op };

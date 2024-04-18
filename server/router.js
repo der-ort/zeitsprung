@@ -37,10 +37,14 @@ const assetsController = require('./controllers/assetsController');
     // get all assets for the trip with the given ID
     // request: body contains json object with id -> {id: tripId}
     // responds: with a sorted (by date) array of asset objects for the trip with the given ID
-    router.get('/trips/:id/assets', assetsController.getAllAssetsByTripId)
+    router.get('/assets/trips/:tripId', assetsController.getAllAssetsByTripId)
+
+    // get all assets for the day with the given ID
+    // responds: with a sorted (by date) array of asset objects for the day with the given ID
+    router.get('/assets/day/:dayId', assetsController.getAllAssetsByDayId)
     
     // add an array of asset objects to the trip with the given ID
-    router.post('/trips/:id/assets', assetsController.saveTripAssets)
+    router.post('/assets/trips/:id', assetsController.saveTripAssets)
     
     
 module.exports = router;
