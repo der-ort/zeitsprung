@@ -150,10 +150,9 @@ async function getTripById (tripId) {
    }
 }
 
-
 async function createTrip (trip) {
    try {
-      await   Trip.create(trip);
+      await Trip.create(trip);
    } catch (err) {
       console.log('Error:' , err);
       return null;
