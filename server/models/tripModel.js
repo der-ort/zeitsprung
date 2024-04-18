@@ -171,4 +171,18 @@ async function createTrip (trip) {
    }
 }
 
-module.exports = { getAllTripsByUserId, getTripById, createTrip, deleteTrip }
+async function getAllDaysByTripId (tripId) {
+   try {
+      const days = await Day.findAll({ where: { tripId: tripId } });
+      let result = [];
+      days.forEach(day => {
+         result.push(day);
+      });
+      return result;
+   } catch (err) {
+      console.log('Error', err);
+      return 0;
+   }
+}
+
+module.exports = { getAllTripsByUserId, getTripById, createTrip, deleteTrip, getAllDaysByTripId }

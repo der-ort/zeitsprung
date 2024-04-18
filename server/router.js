@@ -20,7 +20,7 @@ const assetsController = require('./controllers/assetsController');
     // create new trip for User with given id in the passed JSON Object -> property: authorId
     // request: body contains json object with id -> {id: tripId}
     // responds: with a sorted (by date) array of asset objects for the trip with the given ID
-    router.post('/trips/', tripController.createTrip);
+    router.post('/trips', tripController.createTrip);
 
     // delete trip with given id
     // request: body contains json object with id -> {id: tripId}
@@ -31,7 +31,7 @@ const assetsController = require('./controllers/assetsController');
     
     // returns all days for the trip as an array of Day Objects
     // 
-    //router.get('/trips/:id/days/', assetsController.getAllDays)
+    router.get('/trips/:tripId/days', tripController.getAllDaysByTripId)
 
 // ASSETS
     // get all assets for the trip with the given ID

@@ -52,9 +52,10 @@ exports.deleteTrip = async ctx=> {
     }
 }
 
-exports.getAllDays = async ctx=> {
+exports.getAllDaysByTripId = async ctx => {
     try{
-        ctx.body = await tripModel.getAllDays();
+        const tripId = ctx.params.tripId;
+        ctx.body = await tripModel.getAllDaysByTripId(tripId);
         ctx.status =200; // SUCCESS 200
     } catch (err) {
         ctx.body = err;
