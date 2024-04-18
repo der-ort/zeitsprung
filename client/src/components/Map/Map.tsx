@@ -25,21 +25,18 @@ const Map: FC<MapProps> = () => {
         maxBounds={[[-85.06, -180], [85.06, 180]]}
         scrollWheelZoom={true}>
         
-         {/* <TileLayer
-            attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-            url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-        />  */}
-        
-        {/* <TileLayer
-          attribution="Google Maps"
-          url="https://www.google.com/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
-        /> */}
-
         <LayersControl>
         <LayersControl.BaseLayer checked name="Stadia Outdoor">
         <TileLayer
             attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url='https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png'
+        /> 
+        </LayersControl.BaseLayer>
+
+        <LayersControl.BaseLayer  name="Stadia Alidade Smooth Black">
+        <TileLayer
+            attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
         /> 
         </LayersControl.BaseLayer>
 
@@ -57,13 +54,6 @@ const Map: FC<MapProps> = () => {
         /> 
         </LayersControl.BaseLayer>
 
-        <LayersControl.BaseLayer name="Historical Americas">
-        <TileLayer
-            attribution='&copy; <a href="https://mapwarper.net/maps/32196" target="_blank">Mapwarper</a>'
-            url='https://mapwarper.net/maps/tile/32196/{z}/{x}/{y}.png '
-        /> 
-        </LayersControl.BaseLayer>
-        
           <LayersControl.BaseLayer name="Open Street Map">
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -81,6 +81,7 @@ export const waypoints: Waypoint[] = [
 const currentTrip: Trip = {
   id: 1,
   name: 'Michimahuida',
+  description: 'RÉGION PALENA, CHILE',
   locationCenter: [51.51, -0.08],
   start: 1711561224389,
   end: 1711561424389,
@@ -97,7 +98,7 @@ function App() {
   return (
     <>
     <div className='parent'>
-      <TripTitle className={"trip-title"} trip={currentTrip} title={"MICHIMAHUIDA"} subtitle={"RÉGION PALENA, CHILE"}/>
+      <TripTitle className={"trip-title"} trip={currentTrip} />
       <Timeline className={"timeline"} waypoints={waypoints}/>
       <DateControl currentDay={currentDay}/>
       <DayInfo currentDay={currentDay}/>
