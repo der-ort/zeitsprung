@@ -108,3 +108,9 @@ export async function getAllDays(tripId:number):Day[] {
         console.log('Error getting all days for trip: ' + err);
     }
 }
+
+// ADD API functions for historic weather data
+
+
+
+// add functions for the moon phase

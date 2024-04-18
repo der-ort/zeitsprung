@@ -9,9 +9,11 @@ import DayInfo from './components/DayInfo/DayInfo'
 import BlogContainer from './components/BlogContainer/BlogContainer'
 import BlogFooter from './components/BlogFooter/BlogFooter'
 import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
-import { Trip, Waypoint } from './models/types' // import Typescript types
+import { Asset, Trip, Waypoint } from './models/types' // import Typescript types
 
 // MOCK DATA -> FINAL DATA NEEDS TO BE SORTED BY TIMESTAMP!!!
+
+// mock waypoints
 export const waypoints: Waypoint[] = [
   {
       id: 1,
@@ -75,6 +77,40 @@ export const waypoints: Waypoint[] = [
     imageURL: './assets/images/michi_9.jpg',
     captureDate: 1711561424389, 
     coordinates: [51.11, -0.04]
+  }
+]
+
+// mock Assets
+const assets:Asset[] = [
+  { 
+  id: 1,
+  description: 'super',
+  assetType: 'image',
+  fileLocation: './assets/images/michi_9.jpg', 
+  coordinates: [51.11, -0.04], 
+  captureDate: 1711561424389,
+  associatedDate: 1711561424389,  
+  associatedTrips: 1
+  },
+  { 
+  id: 2,
+  description: 'top',
+  assetType: 'image',
+  fileLocation: './assets/images/michi_8.jpg', 
+  coordinates: [51.11, -0.04], 
+  captureDate: 1711561424389,
+  associatedDate: 1711561424389,  
+  associatedTrips: 1
+  },
+  { 
+  id: 3,
+  description: '1A',
+  assetType: 'image',
+  fileLocation: './assets/images/michi_7.jpg', 
+  coordinates: [51.11, -0.04], 
+  captureDate: 1711561424389,
+  associatedDate: 1711561424389,  
+  associatedTrips: 1
   }
 ]
 

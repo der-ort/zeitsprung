@@ -26,11 +26,22 @@
       height: 100vh;
       border: 2px solid #333333;
       }
-      
+                    
       .trip-title { 
-          grid-area: 1 / 1 / 2 / 2; 
-          padding: 15px;
-          border: inherit;
+        grid-area: 1 / 1 / 2 / 2; 
+        padding: 15px 15px 15px 0;
+        border: inherit;
+        display: flex;
+      }
+
+      .title-chevron {
+          height: 100%;
+          color: violet;
+          flex:1;        
+        }
+
+      .title-chevron :hover {
+        background: lavenderblush;
       }
       
       .timeline { 

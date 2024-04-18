@@ -1,6 +1,7 @@
 // get the sequelize handle from the database connection
 
-import { sequelize } from "./databaseConnection";
+const { getAllAssetsByDayId, getAllAssetsByTripId } = require('../controllers/assetsController');
+const { sequelize, DataTypes } = require('./databaseConnection');
 
 // TRIP TYPE
 const Trip = sequelize.define('trip', {
@@ -59,7 +60,7 @@ const Day = sequelize.define('day', {
     blogEntry: {
         type: DataTypes.STRING,
         allowNull: true    
-    }
+    },
 
     locationCenter: {
         type: DataTypes.ARRAY(DataTypes.FLOAT), // This assumes usage of PostgreSQL. Adjust accordingly for other databases.
@@ -145,4 +146,4 @@ async function createTrip (trip) {
    }
 }
 
-module.exports = { getAll, createTrip };
+module.exports = { getAllTripsByUserId, createTrip }

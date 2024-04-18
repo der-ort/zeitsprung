@@ -35,7 +35,9 @@ export const moods = [
 ]
 
 export interface Asset {
+    id: number;
     description: string;
+    name: string;
     assetType: string;              //image / note / waypoint
     fileLocation: string;
     coordinates: number[] | null; 

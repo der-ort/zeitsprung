@@ -6,9 +6,9 @@ const models = require('../models/tripModel');
 
 // TRIPS
 
-exports.getAllTripsByUserId = ctx => {
+exports.getAllTripsByUserId = async ctx=> {
     try{
-        ctx.body = tripModel.getAllTripsByUserId()
+        ctx.body = await tripModel.getAllTripsByUserId()
         ctx.status(200); // SUCCESS 200
     } catch (err) {
         ctx.body = err;
@@ -16,29 +16,9 @@ exports.getAllTripsByUserId = ctx => {
     }
 }
 
-exports.getTripById = ctx => {
+exports.getTripById = async ctx=> {
     try{
-        ctx.body = tripModel.getTripById()
-        ctx.status(200); // SUCCESS 200
-    } catch (err) {
-        ctx.body = err;
-        ctx.status(500);
-    
-}
-
-exports.createTrip = ctx => {
-    try{
-        ctx.body = tripModel.createTrip()
-        ctx.status(201); // CREATED 200
-    } catch (err) {
-        ctx.body = err;
-        ctx.status(500);
-    }
-}
-
-exports.deleteTrip = ctx => {
-    try{
-        ctx.body = tripModel.deleteTrip()
+        ctx.body = await tripModel.getTripById()
         ctx.status(200); // SUCCESS 200
     } catch (err) {
         ctx.body = err;
@@ -46,9 +26,30 @@ exports.deleteTrip = ctx => {
     }
 }
 
-exports.getAllDays = ctx => {
+exports.createTrip = async ctx=> {
     try{
-        ctx.body = tripModel.getAllDays()
+        const trip = ctx.request.body;
+        ctx.body = await tripModel.createTrip(trip)
+        ctx.status(201); // CREATED 201
+    } catch (err) {
+        ctx.body = err;
+        ctx.status(500);
+    }
+}
+
+exports.deleteTrip = async ctx=> {
+    try{
+        ctx.body = await tripModel.deleteTrip()
+        ctx.status(200); // SUCCESS 200
+    } catch (err) {
+        ctx.body = err;
+        ctx.status(500);
+    }
+}
+
+exports.getAllDays = async ctx=> {
+    try{
+        ctx.body = await tripModel.getAllDays()
         ctx.status(200); // SUCCESS 200
     } catch (err) {
         ctx.body = err;
