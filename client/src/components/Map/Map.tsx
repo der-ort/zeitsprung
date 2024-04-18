@@ -4,12 +4,15 @@ import L from 'leaflet';
 import { waypoints } from '../../App'; // import Mock Data
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
+import { DateTime } from "luxon";
+import { Asset } from '../../models/types';
+
 
 interface MapProps {
-
+  currentAssets: Asset[];
 }
 
-const Map: FC<MapProps> = () => {
+const Map: FC<MapProps> = ({currentAssets}) => {
     const startCoords = [51.505, -0.09];
     //const mapRef = useRef(null); // create a handler that can later be used to manipulate the map data...
 
@@ -80,11 +83,11 @@ const Map: FC<MapProps> = () => {
         </LayersControl>
         
         <MarkerClusterGroup>
-                {waypoints.map(waypoint => {
+                {currentAssets.map(asset => {
                     // create a custom Marker that displays the actual photo
                     
                     const imageIcon = new L.Icon({
-                        iconUrl: waypoint.imageURL,
+                        iconUrl: asset.fileLocation,
                         iconSize: [50, 50],  
                         iconAnchor: [25, 25],  
                         popupAnchor: [0, -25],
@@ -93,15 +96,15 @@ const Map: FC<MapProps> = () => {
 
                     return (
                         <Marker
-                            key={waypoint.id}
-                            position={waypoint.coordinates}
+                            key={asset.id}
+                            position={asset.coordinates}
                             icon={imageIcon}
                         >
                             <Popup>
-                                {waypoint.description}
+                                {asset.description}
                                 <br />
-                                {new Date(waypoint.captureDate).toLocaleString()}
-                                <img src={waypoint.imageURL} alt="Waypoint view" style={{ width: '100%' }} />
+                                {DateTime.fromMillis(Number(asset.captureDate)).toLocaleString()} 
+                                <img src={asset.fileLocation} alt="Waypoint view" style={{ width: '100%' }} />
                             </Popup>
                         </Marker>
                     );

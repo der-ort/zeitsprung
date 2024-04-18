@@ -127,7 +127,7 @@ const mockTrip:Trip = {
 
 const userId:number = 123;
 const tripId:number = 3;
-let dayId:number = 3;
+let dayId:number = 1;
 
 function App() {
   // useState to manage the currentDay which is the day to display throughout the app
@@ -162,7 +162,7 @@ function App() {
 
   // GET ALL ASSETS FOR THE CURRENT DAY
   useEffect(() => {
-    const fetchCurrentDayAssets = async (dayId) => {
+    const fetchCurrentDayAssets = async (dayId:number) => {
       try {
         
         const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
@@ -175,21 +175,22 @@ function App() {
       }
     };
     fetchCurrentDayAssets(dayId);
-  }, [tripId]);
+  }, [dayId]);
 
 
+  console.log(currentAssets)
   // TO DO: change currentDay from timestamp to Day Type
 
   return (
     <>
     <div className='parent'>
       <TripTitle className={"trip-title"} trip={currentTrip} />
-      <Timeline className={"timeline"} waypoints={waypoints}/>
+      <Timeline className={"timeline"} currentTripDays={currentTripDays} />
       <DateControl currentDay={currentDay}/>
       <DayInfo currentDay={currentDay}/>
       <BlogContainer currentDay={currentDay} />
       <BlogFooter />
-      <Map className={"map"} />
+      <Map className={"map"} currentAssets={currentAssets} />
       <AddAssetsButton />
     </div>
     </>

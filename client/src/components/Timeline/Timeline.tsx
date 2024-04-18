@@ -1,16 +1,17 @@
 import React, { FC } from 'react';
 import TimelineDay from '../TimelineDay/TimelineDay';
+import { Day } from '../../models/types';
 
 interface TimelineProps {
-    days: Date[];
+    currentTripDays: Day[]
 }
 
-const Timeline: FC<TimelineProps> = ({waypoints}) => {
+const Timeline: FC<TimelineProps> = ({currentTripDays}) => {
   return (
     <>
        <div className='timeline'>
-            {waypoints.map((waypoint) => {
-              return <TimelineDay key={waypoint.id} date={waypoint.captureDate} />  
+            {currentTripDays.map((day) => {
+              return <TimelineDay key={day.id} date={day.date} />  
             })}
        </div>
     </>

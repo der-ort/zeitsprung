@@ -7,7 +7,7 @@ interface TimelineDayProps {
 
 const TimelineDay: FC<TimelineDayProps> = ({date}) => {
 
-  const formattedDate = DateTime.fromMillis(date).toLocaleString();
+  const formattedDate = DateTime.fromMillis(Number(date)).toLocaleString();
   
   return (
     <>
