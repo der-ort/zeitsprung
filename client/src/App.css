@@ -16,6 +16,7 @@
   }
   
   .parent {
+      margin: auto;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: 1fr repeat(2, 0.5fr) 3fr 0.5fr;
@@ -23,12 +24,12 @@
       grid-row-gap: 0px;
       width: 100vw;
       height: 100vh;
-      border: 1px solid #333333;
+      border: 2px solid #333333;
       }
       
       .trip-title { 
           grid-area: 1 / 1 / 2 / 2; 
-          padding: 10px;
+          padding: 15px;
           border: inherit;
       }
       
@@ -38,12 +39,15 @@
           text-align: center;
           display: flex; /* will align all children inside*/
           flex-wrap: wrap;
+          overflow-x: scroll;
       }
   
       .timeline-day {
           flex-grow: 1;
           writing-mode: vertical-lr;
           text-orientation: mixed;
+          font-weight: 600;
+          color: cornflowerblue;
       }
   
       .timeline-day:nth-child(odd) {
@@ -60,26 +64,53 @@
   
       .date-control { 
           grid-area: 2 / 1 / 3 / 2; 
-          padding: 10px;
+          display: flex;
+          padding: 15px;
           text-align: center;
           border: inherit;
+          vertical-align: middle;
+          background: cornflowerblue;
       }
+
+      .date-current {
+        padding: 0;
+        margin: 0;
+        flex: 3;
+        height: 100%;
+      }
+
+      .date-prevnext {
+        flex: 1;
+        height: 100%;
+        align-items: center;
+      }
+
+      .date-chevron {
+        color: violet;
+      }
+
       .day-info { 
+          padding: 15px;
           grid-area: 3 / 1 / 4 / 2; 
           border: inherit;
       }
+      
       .blog-container { 
           grid-area: 4 / 1 / 5 / 2; 
           border: inherit;
           padding: 15px;
-      }
+          overflow-y: auto;
+        }
+
       .blog-footer { 
+          padding: 15px;
           grid-area: 5 / 1 / 6 / 2; 
           border: inherit;
       }
   
       .map {
           grid-area: 2 / 2 / 6 / 6;
+          z-index: 1;
       }
   
       .full-map {
@@ -91,6 +122,24 @@
       width: 100%;
   }
 
+
+  .add-assets {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    height: 60px;
+    width: 60px;
+    border: 3px solid #333333 ;
+    border-radius: 25px;
+    background: cornflowerblue;
+    align-items: center;
+    text-align: center;
+    z-index: 9;
+  }
+
+  .add-assets :hover {
+    color: lavender;
+  }
 
   .leaflet-icon {
       box-shadow: white 5px;

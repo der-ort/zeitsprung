@@ -42,6 +42,27 @@ const Map: FC<MapProps> = () => {
             url='https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png'
         /> 
         </LayersControl.BaseLayer>
+
+        <LayersControl.BaseLayer  name="Stadia Alidade Satellite">
+        <TileLayer
+            attribution='&copy; CNES, Distribution Airbus DS, © Airbus DS, © PlanetObserver (Contains Copernicus Data) | &copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url='https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.png'
+        /> 
+        </LayersControl.BaseLayer>
+
+        <LayersControl.BaseLayer name="Stanford's Library Map of London 1886">
+        <TileLayer
+            attribution='&copy; <a href="https://mapwarper.net/maps/55847" target="_blank">Mapwarper</a>'
+            url='https://mapwarper.net/maps/tile/55847/{z}/{x}/{y}.png'
+        /> 
+        </LayersControl.BaseLayer>
+
+        <LayersControl.BaseLayer name="Historical Americas">
+        <TileLayer
+            attribution='&copy; <a href="https://mapwarper.net/maps/32196" target="_blank">Mapwarper</a>'
+            url='https://mapwarper.net/maps/tile/32196/{z}/{x}/{y}.png '
+        /> 
+        </LayersControl.BaseLayer>
         
           <LayersControl.BaseLayer name="Open Street Map">
             <TileLayer

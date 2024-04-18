@@ -3,14 +3,16 @@ import './App.css'
 import TripTitle from './components/TripTitle/TripTitle'
 import Map from './components/Map/Map'
 import Timeline from './components/Timeline/Timeline'
-import { DateTime } from "luxon";
+import { DateTime, Interval } from "luxon";
 import DateControl from './components/DateControl/DateControl'
 import DayInfo from './components/DayInfo/DayInfo'
 import BlogContainer from './components/BlogContainer/BlogContainer'
 import BlogFooter from './components/BlogFooter/BlogFooter'
+import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
+import { Trip, Waypoint } from './models/types' // import Typescript types
 
 // MOCK DATA -> FINAL DATA NEEDS TO BE SORTED BY TIMESTAMP!!!
-export const waypoints = [
+export const waypoints: Waypoint[] = [
   {
       id: 1,
       description: 'oh my god',
@@ -76,6 +78,15 @@ export const waypoints = [
   }
 ]
 
+const currentTrip: Trip = {
+  id: 1,
+  name: 'Michimahuida',
+  locationCenter: [51.51, -0.08],
+  start: 1711561224389,
+  end: 1711561424389,
+  length: () => Interval.fromDateTimes(this.start, this.end) 
+}
+
 function App() {
 
   // useState to manage the currentDay which is the day to display throughout the app.
@@ -86,13 +97,14 @@ function App() {
   return (
     <>
     <div className='parent'>
-      <TripTitle className={"trip-title"} title={"Hello"} subtitle={"Bye"}/>
+      <TripTitle className={"trip-title"} trip={currentTrip} title={"MICHIMAHUIDA"} subtitle={"RÉGION PALENA, CHILE"}/>
       <Timeline className={"timeline"} waypoints={waypoints}/>
       <DateControl currentDay={currentDay}/>
       <DayInfo currentDay={currentDay}/>
       <BlogContainer />
       <BlogFooter />
       <Map className={"map"} />
+      <AddAssetsButton />
     </div>
     </>
   )
