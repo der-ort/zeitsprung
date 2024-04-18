@@ -43,6 +43,37 @@ const Trip = sequelize.define('trip', {
    }
 } , { tableName: 'trips' });
 
+// DAY TYPE
+
+const Day = sequelize.define('day', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    blogEntry: {
+        type: DataTypes.STRING,
+        allowNull: true    
+    }
+
+    locationCenter: {
+        type: DataTypes.ARRAY(DataTypes.FLOAT), // This assumes usage of PostgreSQL. Adjust accordingly for other databases.
+        allowNull: true,
+    },
+    mood: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            min: 0,
+            max: 5
+        }
+    }
+}, { tableName: 'days' });
 
 // ASSET TYPE
 
@@ -90,7 +121,7 @@ const Asset = sequelize.define('asset', {
 
 async function getAllTripsByUserId (userId) {
    try {
-      const trips = await Trip.findAll(); //add to filter by userId
+      const trips = await Trip.findAll(Trip.findAll({ where: { authorId: userId } })); //add to filter by userId
       let result = [];
             
       trips.forEach(trip => {

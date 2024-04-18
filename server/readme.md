@@ -40,7 +40,7 @@ DATABASE Structure:
 API Endpoints:
 
     TRIP:
-    - GET:  /trips/:userId
+    - GET:  /user/trips/:userId
         request:
         responds:    
     

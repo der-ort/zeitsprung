@@ -3,13 +3,14 @@ const Router = require('koa-router');
 const router = new Router();
 
 const tripController = require('./controllers/tripController');
+const assetsController = require('./controllers/assetsController');
 
 // TRIPS
 
     // get all trips of user with userId as an array of Trips
     // request: body contains json object with id -> {id: userId}
     // responds: with a sorted (by date) array of asset objects for the trip with the given ID
-    router.get('/trips/:userId', tripController.getAllTripsByUserId);
+    router.get('/user/trips/:userId', tripController.getAllTripsByUserId);
 
     // get trip with the given tripId
     // request: body contains json object with id -> {id: tripId}
@@ -38,11 +39,6 @@ const tripController = require('./controllers/tripController');
     // responds: with a sorted (by date) array of asset objects for the trip with the given ID
     router.get('/trips/:id/assets', assetsController.getAllAssetsByTripId)
     
-    // get all assets for the day with the given ID
-    // request: body contains json object with id -> {id: tripId}
-    // responds: with a sorted (by timestamp) array of asset objects
-    router.get('/trips/:id/assets', assetsController.getAllAssetsByTripId)
-
     // add an array of asset objects to the trip with the given ID
     router.post('/trips/:id/assets', assetsController.saveTripAssets)
     

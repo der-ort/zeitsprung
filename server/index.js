@@ -12,4 +12,4 @@ app.use(router.routes());
 
 app.listen(PORT, () => {
     console.log(`Zeitsprung server running at http://localhost:${PORT}`); 
-};
+});

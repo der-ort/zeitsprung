@@ -81,7 +81,7 @@ export const waypoints: Waypoint[] = [
 const mockTrip:Trip = {
   id: 1,
   name: 'Michimahuida',
-  description: 'RÉGION PALENA, CHILE',
+  description: 'REGIÓN PALENA, CHILE',
   locationCenter: [51.51, -0.08],
   start: 1711561224389,
   end: 1711561424389,

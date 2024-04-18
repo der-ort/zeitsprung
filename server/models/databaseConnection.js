@@ -18,3 +18,8 @@ sequelize.authenticate().then(() => {
 }).catch((error) => {
    console.error('Unable to connect to the database: ', error);
 });
+
+// SYNC all tables to create the tables if they do not exist 
+sequelize.sync({ force: false, alter: true })
+    .then(() => console.log("All models were synchronized successfully."))
+    .catch(error => console.error("Error synchronizing models:", error));

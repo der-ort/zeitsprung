@@ -8,12 +8,22 @@ const apiURL = 'http://localhost:3000';
 // the trip itself can be fetched later with the following function 
 
 
+async function fetchHandler(query, options) {
+    const response = await fetch(query, options);
+    if (!response.ok) {
+        throw new Error('HTTP error ' + response.status);
+    }
+    return await response.json();
+}
+
 // REQUIRES MORE WORK!
 
 export async function getAllTripsByUserId(userId:number):Promise<Trip[]> {
 
     // add check for userId
-    const query = apiURL + '/trips/' + userId;
+    const query = apiURL + '/user/trips/' + userId;
+
+    // return await fetchHandler(query);
 
     // fetch all trips for user
     const tripsArr = fetch(query)
