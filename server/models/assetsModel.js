@@ -19,4 +19,22 @@ const { Trip, Day, Asset } = require('./databaseModels');
    }
 }
 
-module.exports = { getAllAssetsByTripId };
+async function getAllAssetsByDayId (dayId) {
+   try {
+      // return all Assets where the trip is associated
+      const assets = await Asset.findAll({where: {
+            associatedDays: {
+                [Op.contains]: [dayId] //Op = Operator, contains can look inside arrays
+            }
+         }
+      });
+
+      return assets;
+   
+   } catch (err) {
+      console.log('Error', err);
+      return [];
+   }
+}
+
+module.exports = { getAllAssetsByTripId, getAllAssetsByDayId };

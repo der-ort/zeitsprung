@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import TripTitle from './components/TripTitle/TripTitle'
 import Map from './components/Map/Map'
@@ -81,6 +81,7 @@ export const waypoints: Waypoint[] = [
 ]
 
 // mock Assets
+
 const assets:Asset[] = [
   { 
   id: 1,
@@ -125,15 +126,59 @@ const mockTrip:Trip = {
 }
 
 const userId:number = 123;
+const tripId:number = 3;
+let dayId:number = 3;
 
 function App() {
-
-  // useState to manage the currentDay which is the day to display throughout the app.
+  // useState to manage the currentDay which is the day to display throughout the app
+  // defines the assets being shown on the map and the blogpost on the left
   const [currentDay, setCurrentDay] = useState(waypoints[0].captureDate || Date.now());
+  // currentTrip
   const [currentTrip, setCurrentTrip] = useState(mockTrip);
+  // currentTripDays
+  const [currentTripDays, setCurrentTripDays] = useState([]);
+  // currentAssets
+  const [currentAssets, setCurrentAssets] = useState([])
 
 
-  console.log("CURRENT DAY: " + DateTime.fromMillis(currentDay).toLocaleString())
+  // SET THE EFFECTS
+
+  // GET ALL DAYS FOR THE CURRENT TRIP
+  useEffect(() => {
+    const fetchCurrentTripDays = async (tripId) => {
+      try {
+        const query = `http://127.0.0.1:3000/trips/${tripId}/days`;
+        const response = await fetch(query);
+        if (!response.ok) throw new Error('Network error while fetching Days.');
+        const days = await response.json();
+        setCurrentTripDays(days);
+      } catch (error) {
+        console.error('Failed to fetch trip days:', error);
+      }
+    };
+    fetchCurrentTripDays(tripId);
+  }, [tripId]);
+
+
+  // GET ALL ASSETS FOR THE CURRENT DAY
+  useEffect(() => {
+    const fetchCurrentDayAssets = async (dayId) => {
+      try {
+        
+        const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
+        const response = await fetch(query);
+        if (!response.ok) throw new Error('Network error while fetching day assets.');
+        const assets = await response.json();
+        setCurrentAssets(assets);
+      } catch (error) {
+        console.error('Failed to fetch trip days:', error);
+      }
+    };
+    fetchCurrentDayAssets(dayId);
+  }, [tripId]);
+
+
+  // TO DO: change currentDay from timestamp to Day Type
 
   return (
     <>
@@ -142,7 +187,7 @@ function App() {
       <Timeline className={"timeline"} waypoints={waypoints}/>
       <DateControl currentDay={currentDay}/>
       <DayInfo currentDay={currentDay}/>
-      <BlogContainer />
+      <BlogContainer currentDay={currentDay} />
       <BlogFooter />
       <Map className={"map"} />
       <AddAssetsButton />

@@ -59,6 +59,11 @@ const Trip = sequelize.define('trip', {
          type: DataTypes.STRING,
          allowNull: false
      },
+
+     date: {
+        type: DataTypes.BIGINT,
+        allowNull: false
+    },
  
      blogEntry: {
          type: DataTypes.TEXT,
@@ -109,13 +114,12 @@ const Trip = sequelize.define('trip', {
         defaultValue: 0
      },
  
-     associatedDate: {
-      type: DataTypes.BIGINT,
+     associatedDays: {
+      type: DataTypes.ARRAY(DataTypes.BIGINT),
       allowNull: false,
-      defaultValue: 0
      },
  
-     associatedTrips: { // ARRAY of associated assets (images)
+     associatedTrips: { 
       type: DataTypes.ARRAY(DataTypes.BIGINT),
       allowNull: true,
      }

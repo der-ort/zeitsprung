@@ -9,6 +9,7 @@
   "author": "Daniel Ort",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^5.0.0",
     "exifr": "^7.1.3",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",

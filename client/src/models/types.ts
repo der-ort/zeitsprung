@@ -18,6 +18,8 @@ export interface Waypoint {
 
 export interface Day {
     id: number,
+    date: number; //timestamp
+    tripId: number, //associated Trip ID 
     description: string,
     assets: Asset[],
     locationCenter?: number[],

@@ -17,6 +17,7 @@ exports.getAllAssetsByTripId = async ctx => {
 exports.getAllAssetsByDayId = async ctx => {
     try{
         const dayId = ctx.params.dayId;
+        console.log("getting assets for day"+ dayId);
         ctx.body = await assetsModel.getAllAssetsByDayId(dayId)
         ctx.status = 200; // SUCCESS 200
     } catch (err) {
