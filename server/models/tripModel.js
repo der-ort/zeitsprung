@@ -150,6 +150,18 @@ async function getTripById (tripId) {
    }
 }
 
+async function deleteTrip(tripId) {
+   try {
+      const trip = await Trip.findOne({ where: { id: tripId } });
+      await trip.destroy();
+      return trip;
+   } catch (err) {
+      console.log('Error', err);
+      return 0;
+   }
+}
+
+
 async function createTrip (trip) {
    try {
       await Trip.create(trip);
@@ -159,4 +171,4 @@ async function createTrip (trip) {
    }
 }
 
-module.exports = { getAllTripsByUserId, getTripById, createTrip }
+module.exports = { getAllTripsByUserId, getTripById, createTrip, deleteTrip }

@@ -43,8 +43,9 @@ exports.createTrip = async ctx=> {
 
 exports.deleteTrip = async ctx=> {
     try{
-        ctx.body = await tripModel.deleteTrip();
-        ctx.status =200; // SUCCESS 200
+        const tripId = ctx.params.tripId;
+        ctx.body = await tripModel.deleteTrip(tripId);
+        ctx.status = 200; // SUCCESS 200
     } catch (err) {
         ctx.body = err;
         ctx.status = 500;
