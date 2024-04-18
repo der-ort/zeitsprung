@@ -1,0 +1,20 @@
+{
+  "name": "zeitsprung_server",
+  "version": "1.0.0",
+  "description": "backend for the zeitsprung-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Ort",
+  "license": "ISC",
+  "dependencies": {
+    "exifr": "^7.1.3",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^12.0.1",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3"
+  }
+}

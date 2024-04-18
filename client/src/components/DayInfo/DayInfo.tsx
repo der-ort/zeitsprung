@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { DateTime } from "luxon";
+import * as FeatherIcon from 'react-feather';
 
 
 interface DayInfoProps {
@@ -11,8 +12,10 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
   return (
     <>
       <div className="day-info">
-        <h2>TODAY</h2>
-        <h2>{DateTime.fromMillis(currentDay).toLocaleString()}</h2>
+        <h2>SCHÖNER TAG</h2>
+        <FeatherIcon.Cloud size="48"/>
+        <FeatherIcon.Moon size="48"/>
+        <FeatherIcon.Smile size="48"/>
       </div></>
   );
 };

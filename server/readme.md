@@ -1,3 +1,14 @@
+BACKEND:
+
+packages:
+    npm:
+        - koa:
+            - 
+        - exifr
+        - PostgreSQL
+        - sequelize
+        - https://www.npmjs.com/package/lunarphase-js
+
 DATABASE Structure:
 
     Tables:
@@ -5,7 +16,8 @@ DATABASE Structure:
         description: contains all trips
         fields:
             - ID
-            - user
+            - authorId
+            - name
             - description
             - locationCenter
             - start
@@ -17,38 +29,41 @@ DATABASE Structure:
         fields:
             - ID: int
             - description: string
-            - location: number[] -> [lat, lon]
+            - coordinates: number[] -> [lat, lon]
+            - fileLocation: UUID? / file path / URL
             - associatedTrips: number[] -> [tripId1, tripId2, ...]
             - captureDate -> number -> timestamp
             - associatedDate -> number -> timestamp
-            - type -> string -> image / note / waypoint 
+            - assetType -> string -> image / note / waypoint 
 
 
 API Endpoints:
 
     TRIP:
-    - GET:  /trip/:userId
+    - GET:  /trips/:userId
         request:
         responds:    
     
-    - POST: /trip/:userId
+    - POST: /trips/:userId
         request:
         responds:
 
-    - GET   /trip/:id/
+    - GET   /trips/:id/
         request:
         responds:    
     
-    - GET   /trip/:id/assets
+    - GET   /trips/:id/assets
         request:
-        responds:
+        responds: with a sorted (by date) array of asset objects for the trip with the given ID
 
-    - POST  /trip/:id/assets
-        request:
-        responds:
-
-    - GET   /trip/:id/assets
+    - POST  /trips/:id/assets
         request:
         responds:
     
-    -
+    - GET /trips/:id/day/assets
+
+    - DELETE /trips/:id
+
+    - DELETE /trips/:id/day/:day
+
+    - DELETE /trips/:id/:assetId

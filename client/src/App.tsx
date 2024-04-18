@@ -78,7 +78,7 @@ export const waypoints: Waypoint[] = [
   }
 ]
 
-const currentTrip: Trip = {
+const mockTrip:Trip = {
   id: 1,
   name: 'Michimahuida',
   description: 'RÉGION PALENA, CHILE',
@@ -88,10 +88,14 @@ const currentTrip: Trip = {
   length: () => Interval.fromDateTimes(this.start, this.end) 
 }
 
+const userId:number = 123;
+
 function App() {
 
   // useState to manage the currentDay which is the day to display throughout the app.
-  const [currentDay, setCurrentDay] = useState(waypoints[0].captureDate || Date.now())
+  const [currentDay, setCurrentDay] = useState(waypoints[0].captureDate || Date.now());
+  const [currentTrip, setCurrentTrip] = useState(mockTrip);
+
 
   console.log("CURRENT DAY: " + DateTime.fromMillis(currentDay).toLocaleString())
 

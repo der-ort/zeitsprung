@@ -111,6 +111,7 @@
       .map {
           grid-area: 2 / 2 / 6 / 6;
           z-index: 1;
+          border: inherit;
       }
   
       .full-map {
