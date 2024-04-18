@@ -130,7 +130,6 @@ async function getAllTripsByUserId (userId) {
    try {
       const trips = await Trip.findAll({ where: { authorId: userId } });
       let result = [];
-      console.log(trips);
       trips.forEach(trip => {
          result.push(trip);
       });
@@ -141,6 +140,17 @@ async function getAllTripsByUserId (userId) {
    }
 }
 
+async function getTripById (tripId) {
+   try {
+      const trip = await Trip.findOne({ where: { id: tripId } });
+      return trip;
+   } catch (err) {
+      console.log('Error', err);
+      return 0;
+   }
+}
+
+
 async function createTrip (trip) {
    try {
       await   Trip.create(trip);
@@ -150,4 +160,4 @@ async function createTrip (trip) {
    }
 }
 
-module.exports = { getAllTripsByUserId, createTrip }
+module.exports = { getAllTripsByUserId, getTripById, createTrip }

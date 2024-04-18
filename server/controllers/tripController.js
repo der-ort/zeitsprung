@@ -13,7 +13,6 @@ exports.getAllTripsByUserId = async ctx=> {
         ctx.body = await tripModel.getAllTripsByUserId(userId);
         ctx.status = 200; // SUCCESS 200
     } catch (err) {
-        console.log(err);
         ctx.body = err;
         ctx.status = 500;
     }
@@ -21,9 +20,11 @@ exports.getAllTripsByUserId = async ctx=> {
 
 exports.getTripById = async ctx=> {
     try{
-        ctx.body = await tripModel.getTripById();
+        const tripId = ctx.params.tripId;
+        ctx.body = await tripModel.getTripById(tripId);
         ctx.status =200; // SUCCESS 200
     } catch (err) {
+        console.log(err);
         ctx.body = err;
         ctx.status = 500;
     }
