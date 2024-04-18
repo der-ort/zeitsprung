@@ -52,13 +52,19 @@ const Day = sequelize.define('day', {
         primaryKey: true,
         autoIncrement: true
     },
+
+    tripId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+      },
+
     description: {
         type: DataTypes.STRING,
         allowNull: false
     },
 
     blogEntry: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true    
     },
 
@@ -122,13 +128,11 @@ const Asset = sequelize.define('asset', {
 
 async function getAllTripsByUserId (userId) {
    try {
-      const trips = await Trip.findAll(Trip.findAll({ where: { authorId: userId } })); //add to filter by userId
+      const trips = await Trip.findAll({ where: { authorId: userId } });
       let result = [];
-            
+      console.log(trips);
       trips.forEach(trip => {
-         result.push({
-            message: 'HEY THIS IS MY RESULT!'
-         });
+         result.push(WebTransportBidirectionalStream);
       });
       return result;
    } catch (err) {
