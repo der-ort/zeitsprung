@@ -132,7 +132,7 @@ async function getAllTripsByUserId (userId) {
       let result = [];
       console.log(trips);
       trips.forEach(trip => {
-         result.push(WebTransportBidirectionalStream);
+         result.push(trip);
       });
       return result;
    } catch (err) {
