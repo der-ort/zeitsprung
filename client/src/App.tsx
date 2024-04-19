@@ -10,6 +10,7 @@ import BlogContainer from './components/BlogContainer/BlogContainer'
 import BlogFooter from './components/BlogFooter/BlogFooter'
 import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
 import { Asset, Trip, Waypoint } from './models/types' // import Typescript types
+import AddAssetsForm from './components/AddAssetsForm/AddAssetsForm'
 
 // MOCK DATA -> FINAL DATA NEEDS TO BE SORTED BY TIMESTAMP!!!
 
@@ -190,7 +191,8 @@ function App() {
       <DayInfo currentDay={currentDay}/>
       <BlogContainer currentDay={currentDay} />
       <BlogFooter />
-      <Map className={"map"} currentAssets={currentAssets} />
+      {/* <Map className={"map"} currentAssets={currentAssets} /> */}
+      <AddAssetsForm />
       <AddAssetsButton />
     </div>
     </>

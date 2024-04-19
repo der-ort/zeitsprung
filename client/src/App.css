@@ -44,6 +44,7 @@
         background: lavenderblush;
       }
       
+/*------------ TIMELINE */
       .timeline { 
           grid-area: 1 / 2 / 2 / 6; 
           border: inherit;
@@ -70,42 +71,45 @@
       }
 
       .timeline div:hover {
-          background-color: lavender;
+        background-color: lavender;
       }
-  
+      
+/*------------ DATE CONTROL */
       .date-control { 
-          grid-area: 2 / 1 / 3 / 2; 
-          display: flex;
-          padding: 15px;
-          text-align: center;
-          border: inherit;
-          vertical-align: middle;
-          background: cornflowerblue;
+        grid-area: 2 / 1 / 3 / 2; 
+        display: flex;
+        padding: 15px;
+        text-align: center;
+        border: inherit;
+        vertical-align: middle;
+        background: cornflowerblue;
       }
-
+      
       .date-current {
         padding: 0;
         margin: 0;
         flex: 3;
         height: 100%;
       }
-
+      
       .date-prevnext {
         flex: 1;
         height: 100%;
         align-items: center;
       }
-
+      
       .date-chevron {
         color: violet;
       }
-
+      
+/*------------ DAY INFO */
       .day-info { 
-          padding: 15px;
-          grid-area: 3 / 1 / 4 / 2; 
-          border: inherit;
+        padding: 15px;
+        grid-area: 3 / 1 / 4 / 2; 
+        border: inherit;
       }
       
+/*------------ BLOG SECTION */
       .blog-container { 
           grid-area: 4 / 1 / 5 / 2; 
           border: inherit;
@@ -119,22 +123,76 @@
           border: inherit;
       }
   
+      /*------------ MAP */
       .map {
-          grid-area: 2 / 2 / 6 / 6;
-          z-index: 1;
-          border: inherit;
+        grid-area: 2 / 2 / 6 / 6;
+        z-index: 1;
+        border: inherit;
       }
   
       .full-map {
         height: 100vh;
       }
+      
+      .leaflet-marker-icon {
+        border: 2px solid white;
+      }
+      
+      #map {
+        height: 100%;
+        width: 100%;
+      }
+      
+      .leaflet-icon {
+          box-shadow: white 5px;
+          border: 2px solid white;
+          border-radius: 5px;
+      }
 
-  #map {
-      height: 100%;
-      width: 100%;
+/*------------ ASSET UPLOADER FORM + DRAG & DROP*/
+
+.dropzone-wrapper {
+  padding: 5rem;
+  grid-area: 2 / 2 / 6 / 6;
+  z-index: 1;
+  border: inherit;
+  text-align: center;
+  vertical-align: middle;
+}
+
+  .add-assets-dropzone {
+    display: flex;             
+    flex-direction: column;    
+    align-items: center;       
+    justify-content: center;
   }
 
+.add-assets-dropzone {
+  border: 1px dotted #333333;
+  border-radius: 5px;
+  color:cornflowerblue;
+  width:100%;
+  height: 100%;
+}
 
+.dropzone-text {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: inherit;
+}
+
+.add-assets-dropzone:hover {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIUlEQVQYV2NMqL7ty0AEYAQpXNCqupmQ2lGFeEOI6OABAHJZJg5gVQ+0AAAAAElFTkSuQmCC) repeat;
+}
+
+.add-assets-dropzone h2{
+  margin:auto;
+  font-style: italic;
+  font-weight: 400;
+  vertical-align: center;
+}
+
+/*------------ ASSET UPLOADER BUTTON*/
   .add-assets {
     position: absolute;
     bottom: 3rem;
@@ -153,9 +211,4 @@
     color: lavender;
   }
 
-  .leaflet-icon {
-      box-shadow: white 5px;
-      border: 2px solid white;
-      border-radius: 5px;
-  }
 
