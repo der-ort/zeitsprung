@@ -256,7 +256,7 @@ function App() {
       
       {/* ASSET BUTTON */}
         {/* show add assets only when "uploadMode" is true. -> useState*/}
-        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} />}  
+        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} currentDay={currentDay}/>}  
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
         <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
     

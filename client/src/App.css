@@ -17,11 +17,15 @@
       letter-spacing: 0.1em;
   }
   
+
 /*------ TRIPLIST */
+
 .triplist-wrapper {
-padding:5em;
-position: relative;
-z-index: 10;
+  padding:5em;
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(to right, white, transparent);
+
 }
 
 .triplist {
@@ -40,10 +44,11 @@ z-index: 10;
   border: 2px solid #333333;
   padding:15px;
   margin-bottom: 1rem;
+  /* background-color: rgba(255,255,255,0.5); */
 }
 
 .triplist-item:hover {
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.75);
   /* background: lavender; */
 } 
 
@@ -66,7 +71,7 @@ z-index: 10;
       width: 100vw;
       height: 100vh;
       border:none;
-      border: 2px solid #333333;
+      border: 1px solid #333333;
       }
                     
       .trip-title { 

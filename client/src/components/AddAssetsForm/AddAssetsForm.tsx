@@ -6,10 +6,10 @@ import AddAssetsDropZone from './AddAssetsDropZone';
 interface AddAssetsFormProps {
 }
 
-const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode}) => {
+const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode, currentTrip, currentDay}) => {
   return (
     <>
-      <AddAssetsDropZone setUploadMode={setUploadMode} />
+      <AddAssetsDropZone setUploadMode={setUploadMode} currentTrip={currentTrip} currentDay={currentDay}/>
     </>
   );
 };

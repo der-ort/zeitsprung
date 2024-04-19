@@ -4,6 +4,7 @@ const router = new Router();
 
 const tripController = require('./controllers/tripController');
 const assetsController = require('./controllers/assetsController');
+const { upload } = require('./multer.config');
 
 // TRIPS
 
@@ -44,7 +45,12 @@ const assetsController = require('./controllers/assetsController');
     router.get('/assets/day/:dayId', assetsController.getAllAssetsByDayId)
     
     // add an array of asset objects to the trip with the given ID
-    router.post('/assets/trips/:id', assetsController.saveTripAssets)
+    //multer file fields:
+    const fileFields = [
+        { name: 'file', maxCount: 99 } // Adjust according to your needs
+    ];
+    
+    router.post('/assets/trip/:tripId/day/:dayId', upload.single('file'), assetsController.saveTripAssets)
     
     
 module.exports = router;

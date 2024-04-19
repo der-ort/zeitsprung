@@ -19,6 +19,19 @@ const { Trip, Day, Asset } = require('./databaseModels');
    }
 }
 
+// Takes all assets from the formData and stores them
+// inside the database
+// should also read EXIF data to get: captureDate, lat, lon, etc.
+async function saveTripAssets(asset) {
+   try {
+      const newAsset = await Asset.create(asset);
+      console.log(newAsset);
+      return newAsset;
+   } catch (err) {
+
+   }
+}
+
 async function getAllAssetsByDayId (dayId) {
    try {
       // return all Assets where the trip is associated
@@ -37,4 +50,4 @@ async function getAllAssetsByDayId (dayId) {
    }
 }
 
-module.exports = { getAllAssetsByTripId, getAllAssetsByDayId };
+module.exports = { saveTripAssets, getAllAssetsByTripId, getAllAssetsByDayId };

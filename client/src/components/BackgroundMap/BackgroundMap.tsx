@@ -26,8 +26,8 @@ const BackgroundMap = () => {
 
   return (
     <MapContainer
-      center={[51.505, -0.09]}
-      zoom={5}
+      center={[Math.random() * 140 - 70, Math.random() * 320 - 160]} // random center on each refresh, avoiding polar regions by 20° 
+      zoom={7}
       className="triplist-background-map"
       style={{ height: '100vh', width: '100vw' }}
       zoomControl={false}
