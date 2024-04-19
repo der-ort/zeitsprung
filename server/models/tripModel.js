@@ -54,10 +54,11 @@ async function getAllDaysByTripId (tripId) {
       days.forEach(day => {
          result.push(day);
       });
+      result.sort((a, b) => a.date - b.date)
       return result;
    } catch (err) {
       console.log('Error', err);
-      return 0;
+      return [];
    }
 }
 
