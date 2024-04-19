@@ -17,6 +17,7 @@ dist-ssr
 
 # private mock data
 /client/public/assets/images/
+/server/assets/images/
 
 
 # Editor directories and files

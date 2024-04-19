@@ -43,11 +43,24 @@ exports.saveTripAssets = async ctx => {
         const coordinates = [Math.random() * 140 - 70, Math.random() * 320 - 160]// random for now but ADD exifr function here!
         const captureDate = Date.now() // add exifr functionality -> should return an object with everything...
 
+        // file sieht so aus:
+        // {
+        //     fieldname: 'file',
+        //     originalname: '800px-Lorenz_FrÃ¸lich_MÃ¨re_Bontemps07.jpg',
+        //     encoding: '7bit',
+        //     mimetype: 'image/jpeg',
+        //     destination: 'C:\\dev\\cw\\solo project\\zeitsprung\\server\\assets\\',
+        //     filename: 'file-1713556694013.jpg',
+        //     path: 'C:\\dev\\cw\\solo project\\zeitsprung\\server\\assets\\file-1713556694013.jpg',
+        //     size: 320927
+        //   }
+
+
         // construct asset: later create constructor function for this
         const newAsset = {
             description: description, 
             assetType: type, 
-            fileLocation: uploadDirectory + file.filename,
+            fileLocation: file.filename,
             coordinates: coordinates,
             captureDate: captureDate,
             associatedDays: [ctx.params.dayId],

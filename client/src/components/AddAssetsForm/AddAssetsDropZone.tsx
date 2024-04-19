@@ -2,52 +2,63 @@ import React, { FC } from 'react';
 import Dropzone from 'react-dropzone';
 import * as FeatherIcon from 'react-feather';
 
-
 interface AddAssetsDropZoneProps {
+  
 }
 
+const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay }) => {
+  async function handleUpload(assets: File[]) {
+    // Check if assets array is empty or more than one file is dropped
+    if (assets.length === 0 || assets.length > 1) {
+      console.error('More than one file selected. Only single file upload working for now');
+      return;
+    }
 
+    const file = assets[0]; // always take first file, <- CHANGE WHEN ADDING MULTIPLE FILE UPLOAD
 
-const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({setUploadMode, currentTrip, currentDay}) => {
+    // FILETYPE CHECK
+    if (file.type !== 'image/jpeg') {
+      console.error('Only JPG files are allowed.'); // for now
+      return;
+    }
 
-  async function handleUpload(assets) {
-  
-  try {
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // post formData which includes the JPG
+      const response = await fetch(`http://localhost:3000/assets/trip/${currentTrip.id}/day/${currentDay.id}`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
+      
+      // toggle upload mode for conditional rendering
+      setUploadMode(false);
+      return data;
     
-    assets.forEach((file, index) => {
-      formData.append(`files[${index}]`, file);
-    });
-
-    const response = await fetch(`http://localhost:3000/assets/trip/${currentTrip.id}/day/${currentDay.id}`, {
-      method: 'POST',
-      body: formData,
-    });
-    const data = response.json();
-    console.log(data)
-    
-    return data;
-  
-  } catch(err) {
-    console.error('error uploading files: ' + err)
-  };
-    setUploadMode(false);
-  };
+    } catch (err) {
+      console.error('Error uploading file: ' + err);
+      setUploadMode(false);
+    }
+  }
 
   return (
     <>
-      <div className='dropzone-wrapper' >
-      <Dropzone onDrop={handleUpload}>
-        {({getRootProps, getInputProps}) => (
-          <div {...getRootProps()} className='add-assets-dropzone'>
-            <input {...getInputProps()} />
-            <div className='dropzone-text'>
-              <FeatherIcon.Image size="64" />
-              <h2>drop images here</h2>
-              <p>(or click to select files)</p>
+      <div className='dropzone-wrapper'>
+        <Dropzone onDrop={handleUpload} accept="image/jpeg">
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} className='add-assets-dropzone'>
+              <input {...getInputProps()} />
+              <div className='dropzone-text'>
+                <FeatherIcon.Image size="64" />
+                <h2>Drop images here</h2>
+                <p>(or click to select files)</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </Dropzone>
       </div>
     </>
