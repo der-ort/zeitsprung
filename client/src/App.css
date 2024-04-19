@@ -91,13 +91,14 @@
       }
 
       .title-chevron {
+          margin:0;
           height: 100%;
-          color: violet;
+          color: cornflowerblue ;
           flex:1;        
         }
 
-      .title-chevron :hover {
-        background: lavenderblush;
+      .title-chevron:hover {
+        color: violet;
       }
       
 /*------------ TIMELINE */
@@ -154,6 +155,7 @@
         border: inherit;
         vertical-align: middle;
         background: cornflowerblue;
+        color: lavender;
         -webkit-user-select: none; /* Safari */        
         -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* IE10+/Edge */
@@ -173,8 +175,12 @@
         align-items: center;
       }
       
-      .date-chevron {
+      .date-prevnext :hover {
         color: violet;
+      }
+
+      .date-chevron {
+        color: lavender;
       }
       
 /*------------ DAY INFO */

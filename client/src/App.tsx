@@ -217,7 +217,6 @@ function App() {
   useEffect(() => {
     const fetchCurrentDayAssets = async (dayId:number) => {
       try {
-        
         const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
         const response = await fetch(query);
         if (!response.ok) throw new Error('Network error while fetching day assets.');
@@ -227,10 +226,8 @@ function App() {
         console.error('Failed to fetch trip days:', error);
       }
     };
-    fetchCurrentDayAssets(dayId);
+    fetchCurrentDayAssets(currentDay.id);
   }, [currentDay.id]);
-
-   // TO DO: change currentDay from timestamp to Day Type
 
   return (
     <>
@@ -256,7 +253,7 @@ function App() {
       
       {/* ASSET BUTTON */}
         {/* show add assets only when "uploadMode" is true. -> useState*/}
-        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} currentDay={currentDay}/>}  
+        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay}/>}  
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
         <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
     

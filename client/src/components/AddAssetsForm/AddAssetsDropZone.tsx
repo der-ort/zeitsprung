@@ -6,7 +6,7 @@ interface AddAssetsDropZoneProps {
   
 }
 
-const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay }) => {
+const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {
   async function handleUpload(assets: File[]) {
     // Check if assets array is empty or more than one file is dropped
     if (assets.length === 0 || assets.length > 1) {
@@ -43,6 +43,7 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
       console.error('Error uploading file: ' + err);
       setUploadMode(false);
     }
+    setCurrentDay(currentDay);
   }
 
   return (

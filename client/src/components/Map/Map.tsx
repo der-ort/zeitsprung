@@ -15,7 +15,7 @@ interface MapProps {
 const Map: FC<MapProps> = ({currentAssets}) => {
     const startCoords = [51.505, -0.09];
     //const mapRef = useRef(null); // create a handler that can later be used to manipulate the map data...
-
+  console.log(currentAssets);
   return (
     <>
         <MapContainer
@@ -99,9 +99,10 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         <MarkerClusterGroup>
                 {currentAssets.map(asset => {
                     // create a custom Marker that displays the actual photo
-                    
+                    const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
+                    console.log(asset);
                     const imageIcon = new L.Icon({
-                        iconUrl: asset.fileLocation,
+                        iconUrl: assetURL,
                         iconSize: [64, 64],  
                         iconAnchor: [25, 25],  
                         popupAnchor: [0, -25]
@@ -117,7 +118,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                                 {asset.description}
                                 <br />
                                 {DateTime.fromMillis(Number(asset.captureDate)).toLocaleString()} 
-                                <img src={asset.fileLocation} alt="Waypoint view" style={{ width: '100%' }} />
+                                <img src={assetURL} alt="Waypoint view" style={{ width: '100%' }} />
                             </Popup>
                         </Marker>
                     );
