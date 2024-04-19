@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# ENVIRONMENT variables
+.env
+
 # private mock data
 /client/public/assets/images/
 

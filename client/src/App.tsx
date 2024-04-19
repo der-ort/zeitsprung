@@ -241,7 +241,7 @@ function App() {
       
       <Timeline className={"timeline"} currentTripDays={currentTripDays} setCurrentDay={setCurrentDay} currentDay={currentDay}/>
       
-      <DateControl currentDay={currentDay} setCurrentDay={setCurrentDay}/>
+      <DateControl currentDay={currentDay} setCurrentDay={setCurrentDay} currentTripDays={currentTripDays}/>
       
       <DayInfo currentDay={currentDay}/>
       

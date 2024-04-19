@@ -88,10 +88,9 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                     
                     const imageIcon = new L.Icon({
                         iconUrl: asset.fileLocation,
-                        iconSize: [50, 50],  
+                        iconSize: [64, 64],  
                         iconAnchor: [25, 25],  
-                        popupAnchor: [0, -25],
-                        className: 'leafletMarkerIcon'
+                        popupAnchor: [0, -25]
                     });
 
                     return (

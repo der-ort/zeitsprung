@@ -9,19 +9,26 @@ interface DateControlProps {
 
 
 // Add a prop that is currentDate, pervDate, nextDate etc...
-const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay}) => {
+const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay, currentTripDays}) => {
 
   function onClickHandler(action:String) {
+    
+    const currentIndex = currentTripDays.indexOf(currentDay);
+    let newDay = currentDay;
+
     switch(action) {
       case 'prevDate':
         //setStatus currentDate to previous in the array...
-        console.log('prevDate');
+        newDay = currentIndex > 0 ? currentTripDays[currentIndex - 1] : currentDay; 
         break;
       case 'nextDate':
-          //setStatus currentDate to next in the array...
-          console.log('nextDate');
-          break;
+        newDay = currentIndex < currentTripDays.length -1 ? currentTripDays[currentIndex + 1] : currentDay;
+ 
+        console.log('nextDate');
+        break;
     }
+
+    setCurrentDay(newDay);
   }
 
   return (

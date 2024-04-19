@@ -8,8 +8,8 @@ interface MoodFaceProps {
 
 const moodIcons = {
     0: <FeatherIcon.Smile size={32}/>,
-    1: <FeatherIcon.Frown size={32}/>,
-    2: <FeatherIcon.Meh size={32} />
+    1: <FeatherIcon.Meh size={32} />,
+    2: <FeatherIcon.Frown size={32}/>
 }
 
 // Add a prop that is currentDate / waypoint

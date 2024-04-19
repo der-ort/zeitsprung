@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { DateTime } from "luxon";
+import * as FeatherIcon from 'react-feather';
 
 interface BlogFooterProps {
 
@@ -10,7 +11,7 @@ const BlogFooter: FC<BlogFooterProps> = () => {
   return (
     <>
       <div className="blog-footer">
-          <h2>BLOGFOOTER</h2>
+      <FeatherIcon.Plus size={48}/><h2>NEW DAY</h2>
       </div></>
   );
 };

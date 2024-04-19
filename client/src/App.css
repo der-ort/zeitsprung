@@ -2,12 +2,14 @@
   box-sizing: border-box;
   padding:0;
   margin:0;
+  font-family: "Barlow", sans-serif;
   }
   
   body {
       margin:0;
       padding:0;
       font-family: "Barlow", sans-serif;
+      background-image: linear-gradient(to bottom, lavender, cornflowerblue);
   }
   
   h2 {
@@ -45,6 +47,7 @@ padding:5em;
 
 
   .parent {
+    background: #ffffff;
       margin: auto;
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -97,6 +100,8 @@ padding:5em;
         flex-grow: 1;
         writing-mode: vertical-lr;
         text-orientation: mixed;
+        text-align: right;
+        padding: 5px;
         -webkit-user-select: none; /* Safari */        
         -moz-user-select: none; /* Firefox */
         -ms-user-select: none; /* IE10+/Edge */
@@ -109,6 +114,7 @@ padding:5em;
       
       .timeline-day {
           font-weight: 600;
+          font-size: 1.25rem;
           color: cornflowerblue;
       }
 
@@ -173,11 +179,22 @@ padding:5em;
         }
 
       .blog-footer { 
+          text-align: center;
+          flex-direction: column;    
+          align-items: center;       
+          justify-content: center;
           padding: 15px;
           grid-area: 5 / 1 / 6 / 2; 
           border: inherit;
+          -webkit-user-select: none; /* Safari */        
+          -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* IE10+/Edge */
+          user-select: none; /* Standard */
       }
   
+      .blog-footer:hover { 
+        background: lavenderblush;
+      }
       /*------------ MAP */
       .map {
         grid-area: 2 / 2 / 6 / 6;
@@ -190,7 +207,26 @@ padding:5em;
       }
       
       .leaflet-marker-icon {
-        border: 2px solid white;
+        border: 3px solid white;
+      }
+
+      .leaflet-marker-icon:hover {
+        border: 3px solid cornflowerblue;
+      }
+
+      .leaflet-popup-content-wrapper {
+        border: 1px solid black !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+      
+      .leaflet-popup-content-wrapper .leaflet-popup-content {
+        margin:15px;
+        border-radius: 0;
+      }
+      
+      .leaflet-popup-tip-container {
+        display:none;
       }
       
       #map {

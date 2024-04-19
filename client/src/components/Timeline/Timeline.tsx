@@ -13,9 +13,6 @@ const Timeline: FC<TimelineProps> = ({currentTripDays, setCurrentDay, currentDay
             {currentTripDays && currentTripDays.map((day) => {
               return <TimelineDay key={day.id} day={day} setCurrentDay={setCurrentDay} currentDay={currentDay} />  
             })}
-            <div className='timeline-day' onClick={() => alert('create new day dialog')}>
-              ADD DAY
-            </div>
        </div>
     </>
   );

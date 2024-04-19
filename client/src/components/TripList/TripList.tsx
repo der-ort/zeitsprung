@@ -15,6 +15,7 @@ const TripList: FC<TripListProps> = ({currentUserTrips, setCurrentTrip, userId})
               return <TripListItem key={trip.id} setCurrentTrip={setCurrentTrip} trip={trip} />  
             })}
        </div>
+       <h4>TRIPSITTER 2024</h4>
        </div>
     </>
   );
