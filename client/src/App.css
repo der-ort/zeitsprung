@@ -9,7 +9,7 @@
       margin:0;
       padding:0;
       font-family: "Barlow", sans-serif;
-      background-image: linear-gradient(to bottom, lavender, cornflowerblue);
+      /* background-image: linear-gradient(to bottom, lavender, cornflowerblue); */
   }
   
   h2 {
@@ -20,6 +20,8 @@
 /*------ TRIPLIST */
 .triplist-wrapper {
 padding:5em;
+position: relative;
+z-index: 10;
 }
 
 .triplist {
@@ -41,11 +43,18 @@ padding:5em;
 }
 
 .triplist-item:hover {
-  background: lavender;
+  background-color: rgba(255,255,255,0.5);
+  /* background: lavender; */
 } 
+
+.triplist-background-map {
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: 1;
+}
+
 /*------ MAIN APP */
-
-
   .parent {
     background: #ffffff;
       margin: auto;

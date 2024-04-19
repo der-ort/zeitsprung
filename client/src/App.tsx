@@ -12,6 +12,7 @@ import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
 import { Asset, Trip, Waypoint } from './models/types' // import Typescript types
 import AddAssetsForm from './components/AddAssetsForm/AddAssetsForm'
 import TripList from './components/TripList/TripList'
+import BackgroundMap from './components/BackgroundMap/BackgroundMap'
 
 // MOCK DATA -> FINAL DATA NEEDS TO BE SORTED BY TIMESTAMP!!!
 
@@ -233,8 +234,10 @@ function App() {
 
   return (
     <>
+    {!currentTrip ? <BackgroundMap /> : null}
+
     {currentTrip? 
-    
+
     <div className='parent'>
       
       <TripTitle className={"trip-title"} trip={currentTrip} setCurrentTrip={setCurrentTrip} />

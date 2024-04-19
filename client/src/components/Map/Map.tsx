@@ -28,12 +28,26 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         maxBounds={[[-85.06, -180], [85.06, 180]]}
         scrollWheelZoom={true}>
         
+      {/* COULD BE REFINED BY USING THE SAME LOGIC AS IN THE BACKGROUNDMAP COMPONENT AND ITERATE THROUGH THE OBJECT! ! REFACTOR! */}
+
         <LayersControl>
         <LayersControl.BaseLayer checked name="Stadia Outdoor">
         <TileLayer
             attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url='https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png'
         /> 
+        </LayersControl.BaseLayer>
+        
+        <LayersControl.BaseLayer name="ESRI World Terrain">
+        <TileLayer
+          attribution='Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS'
+          url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}' />  
+        </LayersControl.BaseLayer>
+
+        <LayersControl.BaseLayer name="CartoDB Voyager">
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png' />  
         </LayersControl.BaseLayer>
 
         <LayersControl.BaseLayer  name="Stadia Alidade Smooth Black">

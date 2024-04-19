@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import TripListItem from '../TripListItem/TripListItem';
+import BackgroundMap from '../BackgroundMap/BackgroundMap';
 
 interface TripListProps {
 }

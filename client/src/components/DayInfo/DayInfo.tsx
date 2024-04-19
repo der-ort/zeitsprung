@@ -10,8 +10,6 @@ interface DayInfoProps {
   currentDay: Day;
 }
 
-
-
 // Add a prop that is currentDate / waypoint
 const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
 
