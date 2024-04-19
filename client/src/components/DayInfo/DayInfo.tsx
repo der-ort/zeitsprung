@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
+import MoodFace from '../MoodFace/MoodFace';
+import { Day } from '../../models/types';
 
 
 interface DayInfoProps {
-  currentDay: Date;
+  currentDay: Day;
 }
 
 // Add a prop that is currentDate / waypoint
@@ -12,10 +14,8 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
   return (
     <>
       <div className="day-info">
-        <h2>SCHÖNER TAG</h2>
-        <FeatherIcon.Cloud size="48"/>
-        <FeatherIcon.Moon size="48"/>
-        <FeatherIcon.Smile size="48"/>
+        <h2>{currentDay.description}</h2>
+        <MoodFace mood={currentDay.mood} />
       </div></>
   );
 };

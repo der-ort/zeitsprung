@@ -1,17 +1,18 @@
 import { FC } from 'react';
 import { DateTime } from "luxon";
+import { Day } from '../../models/types';
 
 interface TimelineDayProps {
-    date: Date;
+    day: Day;
 }
 
-const TimelineDay: FC<TimelineDayProps> = ({date}) => {
+const TimelineDay: FC<TimelineDayProps> = ({day, setCurrentDay, currentDay}) => {
 
-  const formattedDate = DateTime.fromMillis(Number(date)).toLocaleString();
+  const formattedDate = DateTime.fromMillis(Number(day.date)).toLocaleString();
   
   return (
     <>
-     <div className='timeline-day'>{formattedDate}</div>  
+     <div className={day !== currentDay ? 'timeline-day' : 'timeline-current-day'} onClick={() => setCurrentDay(day)}>{formattedDate}</div>  
     </>
   );
 };

@@ -11,6 +11,7 @@ import BlogFooter from './components/BlogFooter/BlogFooter'
 import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
 import { Asset, Trip, Waypoint } from './models/types' // import Typescript types
 import AddAssetsForm from './components/AddAssetsForm/AddAssetsForm'
+import TripList from './components/TripList/TripList'
 
 // MOCK DATA -> FINAL DATA NEEDS TO BE SORTED BY TIMESTAMP!!!
 
@@ -81,6 +82,15 @@ export const waypoints: Waypoint[] = [
   }
 ]
 
+// emptyDay
+
+const emptyDay = {
+  date: Date.now(),
+  id: 3,
+  mood: 2,
+
+}
+
 // mock Assets
 
 const assets:Asset[] = [
@@ -132,36 +142,75 @@ let dayId:number = 1;
 
 function App() {
   // useState to manage the currentDay which is the day to display throughout the app
-  // defines the assets being shown on the map and the blogpost on the left
-  const [currentDay, setCurrentDay] = useState(waypoints[0].captureDate || Date.now());
+  // currentUser
+  const [currentUserId, setCurrentUserId] = useState(userId);
+  
+  // currentUserTrips
+  const [currentUserTrips, setCurrentUserTrips] = useState([]);
+  
   // currentTrip
-  const [currentTrip, setCurrentTrip] = useState(mockTrip);
+  const [currentTrip, setCurrentTrip] = useState(0);
+  
   // currentTripDays
   const [currentTripDays, setCurrentTripDays] = useState([]);
+
+  // defines the assets being shown on the map and the blogpost on the left
+  const [currentDay, setCurrentDay] = useState(Date.now());
+  
   // currentAssets
-  const [currentAssets, setCurrentAssets] = useState([])
+  const [currentAssets, setCurrentAssets] = useState([]);
+  
   // uploadMode
-  const [uploadMode, setUploadMode] = useState(false)
+  const [uploadMode, setUploadMode] = useState(false);
 
 
   // SET THE EFFECTS
 
-  // GET ALL DAYS FOR THE CURRENT TRIP
+  // GET ALL TRIPS FOR THE CURRENT USER
   useEffect(() => {
-    const fetchCurrentTripDays = async (tripId) => {
+    const fetchCurrentUserTrips = async (userId) => {
       try {
-        const query = `http://127.0.0.1:3000/trips/${tripId}/days`;
+        const query = `http://127.0.0.1:3000/user/${userId}/trips`;
         const response = await fetch(query);
         if (!response.ok) throw new Error('Network error while fetching Days.');
+        const trips = await response.json();
+        setCurrentUserTrips(trips);
+      } catch (error) {
+        console.error('Failed to user trips:', error);
+      }
+    };
+    fetchCurrentUserTrips(currentUserId);
+  }, [currentUserId]);
+
+  // GET ALL DAYS FOR THE CURRENT TRIP
+  useEffect(() => {
+    const fetchCurrentTripDays = async (tripId:number) => {
+      try {
+        const query = `http://127.0.0.1:3000/trips/${Number(tripId)}/days`;
+        console.log(query);
+        const response = await fetch(query);
+        if (!response.ok) throw new Error('Network error while fetching Days.');
+
+        console.log('/// LOGGING RESPONSE:');
+        console.log(response);
+
         const days = await response.json();
+        console.log('/// LOGGING DAYS:');
+        console.log(days);
+
         setCurrentTripDays(days);
+
       } catch (error) {
         console.error('Failed to fetch trip days:', error);
       }
     };
-    fetchCurrentTripDays(tripId);
-  }, [tripId]);
+    fetchCurrentTripDays(currentTrip.id);
+  }, [currentTrip.id]);
 
+  // SET THE CURRENT DAY
+  useEffect(() => {
+    currentTripDays[0] ? setCurrentDay(currentTripDays[0]) : setCurrentDay(emptyDay);
+  }, [currentTripDays])
 
   // GET ALL ASSETS FOR THE CURRENT DAY
   useEffect(() => {
@@ -178,27 +227,40 @@ function App() {
       }
     };
     fetchCurrentDayAssets(dayId);
-  }, [dayId]);
+  }, [currentDay.id]);
 
-
-  console.log(currentAssets)
-  // TO DO: change currentDay from timestamp to Day Type
+   // TO DO: change currentDay from timestamp to Day Type
 
   return (
     <>
+    {currentTrip? 
+    
     <div className='parent'>
-      <TripTitle className={"trip-title"} trip={currentTrip} />
-      <Timeline className={"timeline"} currentTripDays={currentTripDays} />
-      <DateControl currentDay={currentDay}/>
+      
+      <TripTitle className={"trip-title"} trip={currentTrip} setCurrentTrip={setCurrentTrip} />
+      
+      <Timeline className={"timeline"} currentTripDays={currentTripDays} setCurrentDay={setCurrentDay} currentDay={currentDay}/>
+      
+      <DateControl currentDay={currentDay} setCurrentDay={setCurrentDay}/>
+      
       <DayInfo currentDay={currentDay}/>
+      
       <BlogContainer currentDay={currentDay} />
+      
       <BlogFooter />
+      
       <Map className={"map"} currentAssets={currentAssets} />
-      {/* show add assets only when "uploadMode" is true. -> useState*/}
-      {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} />}  
-      {/* show add assets button only when "uploadMode" is false. -> useState*/}
-      <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
+      
+      {/* ASSET BUTTON */}
+        {/* show add assets only when "uploadMode" is true. -> useState*/}
+        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} />}  
+        {/* show add assets button only when "uploadMode" is false. -> useState*/}
+        <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
+    
     </div>
+
+    : <TripList currentUserTrips={currentUserTrips} setCurrentTrip={setCurrentTrip} userId={userId} />
+    }
     </>
   )
 }

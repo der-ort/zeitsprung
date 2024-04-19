@@ -9,7 +9,7 @@ interface DateControlProps {
 
 
 // Add a prop that is currentDate, pervDate, nextDate etc...
-const DateControl: FC<DateControlProps> = () => {
+const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay}) => {
 
   function onClickHandler(action:String) {
     switch(action) {
@@ -28,7 +28,9 @@ const DateControl: FC<DateControlProps> = () => {
     <>
       <div className="date-control">
         <div className="date-prev-next" onClick={() => onClickHandler('prevDate')}><FeatherIcon.ChevronLeft size={36} className='date-chevron' /></div>
-              <div className='date-current'><h2>{DateTime.now().toLocaleString()}</h2></div>
+              <div className='date-current'>
+                <h2>{DateTime.fromMillis(Number(currentDay.date)).toLocaleString()}</h2>
+              </div>
         <div className="date-prev-next" onClick={() =>onClickHandler('nextDate')}><FeatherIcon.ChevronRight size={36} className='date-chevron'/></div>
       
       </div></>
