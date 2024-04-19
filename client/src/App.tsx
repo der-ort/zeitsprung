@@ -140,6 +140,8 @@ function App() {
   const [currentTripDays, setCurrentTripDays] = useState([]);
   // currentAssets
   const [currentAssets, setCurrentAssets] = useState([])
+  // uploadMode
+  const [uploadMode, setUploadMode] = useState(false)
 
 
   // SET THE EFFECTS
@@ -191,9 +193,11 @@ function App() {
       <DayInfo currentDay={currentDay}/>
       <BlogContainer currentDay={currentDay} />
       <BlogFooter />
-      {/* <Map className={"map"} currentAssets={currentAssets} /> */}
-      <AddAssetsForm />
-      <AddAssetsButton />
+      <Map className={"map"} currentAssets={currentAssets} />
+      {/* show add assets only when "uploadMode" is true. -> useState*/}
+      {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} />}  
+      {/* show add assets button only when "uploadMode" is false. -> useState*/}
+      <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
     </div>
     </>
   )

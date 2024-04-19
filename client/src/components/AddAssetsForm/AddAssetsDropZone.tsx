@@ -6,7 +6,7 @@ import * as FeatherIcon from 'react-feather';
 interface AddAssetsDropZoneProps {
 }
 
-const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = () => {
+const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({setUploadMode}) => {
   return (
     <>
       <div className='dropzone-wrapper' >

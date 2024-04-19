@@ -6,10 +6,10 @@ import AddAssetsDropZone from './AddAssetsDropZone';
 interface AddAssetsFormProps {
 }
 
-const AddAssetsForm: FC<AddAssetsFormProps> = () => {
+const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode}) => {
   return (
     <>
-      <AddAssetsDropZone />
+      <AddAssetsDropZone setUploadMode={setUploadMode} />
     </>
   );
 };
