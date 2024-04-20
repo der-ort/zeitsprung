@@ -12,7 +12,7 @@ interface DateControlProps {
 const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay, currentTripDays}) => {
 
   // change currentDay by clicking on arrows
-  function onClickHandler(action:string) {
+  function onClickHandler(action:String) {
     
     const currentIndex = currentTripDays.indexOf(currentDay);
     let newDay = currentDay;
