@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
 
 interface DateControlProps {
-
+  // ADD PROPS
 }
 
+// DATE CONTROL MAKES YOU MOVE TO THE PREVIOUS AND NEXT DAY USING ARROW. IT ALSO SHOWS THE CURRENT DAY
+
 const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay, currentTripDays}) => {
-// change currentDay by clicking on arrows
+
+  // change currentDay by clicking on arrows
   function onClickHandler(action:String) {
     
     const currentIndex = currentTripDays.indexOf(currentDay);

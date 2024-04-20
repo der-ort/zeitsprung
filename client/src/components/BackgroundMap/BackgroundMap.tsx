@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer } from 'react-leaflet';
 
 
-// Object with different tileLayers to select from randomly
+// selection of beautiful tileLayers to select from randomly
 const tileLayers = [
   {
     attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS',
@@ -26,7 +26,8 @@ const BackgroundMap = () => {
 
   return (
     <MapContainer
-      center={[Math.random() * 140 - 70, Math.random() * 320 - 160]} // random center on each refresh, avoiding polar regions by 20° 
+      
+    center={[Math.random() * 140 - 70, Math.random() * 320 - 160]} // random center on each refresh, avoiding polar regions by 20° 
       zoom={7}
       className="triplist-background-map"
       style={{ height: '100vh', width: '100vw' }}
@@ -38,6 +39,7 @@ const BackgroundMap = () => {
       touchZoom={false}
       keyboard={false}
       attributionControl={false}>
+
       <TileLayer
         attribution={tileLayers[currentLayerIndex].attribution}
         url={tileLayers[currentLayerIndex].url}

@@ -3,6 +3,8 @@ import { DateTime } from "luxon";
 import { Trip } from '../../models/types';
 import * as FeatherIcon from 'react-feather';
 
+// TRIP TITLE:
+// Shows the basic trip info on the top left
 
 interface TitleProps {
   trip: Trip;

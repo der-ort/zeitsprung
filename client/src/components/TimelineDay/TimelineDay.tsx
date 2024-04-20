@@ -6,6 +6,8 @@ interface TimelineDayProps {
     day: Day;
 }
 
+// DAY ITEM FOR THE TIMELINE
+
 const TimelineDay: FC<TimelineDayProps> = ({day, setCurrentDay, currentDay}) => {
 
   const formattedDate = DateTime.fromMillis(Number(day.date)).toLocaleString();

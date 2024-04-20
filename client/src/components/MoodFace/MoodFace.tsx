@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import * as FeatherIcon from 'react-feather';
 
+// RETURN THE EMOJI FOR THE CORRESPONDING MOOD
+// MOOD IS NUMERICAL IN ORDER TO TRANSLATE IT TO CURVE IN TIMELINE LATER
 
 interface MoodFaceProps {
   mood: number;

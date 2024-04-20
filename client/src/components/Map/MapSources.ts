@@ -1,3 +1,5 @@
+// A COLLECTION OF MAP SOURCES FOR THE PROJECT TAKEN FROM https://leaflet-extras.github.io/leaflet-providers/preview/
+
 export const mapLayers = [
     {
         name: 'Stadia Outdoor',

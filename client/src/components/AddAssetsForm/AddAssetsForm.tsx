@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
-import * as FeatherIcon from 'react-feather';
+import { FC } from 'react';
 import AddAssetsDropZone from './AddAssetsDropZone';
 
 
 interface AddAssetsFormProps {
+    // ADD PROPS
 }
 
 const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode, currentTrip, currentDay , setCurrentDay}) => {

@@ -1,11 +1,9 @@
-import React, { FC } from 'react';
-import { DateTime } from "luxon";
+import { FC } from 'react';
 
 interface BlogContainerProps {
-
+  // ADD PROPS
 }
 
-// Add a prop that is currentDate, pervDate, nextDate etc...
 const BlogContainer: FC<BlogContainerProps> = ({currentDay}) => {
   return (
     <>

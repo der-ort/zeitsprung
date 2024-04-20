@@ -1,10 +1,13 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import TimelineDay from '../TimelineDay/TimelineDay';
 import { Day } from '../../models/types';
 
 interface TimelineProps {
     currentTripDays: Day[]
 }
+
+// TIMELINE ON TOP OF THE PAGE
+// A COLLECTION OF DIVS THAT REPRESENT THE DAYS OF THE TRIP 
 
 const Timeline: FC<TimelineProps> = ({currentTripDays, setCurrentDay, currentDay}) => {
   return (

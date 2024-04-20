@@ -1,5 +1,5 @@
-import React, { FC , useEffect} from 'react';
-import { MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup, useMap} from 'react-leaflet';
+import { FC , useEffect} from 'react';
+import { MapContainer, Marker, Popup, TileLayer, LayersControl, useMap} from 'react-leaflet';
 import L from 'leaflet';
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
@@ -7,22 +7,28 @@ import { DateTime } from "luxon";
 import { Asset } from '../../models/types';
 import { mapLayers } from './MapSources';
 
-
 interface MapProps {
   currentAssets: Asset[];
 }
 
+// THE MAIN MAP
+
 const Map: FC<MapProps> = ({currentAssets}) => {
+
+    // define the coordinates where to center the map. should later be taken from the trip.locationCenter-property
     const startCoords = [51.505, -0.09];
+
     //const mapRef = useRef(null); // create a handler that can later be used to manipulate the map data... seems deprecated
 
+
+    // Function that gets called everytime the map refreshes to set the bounds of the map to show all assets of the day on the map
     const MapBoundsAdjuster = ({ assets }) => {
       const map = useMap();
     
       useEffect(() => {
         if (assets.length > 0) {
           const bounds = new L.LatLngBounds(assets.map(asset => asset.coordinates));
-          map.fitBounds(bounds,{ minZoom: 1, padding: [50,50]} ); //maxZoom: map.getZoom()
+          map.fitBounds(bounds,{ minZoom: 1, padding: [50,50]} );
         }
       }, [assets, map]);
     
@@ -32,7 +38,6 @@ const Map: FC<MapProps> = ({currentAssets}) => {
     return (
     <>
         <MapContainer
-        // {className="full-map"}
         className="map"
         center={startCoords} // center the map around the start coords
         zoom={6}
@@ -61,9 +66,10 @@ const Map: FC<MapProps> = ({currentAssets}) => {
 
         <MarkerClusterGroup>
                 {currentAssets.map(asset => {
-                    // create a custom Marker that displays the actual photo
-                    const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
-            
+                  // compose the link for the asset placed on the map file:
+                  const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
+                  
+                  // create a custom Marker that displays the actual photo
                     const imageIcon = new L.Icon({
                         iconUrl: assetURL,
                         iconSize: [64, 64],  
@@ -71,6 +77,8 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                         popupAnchor: [0, -25]
                     });
 
+                    // TO DO: Add a switch for markers depending on asset type (photo, note, document etc...)
+                    
                     return (
                         <Marker
                             key={asset.id}

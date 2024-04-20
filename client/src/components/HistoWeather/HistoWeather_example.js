@@ -1,5 +1,10 @@
 import { fetchWeatherApi } from 'openmeteo';
 	
+// THIS IS AN EXAMPLE FILE FROM OPENMETEO
+// ADJUST TO FIT THE NEEDS OF THIS APPLICATION
+// SHOULD IT GO TO ON THE SERVER?
+
+// parameters for the openmeteo API
 const params = {
 	"latitude": 52.52,
 	"longitude": 13.41,
@@ -9,6 +14,8 @@ const params = {
 	"daily": ["weather_code", "temperature_2m_max", "temperature_2m_min", "sunrise", "sunset", "daylight_duration", "sunshine_duration"],
 	"timeformat": "unixtime"
 };
+
+
 const url = "https://archive-api.open-meteo.com/v1/archive";
 const responses = await fetchWeatherApi(url, params);
 

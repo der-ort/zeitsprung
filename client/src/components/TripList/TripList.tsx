@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import TripListItem from '../TripListItem/TripListItem';
-import BackgroundMap from '../BackgroundMap/BackgroundMap';
+
+// LANDING PAGE TO SHOW THE TRIPS FOR THE CURRENT USER
+// TO DO:
+// - ADD TRIP function
 
 interface TripListProps {
 }

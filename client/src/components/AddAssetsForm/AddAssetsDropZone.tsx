@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Dropzone from 'react-dropzone';
 import * as FeatherIcon from 'react-feather';
 
 interface AddAssetsDropZoneProps {
-  
+    // ADD PROPS
+
 }
 
 const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {

@@ -1,12 +1,9 @@
-import React, { FC } from 'react';
-import { DateTime } from "luxon";
+import { FC } from 'react';
 import * as FeatherIcon from 'react-feather';
 
 interface AddAssetsButtonProps {
-
+  // ADD PROPS
 }
-
-
 
 // Add a prop that is currentDate, pervDate, nextDate etc...
 const AddAssetsButton: FC<AddAssetsButtonProps> = ({setUploadMode, uploadMode}) => {
