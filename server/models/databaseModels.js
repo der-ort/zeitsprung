@@ -122,6 +122,11 @@ const Trip = sequelize.define('trip', {
      associatedTrips: { 
       type: DataTypes.ARRAY(DataTypes.BIGINT),
       allowNull: true,
+     },
+
+     exifData: {
+        type: DataTypes.JSON,
+        allowNull: true
      }
  
   } , { tableName: 'assets' });

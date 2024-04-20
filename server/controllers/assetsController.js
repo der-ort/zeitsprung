@@ -1,5 +1,6 @@
 const { uploadDirectory } = require('../multer.config');
 const assetsModel = require('../models/assetsModel');
+const { exifGetAll } = require('../exifreader/exif.service');
 
 
 // ASSETS
@@ -36,12 +37,24 @@ exports.saveTripAssets = async ctx => {
           ctx.body = 'Please upload a file';
           return;
         }
+        
+        // SHOULD INCLUDE THE currentDay and currentTrip Objects into the request 
+        // to include default values and locationCenter etc. here 
 
-        // call a EXIFR-function (that is to be made) here later on, that returns an object with all this inside
-        const description = 'this is hardcoded but the date is dynamic ' + Date.now()
-        const type = 'image' // for now only images
-        const coordinates = [Math.random() * 140 - 70, Math.random() * 320 - 160]// random for now but ADD exifr function here!
-        const captureDate = Date.now() // add exifr functionality -> should return an object with everything...
+        // read EXIF Data
+        let exifData = {};
+        try {
+            exifData = await exifGetAll(file.path);
+            console.log('finished reading EXIF data for ' + file.filename)
+            console.log(exifData)
+        } catch (err) {
+            console.error('Error reading EXIF data from ' + file.filename + ' | ' + err)
+
+            exifData = {
+                coordinates : [Math.random() * 140 - 70, Math.random() * 320 - 160], // random for now but get the trip default!!!
+                captureDate : Date.now() // set to the currentDay date...
+            }
+        }
 
         // file sieht so aus:
         // {
@@ -56,15 +69,23 @@ exports.saveTripAssets = async ctx => {
         //   }
 
 
+        // TO DO:
+        // Take care of the following attributes:
+        const extraData = {
+            description : 'no description yet',
+            type : 'image',
+        }
+
         // construct asset: later create constructor function for this
         const newAsset = {
-            description: description, 
-            assetType: type, 
+            description: extraData.description, 
+            assetType: extraData.type, 
             fileLocation: file.filename,
-            coordinates: coordinates,
-            captureDate: captureDate,
+            coordinates: [exifData.latitude, exifData.longitude],
+            captureDate: exifData.CreateDate,
             associatedDays: [ctx.params.dayId],
             associatedTrips: [ctx.params.tripId],
+            exifData: JSON.stringify(exifData)
         }
 
         // add the asset to the database!

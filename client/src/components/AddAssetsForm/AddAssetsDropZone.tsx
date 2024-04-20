@@ -4,48 +4,63 @@ import * as FeatherIcon from 'react-feather';
 import { Day, Trip } from '../../models/types';
 
 interface AddAssetsDropZoneProps {
-  currentDay:Day;
-  currentTrip:Trip;
+  currentDay: Day;
+  currentTrip: Trip;
+  setUploadMode: (mode: boolean) => void;
+  setCurrentDay: (day: Day) => void;
 }
 
 const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {
+  
+  
   async function handleUpload(assets: File[]) {
+  
     // Check if assets array is empty or more than one file is dropped
-    if (assets.length === 0 || assets.length > 1) {
-      console.error('More than one file selected. Only single file upload working for now');
+    if (assets.length === 0) {
+      console.error('No files selected.');
       return;
     }
 
-    const file = assets[0]; // always take first file, <- CHANGE WHEN ADDING MULTIPLE FILE UPLOAD
+    // SET ALLOWED FILETYPES FOR UPLOAD
+    const allowedFileTypes = ['image/jpeg'];
 
-    // FILETYPE CHECK
-    if (file.type !== 'image/jpeg') {
-      console.error('Only JPG files are allowed.'); // for now, add more file types that are supported by EXIFR
-      return;
-    }
-
+    // UPLOAD EACH FILE ONE AFTER THE OTHER
+    // a constant that includes a function that then can be awaited :)
     try {
-      const formData = new FormData();
-      formData.append('file', file);
+      const uploadPromises = assets.map(async (file) => {
+        // FILETYPE CHECK
+        if (!allowedFileTypes.includes(file.type)) {
+          console.error('File type not supported.');
+        return;
+        }
 
-      // post formData which includes the JPG
-      const response = await fetch(`http://localhost:3000/assets/trip/${currentTrip.id}/day/${currentDay.id}`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await response.json();
-      console.log(data);
-      
-      // toggle upload mode for conditional rendering
-      setUploadMode(false);
-      return data;
+        // UPLOAD IMAGE
+          const formData = new FormData();
+          formData.append('file', file);
     
+          // post formData which includes the JPG
+          const response = await fetch(`http://localhost:3000/assets/trip/${currentTrip.id}/day/${currentDay.id}`, {
+            method: 'POST',
+            body: formData,
+          });
+    
+          const data = await response.json();
+          console.log(data);
+
+          return data;
+        });
+        
+        // actually run the earlier defined function and await all promises
+        const results = await Promise.all(uploadPromises);
+        console.log(results);
+
+        // for conditional rendering change the upload mode and reset the currentDay for a refresh
+        setUploadMode(false);
+        setCurrentDay(currentDay);
     } catch (err) {
-      console.error('Error uploading file: ' + err);
+      console.error('Error uploading files: ' + err);
       setUploadMode(false);
     }
-    setCurrentDay(currentDay);
   }
 
   return (
