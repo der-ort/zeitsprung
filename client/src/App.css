@@ -55,6 +55,19 @@
   /* background: lavender; */
 } 
 
+.triplist-item h2, p { 
+  display: flex;
+  align-items: center; 
+}
+
+.triplist-item:last-of-type {
+  color: #aaaaaa;
+}
+
+.triplist-item:last-of-type:hover {
+  color: #000000;
+}
+
 .triplist-background-map {
   position: absolute;
   top: 0;
@@ -224,6 +237,11 @@
       .blog-footer:hover { 
         background: lavenderblush;
       }
+
+      .blog-editor{
+        margin:0;
+        height: 80%;
+      }
       /*------------ MAP */
       .map {
         grid-area: 2 / 2 / 6 / 6;
@@ -250,6 +268,7 @@
       }
       
       .leaflet-popup-content-wrapper .leaflet-popup-content {
+        width:250px;
         margin:15px;
         border-radius: 0;
       }
@@ -269,6 +288,31 @@
           border-radius: 5px;
       }
 
+      /*---------- TABLE for EXIF DATA*/
+
+      .exif-table-wrapper {
+        height: 250px;
+        overflow-y: auto; 
+        width: 100%;
+        box-sizing: border-box; 
+      }
+      
+      .exif-table-wrapper table {
+        width: 100%; 
+        table-layout: fixed; 
+        border-collapse: collapse; 
+      }
+      
+      .exif-table-wrapper td {
+        padding: 0.5em;
+        word-wrap: break-word;
+        overflow-wrap: break-word; 
+        max-width: 200px; 
+      }
+      
+      .exif-table-wrapper tr:nth-child(odd) {
+        background: lavenderblush;
+      }
 /*------------ ASSET UPLOADER FORM + DRAG & DROP*/
 
 .dropzone-wrapper {

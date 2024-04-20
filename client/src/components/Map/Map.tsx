@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css";
 import { DateTime } from "luxon";
 import { Asset } from '../../models/types';
 import { mapLayers } from './MapSources';
+import KeyValueTable from './KeyValueTable';
 
 interface MapProps {
   currentAssets: Asset[];
@@ -34,8 +35,6 @@ const Map: FC<MapProps> = ({currentAssets}) => {
     
       return null;
     };
-
-    console.log(currentAssets);
 
     return (
     <>
@@ -70,7 +69,8 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                 {currentAssets.map(asset => {
                   // compose the link for the asset placed on the map file:
                   const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
-                  
+                  const assetExifData = JSON.parse(asset.exifData);
+
                   // create a custom Marker that displays the actual photo
                     const imageIcon = new L.Icon({
                         iconUrl: assetURL,
@@ -81,20 +81,23 @@ const Map: FC<MapProps> = ({currentAssets}) => {
 
                     // TO DO: Add a switch for markers depending on asset type (photo, note, document etc...)
                     
-                    return (
+                    return <>
                         <Marker
                             key={asset.id}
                             position={asset.coordinates}
                             icon={imageIcon}
                         >
                             <Popup>
-                                {asset.description}
+                                <h3>{asset.description}</h3>
+                                <img src={assetURL} alt="Waypoint view" style={{ width: '100%' }} />
+                                <div className='exif-table-wrapper'>
+                                <KeyValueTable data={assetExifData} head={false} /> 
+                                </div>
                                 <br />
                                 {DateTime.fromMillis(Number(asset.captureDate)).toLocaleString()} 
-                                <img src={assetURL} alt="Waypoint view" style={{ width: '100%' }} />
                             </Popup>
                         </Marker>
-                    );
+                    </>
                 })}
             </MarkerClusterGroup>
 

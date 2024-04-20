@@ -126,7 +126,7 @@ function App() {
       
       <DayInfo currentDay={currentDay}/>
       
-      <BlogContainer currentDay={currentDay} />
+      <BlogContainer currentDay={currentDay} setCurrentDay={setCurrentDay} />
       
       <BlogFooter />
       

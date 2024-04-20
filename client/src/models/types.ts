@@ -46,4 +46,5 @@ export interface Asset {
     captureDate: number; 
     associatedDate: number; 
     associatedTrips: number[] | null; 
+    exifData: string;
 }

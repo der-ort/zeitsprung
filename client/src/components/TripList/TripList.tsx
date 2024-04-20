@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import TripListItem from '../TripListItem/TripListItem';
+import NewTripButton from './NewTripButton';
 
 // LANDING PAGE TO SHOW THE TRIPS FOR THE CURRENT USER
 // TO DO:
@@ -19,6 +20,8 @@ const TripList: FC<TripListProps> = ({currentUserTrips, setCurrentTrip, userId})
             {currentUserTrips.map((trip) => {
               return <TripListItem key={trip.id} setCurrentTrip={setCurrentTrip} trip={trip} />  
             })}
+
+            <NewTripButton setCurrentTrip={setCurrentTrip} />
        </div>
        <h4>TRIPSITTER 2024</h4>
        </div>

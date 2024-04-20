@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dompurify": "^3.1.0",
     "feather-icons-react": "^0.7.0",
     "leaflet": "^1.9.4",
     "lunarphase-js": "^2.0.3",
@@ -20,7 +21,8 @@
     "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
     "react-leaflet": "^4.2.1",
-    "react-leaflet-cluster": "^2.1.0"
+    "react-leaflet-cluster": "^2.1.0",
+    "react-quill": "^2.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

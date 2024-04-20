@@ -21,8 +21,15 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
       return;
     }
 
-    // SET ALLOWED FILETYPES FOR UPLOAD
-    const allowedFileTypes = ['image/jpeg'];
+    // SET ALLOWED FILETYPES FOR UPLOAD (supported by exifr)
+    const allowedFileTypes = [
+      'image/jpeg',           // for .jpg
+      'image/tiff',           // for .tif
+      'image/png',            // for .png
+      'image/heic',           // for .heic
+      'image/avif',           // for .avif
+      'image/x-phase-one-iiq' // for .iiq
+  ];
 
     // UPLOAD EACH FILE ONE AFTER THE OTHER
     // a constant that includes a function that then can be awaited :)
