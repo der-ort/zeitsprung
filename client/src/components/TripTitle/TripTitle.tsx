@@ -11,19 +11,23 @@ interface TitleProps {
 }
 
 const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip, setCurrentDay }) => {
+  
+  // calculate the trip timespan 
   // create a string in the format "12.03.22 - 15.06.23"
   const tripTimespan:string = DateTime.fromMillis(Number(trip.start)).toLocaleString() + ' - ' + DateTime.fromMillis(Number(trip.end)).toLocaleString()
 
   return (
     <>
       <div className="trip-title">
-        {/* RETURN TO MAIN MENU ARROW */}
+
+        {/* RETURN TO MAIN MENU */}
           <div className='title-chevron'>
             <FeatherIcon.ChevronLeft size={36} onClick={() => {
               setCurrentTrip(0);
               setCurrentDay(0)}}/>
           </div>
-          {/* TITLE DIV */}
+
+        {/* TITLE DIV */}
         <div className='title-title'>        
           <h2>TRIP TO</h2>
           <h1>{trip.name.toUpperCase()}</h1>

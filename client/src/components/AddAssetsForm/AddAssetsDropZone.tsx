@@ -4,7 +4,6 @@ import * as FeatherIcon from 'react-feather';
 
 interface AddAssetsDropZoneProps {
     // ADD PROPS
-
 }
 
 const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {
@@ -19,7 +18,7 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
 
     // FILETYPE CHECK
     if (file.type !== 'image/jpeg') {
-      console.error('Only JPG files are allowed.'); // for now
+      console.error('Only JPG files are allowed.'); // for now, add more file types that are supported by EXIFR
       return;
     }
 
