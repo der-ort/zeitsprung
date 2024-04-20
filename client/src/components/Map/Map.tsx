@@ -35,6 +35,8 @@ const Map: FC<MapProps> = ({currentAssets}) => {
       return null;
     };
 
+    console.log(currentAssets);
+
     return (
     <>
         <MapContainer

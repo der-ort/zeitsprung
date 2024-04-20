@@ -1,4 +1,3 @@
-const { uploadDirectory } = require('../multer.config');
 const assetsModel = require('../models/assetsModel');
 const { exifGetAll } = require('../exifreader/exif.service');
 
@@ -82,14 +81,17 @@ exports.saveTripAssets = async ctx => {
             assetType: extraData.type, 
             fileLocation: file.filename,
             coordinates: [exifData.latitude, exifData.longitude],
-            captureDate: exifData.CreateDate,
+            captureDate: new Date(exifData.CreateDate).getTime(),
             associatedDays: [ctx.params.dayId],
             associatedTrips: [ctx.params.tripId],
             exifData: JSON.stringify(exifData)
         }
 
+        console.log(newAsset);
+
         // add the asset to the database!
-        assetsModel.saveTripAssets(newAsset);
+        
+        await assetsModel.saveTripAssets(newAsset);
 
         ctx.body = {
           message: 'File uploaded successfully',
