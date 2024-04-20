@@ -188,16 +188,11 @@ function App() {
     const fetchCurrentTripDays = async (tripId:number) => {
       try {
         const query = `http://127.0.0.1:3000/trips/${Number(tripId)}/days`;
-        console.log(query);
+
         const response = await fetch(query);
         if (!response.ok) throw new Error('Network error while fetching Days.');
 
-        console.log('/// LOGGING RESPONSE:');
-        console.log(response);
-
         const days = await response.json();
-        console.log('/// LOGGING DAYS:');
-        console.log(days);
 
         setCurrentTripDays(days);
 
@@ -237,7 +232,7 @@ function App() {
 
     <div className='parent'>
       
-      <TripTitle className={"trip-title"} trip={currentTrip} setCurrentTrip={setCurrentTrip} />
+      <TripTitle className={"trip-title"} trip={currentTrip} setCurrentTrip={setCurrentTrip} setCurrentDay={setCurrentDay}/>
       
       <Timeline className={"timeline"} currentTripDays={currentTripDays} setCurrentDay={setCurrentDay} currentDay={currentDay}/>
       

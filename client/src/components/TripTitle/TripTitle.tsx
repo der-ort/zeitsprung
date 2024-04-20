@@ -8,7 +8,7 @@ interface TitleProps {
   trip: Trip;
 }
 
-const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip }) => {
+const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip, setCurrentDay }) => {
   // create a string in the format "12.03.22 - 15.06.23"
   const tripTimespan:string = DateTime.fromMillis(Number(trip.start)).toLocaleString() + ' - ' + DateTime.fromMillis(Number(trip.end)).toLocaleString()
 
@@ -17,7 +17,9 @@ const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip }) => {
       <div className="trip-title">
         {/* RETURN TO MAIN MENU ARROW */}
           <div className='title-chevron'>
-            <FeatherIcon.ChevronLeft size={36} onClick={() => setCurrentTrip(0)}/>
+            <FeatherIcon.ChevronLeft size={36} onClick={() => {
+              setCurrentTrip(0);
+              setCurrentDay(0)}}/>
           </div>
           {/* TITLE DIV */}
         <div className='title-title'>        

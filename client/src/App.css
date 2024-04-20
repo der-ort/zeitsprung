@@ -188,6 +188,12 @@
         padding: 15px;
         grid-area: 3 / 1 / 4 / 2; 
         border: inherit;
+        font-variant-emoji: text;
+      }
+
+      .lunarPhase {
+        font-family: monospace;
+        font-size: 32px;
       }
       
 /*------------ BLOG SECTION */

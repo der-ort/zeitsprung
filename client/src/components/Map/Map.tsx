@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup} from 'react-leaflet';
+import React, { FC , useEffect} from 'react';
+import { MapContainer, Marker, Popup, TileLayer, LayersControl, LayerGroup, useMap} from 'react-leaflet';
 import L from 'leaflet';
 import { waypoints } from '../../App'; // import Mock Data
 import MarkerClusterGroup from "react-leaflet-cluster";
@@ -15,15 +15,28 @@ interface MapProps {
 const Map: FC<MapProps> = ({currentAssets}) => {
     const startCoords = [51.505, -0.09];
     //const mapRef = useRef(null); // create a handler that can later be used to manipulate the map data...
-  console.log(currentAssets);
-  return (
+
+    const MapBoundsAdjuster = ({ assets }) => {
+      const map = useMap();
+    
+      useEffect(() => {
+        if (assets.length > 0) {
+          const bounds = new L.LatLngBounds(assets.map(asset => asset.coordinates));
+          map.fitBounds(bounds,{ minZoom: 1 } ); //maxZoom: map.getZoom()
+        }
+      }, [assets, map]);
+    
+      return null;
+    };
+
+    return (
     <>
         <MapContainer
         // {className="full-map"}
         className="map"
         center={startCoords} // center the map around the start coords
         zoom={6}
-        minZoom={1}
+        minZoom={3}
         maxZoom={19}
         maxBounds={[[-85.06, -180], [85.06, 180]]}
         scrollWheelZoom={true}>
@@ -100,7 +113,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                 {currentAssets.map(asset => {
                     // create a custom Marker that displays the actual photo
                     const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
-                    console.log(asset);
+            
                     const imageIcon = new L.Icon({
                         iconUrl: assetURL,
                         iconSize: [64, 64],  
@@ -124,6 +137,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                     );
                 })}
             </MarkerClusterGroup>
+            <MapBoundsAdjuster assets={currentAssets} />
         </MapContainer>
     </>
   );
