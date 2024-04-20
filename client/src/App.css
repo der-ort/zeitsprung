@@ -21,6 +21,7 @@
 /*------ TRIPLIST */
 
 .triplist-wrapper {
+  height: 100vh;
   padding:5em;
   position: relative;
   z-index: 10;
@@ -55,16 +56,16 @@
   /* background: lavender; */
 } 
 
-.triplist-item h2, p { 
+/* .triplist-item > h2, p { 
   display: flex;
   align-items: center; 
-}
+} */
 
-.triplist-item:last-of-type {
+.triplist-item:last-child {
   color: #aaaaaa;
 }
 
-.triplist-item:last-of-type:hover {
+.triplist-item:last-child:hover {
   color: #000000;
 }
 
@@ -117,6 +118,54 @@
         color: violet;
       }
       
+/*------------ ADD TRIP FORM */
+  .addtrip-form {
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+  }
+  
+  .addtrip-form label{
+    padding: 10px 10px 10px 0px;
+    display: block;
+    width: 100%;
+  }
+  
+  .addtrip-form textarea{
+    padding: 10px;
+    display: block;
+    width: 100%;
+    border: 1px solid black;
+    resize: none;
+    background: rgba(255, 255, 255, 0.6);
+  }
+    
+  .addtrip-form input{
+    padding: 10px;
+    display: block;
+    width: 100%;
+    border: 1px solid black;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  
+  .addtrip-form .button-group{
+    display: flex;
+    border-radius: 0 !important;
+    margin-top: 15px;
+  }
+
+  .addtrip-form button {
+    background: transparent;
+
+  }
+  
+  .addtrip-form button:hover {
+    background: transparent;
+    color: #000000;
+    outline: none !important;
+    border: 1px solid #000000;
+  }
+
 /*------------ TIMELINE */
       .timeline { 
           grid-area: 1 / 2 / 2 / 6; 
@@ -216,9 +265,16 @@
       .blog-container { 
           grid-area: 4 / 1 / 5 / 2; 
           border: inherit;
-          padding: 15px;
+          padding: 30px;
+          font-size: smaller;
           overflow-y: auto;
+          display: block;
         }
+        
+      .blog-editor{
+        margin:0;
+          height: 80%;
+      }
 
       .blog-footer { 
           text-align: center;
@@ -236,11 +292,6 @@
   
       .blog-footer:hover { 
         background: lavenderblush;
-      }
-
-      .blog-editor{
-        margin:0;
-        height: 80%;
       }
       /*------------ MAP */
       .map {

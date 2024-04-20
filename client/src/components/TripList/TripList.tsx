@@ -1,6 +1,7 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import TripListItem from '../TripListItem/TripListItem';
 import NewTripButton from './NewTripButton';
+import AddTripForm from '../AddTripForm/AddTripForm';
 
 // LANDING PAGE TO SHOW THE TRIPS FOR THE CURRENT USER
 // TO DO:
@@ -11,20 +12,29 @@ interface TripListProps {
 }
 
 const TripList: FC<TripListProps> = ({currentUserTrips, setCurrentTrip, userId}) => {
+  
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [editTrip, setEditTrip] = useState(false);
+  
   return (
-    <>
-    <div className="triplist-wrapper">
-      <h2>Hi User #{userId}!</h2>
-      <h2>SELECT YOUR TRIP:</h2>
-       <div className='triplist'>
-            {currentUserTrips.map((trip) => {
-              return <TripListItem key={trip.id} setCurrentTrip={setCurrentTrip} trip={trip} />  
-            })}
-
-            <NewTripButton setCurrentTrip={setCurrentTrip} />
-       </div>
-       <h4>TRIPSITTER 2024</h4>
-       </div>
+    <> 
+      {editTrip ? (
+        <div className="triplist-wrapper">
+          <AddTripForm setEditTrip={setEditTrip}/>
+        </div>
+      ) : (
+        <div className="triplist-wrapper">
+          <h2>Hi User #{userId}!</h2>
+          <h2>SELECT YOUR TRIP:</h2>
+          <div className='triplist'>
+            {currentUserTrips.map((trip) => (
+              <TripListItem key={trip.id} setCurrentTrip={setCurrentTrip} trip={trip} />
+            ))}
+            <NewTripButton setEditTrip={setEditTrip} />
+          </div>
+          <h4>TRIPSITTER 2024</h4>
+        </div>
+      )}
     </>
   );
 };

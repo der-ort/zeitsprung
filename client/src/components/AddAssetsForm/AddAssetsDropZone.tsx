@@ -10,6 +10,11 @@ interface AddAssetsDropZoneProps {
   setCurrentDay: (day: Day) => void;
 }
 
+// TO DO:
+// https://www.smashingmagazine.com/2020/02/html-drag-drop-api-react/
+// TOGGLE DROPZONE WHEN DRAGENTER
+
+
 const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {
   
   
@@ -21,7 +26,9 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
       return;
     }
 
-    // SET ALLOWED FILETYPES FOR UPLOAD (supported by exifr)
+    // SET ALLOWED FILETYPES FOR UPLOAD
+    // const allowedFileTypes = ['image/jpeg'];
+
     const allowedFileTypes = [
       'image/jpeg',           // for .jpg
       'image/tiff',           // for .tif
