@@ -3,13 +3,11 @@ import './App.css'
 import TripTitle from './components/TripTitle/TripTitle'
 import Map from './components/Map/Map'
 import Timeline from './components/Timeline/Timeline'
-import { DateTime, Interval } from "luxon";
 import DateControl from './components/DateControl/DateControl'
 import DayInfo from './components/DayInfo/DayInfo'
 import BlogContainer from './components/BlogContainer/BlogContainer'
 import BlogFooter from './components/BlogFooter/BlogFooter'
 import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
-import { Asset, Trip, Waypoint } from './models/types' // import Typescript types
 import AddAssetsForm from './components/AddAssetsForm/AddAssetsForm'
 import TripList from './components/TripList/TripList'
 import BackgroundMap from './components/BackgroundMap/BackgroundMap'
@@ -92,58 +90,11 @@ const emptyDay = {
 
 }
 
-// mock Assets
-
-const assets:Asset[] = [
-  { 
-  id: 1,
-  description: 'super',
-  assetType: 'image',
-  fileLocation: './assets/images/michi_9.jpg', 
-  coordinates: [51.11, -0.04], 
-  captureDate: 1711561424389,
-  associatedDate: 1711561424389,  
-  associatedTrips: 1
-  },
-  { 
-  id: 2,
-  description: 'top',
-  assetType: 'image',
-  fileLocation: './assets/images/michi_8.jpg', 
-  coordinates: [51.11, -0.04], 
-  captureDate: 1711561424389,
-  associatedDate: 1711561424389,  
-  associatedTrips: 1
-  },
-  { 
-  id: 3,
-  description: '1A',
-  assetType: 'image',
-  fileLocation: './assets/images/michi_7.jpg', 
-  coordinates: [51.11, -0.04], 
-  captureDate: 1711561424389,
-  associatedDate: 1711561424389,  
-  associatedTrips: 1
-  }
-]
-
-const mockTrip:Trip = {
-  id: 1,
-  name: 'Michimahuida',
-  description: 'REGIÓN PALENA, CHILE',
-  locationCenter: [51.51, -0.08],
-  start: 1711561224389,
-  end: 1711561424389,
-  length: () => Interval.fromDateTimes(this.start, this.end) 
-}
-
-const userId:number = 123;
-const tripId:number = 3;
-let dayId:number = 1;
-
 function App() {
   // useState to manage the currentDay which is the day to display throughout the app
   // currentUser
+  const userId = 123;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentUserId, setCurrentUserId] = useState(userId);
   
   // currentUserTrips
