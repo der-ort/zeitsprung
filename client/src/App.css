@@ -41,14 +41,17 @@
 }
 
 .triplist-item {
-  border: 2px solid #333333;
+  /* border: 1px dotted #ffffff; */
   padding:15px;
   margin-bottom: 1rem;
+  background: linear-gradient(to right, white, transparent);
   /* background-color: rgba(255,255,255,0.5); */
 }
 
 .triplist-item:hover {
-  background-color: rgba(255,255,255,0.75);
+  background: linear-gradient(to right, lavender, transparent);
+  /* background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIAIs3//6PyMhdSBFkY6ijHgVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQD7aSdbc9SZTAAAAABJRU5ErkJggg==) repeat; */
+  /* background-color: rgba(255,255,255,0.75); */
   /* background: lavender; */
 } 
 
