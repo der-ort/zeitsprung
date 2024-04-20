@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import AddAssetsDropZone from './AddAssetsDropZone';
+import { Day, Trip } from '../../models/types';
 
 
 interface AddAssetsFormProps {
-    // ADD PROPS
+  currentDay:Day;
+  currentTrip:Trip;
 }
 
 const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode, currentTrip, currentDay , setCurrentDay}) => {

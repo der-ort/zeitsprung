@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
+import { Trip } from '../../models/types';
 
 interface TripListItemProps {
+   trip:Trip;
 }
 
 const TripListItem: FC<TripListItemProps> = ({trip, setCurrentTrip}) => {

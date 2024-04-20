@@ -3,7 +3,8 @@ import TimelineDay from '../TimelineDay/TimelineDay';
 import { Day } from '../../models/types';
 
 interface TimelineProps {
-    currentTripDays: Day[]
+    currentTripDays: Day[];
+    currentDay:Day;
 }
 
 // TIMELINE ON TOP OF THE PAGE

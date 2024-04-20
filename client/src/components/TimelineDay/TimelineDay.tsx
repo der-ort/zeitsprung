@@ -4,6 +4,7 @@ import { Day } from '../../models/types';
 
 interface TimelineDayProps {
     day: Day;
+    currentDay:Day;
 }
 
 // DAY ITEM FOR THE TIMELINE

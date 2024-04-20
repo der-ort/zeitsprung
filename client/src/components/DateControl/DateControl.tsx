@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
+import { Day } from '../../models/types';
 
 interface DateControlProps {
-  // ADD PROPS
+  currentDay:Day;
 }
 
 // DATE CONTROL MAKES YOU MOVE TO THE PREVIOUS AND NEXT DAY USING ARROW. IT ALSO SHOWS THE CURRENT DAY

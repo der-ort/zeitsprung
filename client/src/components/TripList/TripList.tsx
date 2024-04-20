@@ -6,6 +6,7 @@ import TripListItem from '../TripListItem/TripListItem';
 // - ADD TRIP function
 
 interface TripListProps {
+  userId:number;
 }
 
 const TripList: FC<TripListProps> = ({currentUserTrips, setCurrentTrip, userId}) => {

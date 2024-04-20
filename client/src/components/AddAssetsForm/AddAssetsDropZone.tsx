@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import Dropzone from 'react-dropzone';
 import * as FeatherIcon from 'react-feather';
+import { Day, Trip } from '../../models/types';
 
 interface AddAssetsDropZoneProps {
-    // ADD PROPS
+  currentDay:Day;
+  currentTrip:Trip;
 }
 
 const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {

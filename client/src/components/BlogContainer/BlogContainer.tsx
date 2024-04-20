@@ -1,7 +1,8 @@
 import { FC } from 'react';
+import { Day } from '../../models/types';
 
 interface BlogContainerProps {
-  // ADD PROPS
+  currentDay:Day;
 }
 
 const BlogContainer: FC<BlogContainerProps> = ({currentDay}) => {
