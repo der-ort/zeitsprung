@@ -44,21 +44,14 @@ export async function getTripById(tripId:number):Promise<Trip[]> {
     // create query
     const query = apiURL + '/trips/' + tripId;
     
-    // fetch trip
-    const trip = fetch(query)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network error?');
-            }
-            return response.json();
-        })
-        .then(trip => {
-            console.log(trip);
-            return trip;
-        })
-        .catch(error => {
-            console.error('Problem fetching all trips for user: ', error);
-        });
+    try {
+        const trip = fetch(query)
+        console.log(trip);
+        return trip.json();
+    } catch (err) {
+        console.error('Problem fetching all trips for user: ', error);    
+    }
+
 }
 
 
@@ -67,7 +60,7 @@ export async function getTripById(tripId:number):Promise<Trip[]> {
 // creates a Trip in the database and returns the Trip object
 export async function createTrip(userId:number, trip:Trip):Promise<Trip> {
 
-    const query = apiURL + '/trips/' + userId;
+    const query = apiURL + '/user/' + userId + '/trips/';
 
     try {
         const event = await fetch(query, {

@@ -1,11 +1,12 @@
 export interface Trip {
     id: number;
+    authorId: number;
     name: string;
     description: string;
     locationCenter?: number[],
     start: number,
     end: number,
-    length: () => void
+    length?: () => void // add a length function to automatically set the length
 }
 
 export interface Waypoint {

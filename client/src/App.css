@@ -166,6 +166,20 @@
     border: 1px solid #000000;
   }
 
+  .addtrip-form .checkbox-group {
+    padding: 10px;
+  }
+
+  .addtrip-form .checkbox-group input {
+    display: inline;
+    width:auto;
+  }
+
+  .addtrip-form .checkbox-group label {
+    display: inline;
+    width:auto;
+  }
+
 /*------------ TIMELINE */
       .timeline { 
           grid-area: 1 / 2 / 2 / 6; 

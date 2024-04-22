@@ -18,10 +18,10 @@ const { upload } = require('./multer.config');
     // responds: with a sorted (by date) array of asset objects for the trip with the given ID
     router.get('/trips/:tripId', tripController.getTripById);
 
-    // create new trip for User with given id in the passed JSON Object -> property: authorId
-    // request: body contains json object with id -> {id: tripId}
-    // responds: with a sorted (by date) array of asset objects for the trip with the given ID
-    router.post('/trips', tripController.createTrip);
+    // create new trip for User with given id
+    // request: body contains json object with id -> {id: tripId} -> should be overwritten by server
+    // responds: with the newly created trip object (that has the updated ID)!
+    router.post('/user/:userId/trips', tripController.createTrip);
 
     // delete trip with given id
     // request: body contains json object with id -> {id: tripId}

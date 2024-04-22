@@ -13,7 +13,7 @@ import TripList from './components/TripList/TripList'
 import BackgroundMap from './components/BackgroundMap/BackgroundMap'
 import { Day } from './models/types'
 
-// emptyDay
+// emptyDay mockdata
 
 const emptyDay = {
   date: Date.now(),
@@ -52,6 +52,8 @@ function App() {
 
 
   // SET THE EFFECTS
+
+  // BRING THESE TO THE API.SERVICES.tsx
 
   // GET ALL TRIPS FOR THE CURRENT USER
   useEffect(() => {
@@ -134,7 +136,7 @@ function App() {
       
       {/* ASSET BUTTON */}
         {/* show add assets only when "uploadMode" is true. -> useState*/}
-        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay}/>}  
+        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId}/>}  
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
         <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
     
