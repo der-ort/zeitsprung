@@ -142,7 +142,7 @@ function App() {
     
     </div>
 
-    : <TripList currentUserTrips={currentUserTrips} setCurrentTrip={setCurrentTrip} userId={userId} />
+    : <TripList currentUserTrips={currentUserTrips} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId} />
     }
     </>
   )

@@ -40,7 +40,8 @@ async function deleteTrip(tripId) {
 
 async function createTrip (trip) {
    try {
-      await Trip.create(trip);
+      const createdTrip = await  Trip.create(trip);
+      return createdTrip;
    } catch (err) {
       console.log('Error:' , err);
       return null;

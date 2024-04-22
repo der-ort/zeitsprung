@@ -12,10 +12,9 @@ interface AddTripFormProps {
 
 
 const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, currentUserId}) => {
-  const [trip, setTrip] = useState(defaultTrip);
-
-  const defaultTrip:Trip = {
-    id:0, //how to handle the id? -> create empty trip and then get the id from the database?
+  
+  const defaultTrip = {
+  //id handling: do not pass an id and it gets created by sequelize :)
     authorId: currentUserId,
     name: '',
     description: '',
@@ -23,7 +22,10 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
     start: Date.now(),
     end: Date.now()
   };
-
+  
+  // STATE
+  const [trip, setTrip] = useState(defaultTrip);
+  
   let newTrip = {...trip};
   // Handle change in input fields
   const handleChange = (e) => {
@@ -35,25 +37,41 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
         // ADD check for start < enddate and vice versa
         newTrip = { ...newTrip, end: value} // when submitting and there is no value default to start date later
       }
-        setTrip(newTrip);  
-      console.log(trip);
-  };
+
+      setTrip(newTrip);  
+    };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('creating Trip:', trip);
 
+    // convert date to timestamp:
+    const convertedStart = new Date(trip.start).getTime();
+    const convertedEnd = new Date(trip.end).getTime();
+
+    const newTrip = {...trip, start: convertedStart, end: convertedEnd}
+    console.log('newTrip')
+    console.log(newTrip)
 
     // create new trip on server
-    const createdTrip:Trip = createTrip(currentUserId, trip)
-    // upload it to the server
+    try {
+      
+      // create a new trip and get the Trip object:
+      const createdTrip:Trip = await createTrip(currentUserId, newTrip);
+      
+      // set the trip to the newly created trip to update the view
+      setCurrentTrip(createdTrip);
+      
+      // Create days for the trip automatically if checkbox is checked!
 
-    // on success set current trip to the new trip -> will automatically toggle to the trip view
+      
 
-    setCurrentTrip(createdTrip)
-    // ADD FUNCTION TO CREATE TRIP, THEN SET IT TO BE THE CURRENT TRIP!
-    // Create days for the trip length!
+    } catch (err) {
+      console.error('Error creating Trip: ' + err + 'when creating ' + trip )
+    }
+    
+    
 
 };
 
@@ -65,7 +83,7 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
         <input required
           type="text"
           name="name"
-          maxlength="75"
+          maxLength="75"
           value={trip.name}
           onChange={handleChange}
         />
@@ -85,7 +103,7 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
           onChange={handleChange}
         />
 
-        <label htmlhtmlFor='end'>End:</label>
+        <label htmlFor='end'>End:</label>
         <input required
           type="date"
           name="end"

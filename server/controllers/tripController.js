@@ -34,7 +34,7 @@ exports.createTrip = async ctx=> {
     try{
         const trip = ctx.request.body;
         ctx.body = await tripModel.createTrip(trip);
-        ctx.status =201; // CREATED 201
+        ctx.status = 201; // CREATED 201
     } catch (err) {
         ctx.body = err;
         ctx.status = 500;
