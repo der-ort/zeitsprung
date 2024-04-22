@@ -1,3 +1,8 @@
+/* TO DO
+  ->  migrate component related styling to individual CSS-files inside the components
+      for better modularity
+*/
+
 * {
   box-sizing: border-box;
   padding:0;
@@ -20,103 +25,97 @@
 
 /*------ TRIPLIST */
 
-.triplist-wrapper {
-  height: 100vh;
-  padding:5em;
-  position: relative;
-  z-index: 10;
-  background: linear-gradient(to right, white, transparent);
+  .triplist-wrapper {
+    height: 100vh;
+    padding:5em;
+    position: relative;
+    z-index: 10;
+    background: linear-gradient(to right, white, transparent);
 
-}
+  }
 
-.triplist {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  margin: auto;
-  padding: 15px;
-  min-width: 50vw;
-  min-height: 50vh;
-  max-width: 90vw;
-  max-height: 60vh;
-}
+  .triplist {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin: auto;
+    padding: 15px;
+    min-width: 50vw;
+    min-height: 50vh;
+    max-width: 90vw;
+    max-height: 60vh;
+  }
 
-.triplist-item {
-  /* border: 1px dotted #ffffff; */
-  padding:15px;
-  margin-bottom: 1rem;
-  background: linear-gradient(to right, white, transparent);
-  /* background-color: rgba(255,255,255,0.5); */
-}
+  .triplist-item {
+    /* border: 1px dotted #ffffff; */
+    padding:15px;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right, white, transparent);
+    /* background-color: rgba(255,255,255,0.5); */
+  }
 
-.triplist-item:hover {
-  background: linear-gradient(to right, lavender, transparent);
-  /* background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIAIs3//6PyMhdSBFkY6ijHgVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQD7aSdbc9SZTAAAAABJRU5ErkJggg==) repeat; */
-  /* background-color: rgba(255,255,255,0.75); */
-  /* background: lavender; */
-} 
+  .triplist-item:hover {
+    background: linear-gradient(to right, lavender, transparent);
+    /* background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIAIs3//6PyMhdSBFkY6ijHgVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQD7aSdbc9SZTAAAAABJRU5ErkJggg==) repeat; */
+    /* background-color: rgba(255,255,255,0.75); */
+    /* background: lavender; */
+  } 
 
-/* .triplist-item > h2, p { 
-  display: flex;
-  align-items: center; 
-} */
+  .triplist-item:last-child {
+    color: #aaaaaa;
+  }
 
-.triplist-item:last-child {
-  color: #aaaaaa;
-}
+  .triplist-item:last-child:hover {
+    color: #000000;
+  }
 
-.triplist-item:last-child:hover {
-  color: #000000;
-}
-
-.triplist-background-map {
-  position: absolute;
-  top: 0;
-  left:0;
-  z-index: 1;
-}
+  .triplist-background-map {
+    position: absolute;
+    top: 0;
+    left:0;
+    z-index: 1;
+  }
 
 /*------ MAIN APP */
   .parent {
     background: #ffffff;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: 1fr repeat(2, 0.5fr) 3fr 0.5fr;
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
-      width: 100vw;
-      height: 100vh;
-      border:none;
-      border: 1px solid #333333;
-      }
-                    
-      .trip-title { 
-        grid-area: 1 / 1 / 2 / 2; 
-        padding: 15px 15px 15px 0;
-        border: inherit;
-        display: flex;
-      }
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr repeat(2, 0.5fr) 3fr 0.5fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 100vw;
+    height: 100vh;
+    border:none;
+    border: 1px solid #333333;
+  }
 
-      /* nowrap title*/
-      .trip-title h1 {
-        /* font-size: 32pt; */
-        max-width: 90%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+  .trip-title { 
+    grid-area: 1 / 1 / 2 / 2; 
+    padding: 15px 15px 15px 0;
+    border: inherit;
+    display: flex;
+  }
 
-      .title-chevron {
-          margin:0;
-          height: 100%;
-          color: cornflowerblue ;
-          flex:1;        
-        }
+  /* nowrap title*/
+  .trip-title h1 {
+    /* font-size: 32pt; */
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .title-chevron {
+      margin:0;
+      height: 100%;
+      color: cornflowerblue ;
+      flex:1;        
+  }
 
-      .title-chevron:hover {
-        color: violet;
-      }
+  .title-chevron:hover {
+    color: violet;
+  }
       
 /*------------ ADD TRIP FORM */
   .addtrip-form {
@@ -181,218 +180,215 @@
   }
 
 /*------------ TIMELINE */
-      .timeline { 
-          grid-area: 1 / 2 / 2 / 6; 
-          border: inherit;
-          text-align: center;
-          display: flex; /* will align all children inside*/
-          flex-wrap: wrap;
-          overflow-x: scroll;
-      }
-  
-      .timeline div{
-        flex-grow: 1;
-        writing-mode: vertical-lr;
-        text-orientation: mixed;
-        text-align: right;
-        padding: 5px;
-        -webkit-user-select: none; /* Safari */        
-        -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* IE10+/Edge */
-        user-select: none; /* Standard */
-      }
-      
-      .timeline-day:nth-child(odd) {
-          background: lavenderblush;
-      }
-      
-      .timeline-day {
-          font-weight: 600;
-          font-size: 1.25rem;
-          color: cornflowerblue;
-      }
+  .timeline { 
+      grid-area: 1 / 2 / 2 / 6; 
+      border: inherit;
+      text-align: center;
+      display: flex; /* will align all children inside*/
+      flex-wrap: wrap;
+      overflow-x: scroll;
+  }
 
-      
-      .timeline-current-day {
-        color:lavender;
-        background: cornflowerblue;
-        font-size: 1.5rem;
-        font-weight: 700;
-      }
+  .timeline div{
+    flex-grow: 1;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    text-align: right;
+    padding: 5px;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
 
-      .timeline div:hover {
-        background: lavender;
-        color: cornflowerblue
-      }
+  .timeline-day:nth-child(odd) {
+      background: lavenderblush;
+  }
+
+  .timeline-day {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: cornflowerblue;
+  }
+
+  .timeline-current-day {
+    color:lavender;
+    background: cornflowerblue;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .timeline div:hover {
+    background: lavender;
+    color: cornflowerblue
+  }
       
 /*------------ DATE CONTROL */
-      .date-control { 
-        grid-area: 2 / 1 / 3 / 2; 
-        display: flex;
-        padding: 15px;
-        text-align: center;
-        border: inherit;
-        vertical-align: middle;
-        background: cornflowerblue;
-        color: lavender;
-        -webkit-user-select: none; /* Safari */        
-        -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* IE10+/Edge */
-        user-select: none; /* Standard */
-      }
-      
-      .date-current {
-        padding: 0;
-        margin: 0;
-        flex: 3;
-        height: 100%;
-      }
-      
-      .date-prevnext {
-        flex: 1;
-        height: 100%;
-        align-items: center;
-      }
-      
-      .date-prevnext :hover {
-        color: violet;
-      }
+  .date-control { 
+    grid-area: 2 / 1 / 3 / 2; 
+    display: flex;
+    padding: 15px;
+    text-align: center;
+    border: inherit;
+    vertical-align: middle;
+    background: cornflowerblue;
+    color: lavender;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+  }
 
-      .date-chevron {
-        color: lavender;
-      }
-      
+  .date-current {
+    padding: 0;
+    margin: 0;
+    flex: 3;
+    height: 100%;
+  }
+
+  .date-prevnext {
+    flex: 1;
+    height: 100%;
+    align-items: center;
+  }
+
+  .date-prevnext :hover {
+    color: violet;
+  }
+
+  .date-chevron {
+    color: lavender;
+  }
+
 /*------------ DAY INFO */
-      .day-info { 
-        padding: 15px;
-        grid-area: 3 / 1 / 4 / 2; 
-        border: inherit;
-        font-variant-emoji: text;
-      }
-
-      .lunarPhase {
-        font-family: monospace;
-        font-size: 32px;
-      }
+  .day-info { 
+    padding: 15px;
+    grid-area: 3 / 1 / 4 / 2; 
+    border: inherit;
+    font-variant-emoji: text;
+  }
+  .lunarPhase {
+    font-family: monospace;
+    font-size: 32px;
+  }
       
 /*------------ BLOG SECTION */
-      .blog-container { 
-          grid-area: 4 / 1 / 5 / 2; 
-          border: inherit;
-          padding: 30px;
-          font-size: smaller;
-          overflow-y: auto;
-          display: block;
-        }
-        
-      .blog-editor{
-        margin:0;
-          height: 80%;
-      }
+  .blog-container { 
+      grid-area: 4 / 1 / 5 / 2; 
+      border: inherit;
+      padding: 30px;
+      font-size: smaller;
+      overflow-y: auto;
+      display: block;
+  }
 
-      .blog-footer { 
-          text-align: center;
-          flex-direction: column;    
-          align-items: center;       
-          justify-content: center;
-          padding: 15px;
-          grid-area: 5 / 1 / 6 / 2; 
-          border: inherit;
-          -webkit-user-select: none; /* Safari */        
-          -moz-user-select: none; /* Firefox */
-          -ms-user-select: none; /* IE10+/Edge */
-          user-select: none; /* Standard */
-      }
+  .blog-editor{
+    margin:0;
+      height: 80%;
+  }
   
-      .blog-footer:hover { 
-        background: lavenderblush;
-      }
-      /*------------ MAP */
-      .map {
-        grid-area: 2 / 2 / 6 / 6;
-        z-index: 1;
-        border: inherit;
-      }
-  
-      .full-map {
-        height: 100vh;
-      }
-      
-      .leaflet-marker-icon {
-        border: 3px solid white;
-      }
+   .blog-footer { 
+      text-align: center;
+      flex-direction: column;    
+      align-items: center;       
+      justify-content: center;
+      padding: 15px;
+      grid-area: 5 / 1 / 6 / 2; 
+      border: inherit;
+      -webkit-user-select: none; /* Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
+  } 
+    .blog-footer:hover { 
+      background: lavenderblush;
+    }
+/*------------ MAP */
+    .map {
+      grid-area: 2 / 2 / 6 / 6;
+      z-index: 1;
+      border: inherit;
+    } 
 
-      .leaflet-marker-icon:hover {
-        border: 3px solid cornflowerblue;
-      }
+    .full-map {
+      height: 100vh;
+    } 
 
-      .leaflet-popup-content-wrapper {
-        border: 1px solid black !important;
-        box-shadow: none !important;
-        border-radius: 0 !important;
-      }
-      
-      .leaflet-popup-content-wrapper .leaflet-popup-content {
-        width:250px;
-        margin:15px;
-        border-radius: 0;
-      }
-      
-      .leaflet-popup-tip-container {
-        display:none;
-      }
-      
-      #map {
-        height: 100%;
-        width: 100%;
-      }
-      
-      .leaflet-icon {
-          box-shadow: white 5px;
-          border: 2px solid white;
-          border-radius: 5px;
-      }
+    .leaflet-marker-icon {
+      border: 3px solid white;
+    }
 
-      /*---------- TABLE for EXIF DATA*/
+    .leaflet-marker-icon:hover {
+      border: 3px solid cornflowerblue;
+    }
 
-      .exif-table-wrapper {
-        height: 250px;
-        overflow-y: auto; 
-        width: 100%;
-        box-sizing: border-box; 
-      }
-      
-      .exif-table-wrapper table {
-        width: 100%; 
-        table-layout: fixed; 
-        border-collapse: collapse; 
-      }
-      
-      .exif-table-wrapper td {
-        padding: 0.5em;
-        word-wrap: break-word;
-        overflow-wrap: break-word; 
-        max-width: 200px; 
-      }
-      
-      .exif-table-wrapper tr:nth-child(odd) {
-        background: lavenderblush;
-      }
+    .leaflet-popup-content-wrapper {
+      border: 1px solid black !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+
+    .leaflet-popup-content-wrapper .leaflet-popup-content {
+      width:250px;
+      margin:15px;
+      border-radius: 0;
+    } 
+
+    .leaflet-popup-tip-container {
+      display:none;
+    } 
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    .leaflet-icon {
+        box-shadow: white 5px;
+        border: 2px solid white;
+        border-radius: 5px;
+    }
+
+/*---------- TABLE for EXIF DATA*/
+
+  .exif-table-wrapper {
+    height: 250px;
+    overflow-y: auto; 
+    width: 100%;
+    box-sizing: border-box; 
+  }
+
+  .exif-table-wrapper table {
+    width: 100%; 
+    table-layout: fixed; 
+    border-collapse: collapse; 
+  }
+
+  .exif-table-wrapper td {
+    padding: 0.5em;
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    max-width: 200px; 
+  }
+
+  .exif-table-wrapper tr:nth-child(odd) {
+    background: lavenderblush;
+  }
 /*------------ ASSET UPLOADER FORM + DRAG & DROP*/
 
-.dropzone-wrapper {
-  background: rgba(255, 255, 255, 0.3);
-  padding: 4rem;
-  grid-area: 2 / 2 / 6 / 6;
-  z-index: 1;
-  border: inherit;
-  text-align: center;
-  vertical-align: middle;
-}
+  .dropzone-wrapper {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 4rem;
+    grid-area: 2 / 2 / 6 / 6;
+    z-index: 1;
+    border: inherit;
+    text-align: center;
+    vertical-align: middle;
+  }
 
-.dropzone-wrapper {
-  font-weight: 400;
-}
+  .dropzone-wrapper {
+    font-weight: 400;
+  }
 
   .add-assets-dropzone {
     display: flex;             
@@ -403,24 +399,24 @@
     width:100%;
     height: 100%;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIUlEQVQYV2NMqL7ty0AEYAQpXNCqupmQ2lGFeEOI6OABAHJZJg5gVQ+0AAAAAElFTkSuQmCC) repeat;
-}
+  }
 
-.dropzone-text {
-  background: #ffffff;
-  padding: 15px;
-  border-radius: inherit;
-}
+  .dropzone-text {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: inherit;
+  }
 
-.add-assets-dropzone:hover {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIAIs3//6PyMhdSBFkY6ijHgVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQD7aSdbc9SZTAAAAABJRU5ErkJggg==) repeat;
-}
+  .add-assets-dropzone:hover {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIAIs3//6PyMhdSBFkY6ijHgVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQD7aSdbc9SZTAAAAABJRU5ErkJggg==) repeat;
+  }
 
-.add-assets-dropzone h2{
-  margin:auto;
-  font-style: italic;
-  font-weight: 400;
-  vertical-align: center;
-}
+  .add-assets-dropzone h2{
+    margin:auto;
+    font-style: italic;
+    font-weight: 400;
+    vertical-align: center;
+  }
 
 /*------------ ASSET UPLOADER BUTTON*/
   .add-assets {

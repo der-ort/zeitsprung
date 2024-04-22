@@ -23,12 +23,13 @@ const emptyDay = {
 }
 
 function App() {
-  // useState to manage the currentDay which is the day to display throughout the app
-  // currentUser
 
   // HARDCODED MOCK USER
   const userId:number = 123;
 
+  // --------------- STATES
+
+  // disable linting since user management is not implemented
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currentUserId, setCurrentUserId] = useState(userId);
   
@@ -50,10 +51,12 @@ function App() {
   // uploadMode
   const [uploadMode, setUploadMode] = useState(false);
 
+  // --------------- END OF STATES
 
-  // SET THE EFFECTS
+  // --------------- EFFECTS
 
-  // BRING THESE TO THE API.SERVICES.tsx
+  // TO DO: MIGRATE THE EMBEDDED FUNCTIONS TO THE API.SERVICES.tsx
+  // remove the hardcoded links and add them to an .env file
 
   // GET ALL TRIPS FOR THE CURRENT USER
   useEffect(() => {
@@ -70,6 +73,7 @@ function App() {
     };
     fetchCurrentUserTrips(currentUserId);
   }, [currentUserId]);
+
 
   // GET ALL DAYS FOR THE CURRENT TRIP
   useEffect(() => {
@@ -91,10 +95,12 @@ function App() {
     fetchCurrentTripDays(currentTrip.id);
   }, [currentTrip.id]);
 
+
   // SET THE CURRENT DAY
   useEffect(() => {
     currentTripDays[0] ? setCurrentDay(currentTripDays[0]) : setCurrentDay(emptyDay);
   }, [currentTripDays])
+
 
   // GET ALL ASSETS FOR THE CURRENT DAY
   useEffect(() => {
@@ -112,10 +118,16 @@ function App() {
     fetchCurrentDayAssets(currentDay.id);
   }, [currentDay.id]);
 
+  // --------------- EFFECTS
+
+
   return (
     <>
+    {/* a map background with alternating locations to create an appealing selection screen */}
     {!currentTrip ? <BackgroundMap /> : null}
 
+    {/* conditional rendering of trip selector, trip creation and actual trip view */}
+    {/* if a trip is selected show the trip view -> TO DO: migrate these to its own component to clean this page up */}
     {currentTrip? 
 
     <div className='parent'>
@@ -130,6 +142,7 @@ function App() {
       
       <BlogContainer currentDay={currentDay} setCurrentDay={setCurrentDay} />
       
+      {/* TO DO: rename component to "ADD DAY" */}
       <BlogFooter />
       
       <Map className={"map"} currentAssets={currentAssets} />
@@ -142,8 +155,12 @@ function App() {
     
     </div>
 
-    : <TripList currentUserTrips={currentUserTrips} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId} />
+    : 
+    // Show trip list if no trip is selected
+    <TripList currentUserTrips={currentUserTrips} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId} />
+    
     }
+    
     </>
   )
 }

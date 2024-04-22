@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as FeatherIcon from 'react-feather';
-import { createTrip } from '../../api.service';
+import { createDays, createTrip } from '../../api.service';
 import { Trip } from '../../models/types';
 // import { DateTime } from "luxon";
 
@@ -25,6 +25,7 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
   
   // STATE
   const [trip, setTrip] = useState(defaultTrip);
+  const [autoCreateDays, setAutoCreateDays] = useState(false);
   
   let newTrip = {...trip};
   // Handle change in input fields
@@ -36,6 +37,9 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       if (name === "end") {
         // ADD check for start < enddate and vice versa
         newTrip = { ...newTrip, end: value} // when submitting and there is no value default to start date later
+      }
+      if (name === "autoCreateDays") {
+        setAutoCreateDays(!autoCreateDays);
       }
 
       setTrip(newTrip);  
@@ -65,14 +69,15 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       
       // Create days for the trip automatically if checkbox is checked!
 
+      if (autoCreateDays) createDays(createdTrip);
+
+      // update the trip list
       
 
     } catch (err) {
       console.error('Error creating Trip: ' + err + 'when creating ' + trip )
     }
     
-    
-
 };
 
   return (<>
@@ -112,8 +117,8 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
         />
 
       <div className='checkbox-group'>
-        <input type='checkbox' name='autoDayPopulation' onChange={handleChange}/> 
-        <label htmlFor='autoDayPopulation'> automatically create days</label>
+        <input type='checkbox' name='autoCreateDays' onChange={handleChange}/> 
+        <label htmlFor='autoCreateDays'> automatically create days</label>
         
       </div>
 

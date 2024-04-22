@@ -1,4 +1,6 @@
 import { Trip } from "./models/types";
+import { DateTime, Interval } from "luxon";
+
 
 // ADD API SERVICES HERE
 const apiURL = 'http://localhost:3000';
@@ -83,6 +85,67 @@ export async function createTrip(userId:number, trip:Trip):Promise<Trip> {
         console.error('Failed to user trips:', error);
       }
 }
+
+// creates an empty day for the given trip in the database and returns it 
+// creates a Day in the database and returns the new Day object
+
+export async function createDay(trip, date):Promise<Trip> {
+
+    const query = apiURL + '/trips/' + trip.id + '/days/';
+    
+    const newDay = {
+        // id: number, -> should be created automatically by db
+        date: date, //timestamp
+        tripId: trip.id, //associated Trip ID 
+        description: 'Double click to change...',
+        blogEntry: 'Double click to create a new blog entry...',
+        assets: [],
+        locationCenter: trip.locationCenter,
+        mood: 0, //default to happy :)
+    }
+
+    console.log(newDay);
+
+    try {
+        const response = await fetch(query, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newDay)
+        });
+
+        if (!response.ok) throw new Error('Network error while creating new day.');
+        
+        const createdTrip = await response.json();
+        console.log(response);
+        return createdTrip;
+      } catch (error) {
+        console.error('Failed to create day:', error);
+      }
+}
+
+
+export async function createDays(trip:Trip):Promise<Trip> {
+    
+    // calculate the trip length in days in order to create the correct number of Day objects
+    const tripStart = DateTime.fromMillis(Number(trip.start));
+    const tripEnd = DateTime.fromMillis(Number(trip.end));
+
+    const interval = Interval.fromDateTimes(tripStart, tripEnd);
+    const tripLength = interval.length('days'); // get the length in days
+
+    // loop through the days and increment the datetime by 1 day (in millis)
+    // then create an empty day with the new date
+    
+    let currentDate = tripStart; //--> DB needs a timestamp and not a date
+    for (let i = 0; i < tripLength; i++) {
+        createDay(trip, currentDate);
+        currentDate += 86400000; //day in millis, ok for now, maybe there is luxon func for this...
+    }
+}
+
 
 // // deletes the Trip from the database and returns the deleted Trip
 // export async function deleteTrip(tripId:number):Trip {

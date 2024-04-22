@@ -5,7 +5,7 @@ const Trip = sequelize.define('trip', {
 
     authorId: {
        type: DataTypes.BIGINT,
-       allowNull: false
+       allowNull: false,
     },
  
     name: {
@@ -44,11 +44,6 @@ const Trip = sequelize.define('trip', {
  // DAY TYPE
  
  const Day = sequelize.define('day', {
-     id: {
-         type: DataTypes.INTEGER,
-         primaryKey: true,
-         autoIncrement: true
-     },
  
      tripId: {
        type: DataTypes.INTEGER,

@@ -48,6 +48,16 @@ async function createTrip (trip) {
    }
 }
 
+async function createDay (day) {
+   try {
+      const createdDay = await  Day.create(day);
+      return createdDay;
+   } catch (err) {
+      console.log('Error:' , err);
+      return null;
+   }
+}
+
 async function getAllDaysByTripId (tripId) {
    try {
       const days = await Day.findAll({ where: { tripId: tripId } });
@@ -63,4 +73,4 @@ async function getAllDaysByTripId (tripId) {
    }
 }
 
-module.exports = { getAllTripsByUserId, getTripById, createTrip, deleteTrip, getAllDaysByTripId }
+module.exports = { getAllTripsByUserId, getTripById, createDay, createTrip, deleteTrip, getAllDaysByTripId }

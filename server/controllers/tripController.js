@@ -62,3 +62,14 @@ exports.getAllDaysByTripId = async ctx => {
         ctx.status =500;
     }
 }
+
+exports.createDay = async ctx=> {
+    try{
+        const day = ctx.request.body;
+        ctx.body = await tripModel.createDay(day);
+        ctx.status = 201; // CREATED 201
+    } catch (err) {
+        ctx.body = err;
+        ctx.status = 500;
+    }
+}

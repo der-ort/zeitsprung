@@ -34,6 +34,9 @@ const { upload } = require('./multer.config');
     // 
     router.get('/trips/:tripId/days', tripController.getAllDaysByTripId)
 
+    // creates a day for the given trip
+    router.post('/trips/:tripId/days', tripController.createDay)
+
 // ASSETS
     // get all assets for the trip with the given ID
     // request: body contains json object with id -> {id: tripId}
@@ -44,12 +47,9 @@ const { upload } = require('./multer.config');
     // responds: with a sorted (by date) array of asset objects for the day with the given ID
     router.get('/assets/day/:dayId', assetsController.getAllAssetsByDayId)
     
-    // add an array of asset objects to the trip with the given ID
-    //multer file fields:
-    const fileFields = [
-        { name: 'file', maxCount: 99 } // Adjust according to your needs
-    ];
-    
+    // upload a single file using multer
+    // can later be adjusted to take an array of objects but for now the single file upload is working fine
+    // multiple file upload is being handled by the client with a map-loop
     router.post('/assets/trip/:tripId/day/:dayId', upload.single('file'), assetsController.saveTripAssets)
     
     
