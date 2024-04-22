@@ -52,7 +52,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         <LayersControl>
           {mapLayers.map((mapLayer) => (
             <LayersControl.BaseLayer 
-              {...(mapLayer.name === 'Stadia Outdoor' ? { checked: true } : {})}
+              {...(mapLayer.name === 'Stadia Outdoor' ? { checked: true } : {})} // Put the name of the default map here... move up with variable and ultimately put it in .env 
               key={mapLayer.name} 
               name={mapLayer.name}>
               <TileLayer
@@ -70,6 +70,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                   // compose the link for the asset placed on the map file:
                   const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
                   const assetExifData = JSON.parse(asset.exifData);
+                  isNaN(asset.coordinates[0]) || isNaN(asset.coordinates[0]) ? asset.coordinates =  [0,0] : null;
 
                   // create a custom Marker that displays the actual photo
                     const imageIcon = new L.Icon({

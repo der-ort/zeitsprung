@@ -9,6 +9,7 @@ const apiURL = 'http://localhost:3000';
 
 
 // REQUIRES MORE WORK!
+// refactor to try/catch instead of promise chain
 
 export async function getAllTripsByUserId(userId:number):Promise<Trip[]> {
 

@@ -80,7 +80,7 @@ exports.saveTripAssets = async ctx => {
             description: extraData.description, 
             assetType: extraData.type, 
             fileLocation: file.filename,
-            coordinates: [exifData.latitude, exifData.longitude],
+            coordinates: isNaN(exifData.latitude) ? [0,0] : [exifData.latitude, exifData.longitude],
             captureDate: new Date(exifData.CreateDate).getTime(),
             associatedDays: [ctx.params.dayId],
             associatedTrips: [ctx.params.tripId],
