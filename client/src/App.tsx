@@ -60,13 +60,18 @@ function App() {
 
   // GET ALL TRIPS FOR THE CURRENT USER
   useEffect(() => {
+
     const fetchCurrentUserTrips = async (userId) => {
+    
       try {
         const query = `http://127.0.0.1:3000/user/${userId}/trips`;
         const response = await fetch(query);
+    
         if (!response.ok) throw new Error('Network error while fetching Days.');
+    
         const trips = await response.json();
         setCurrentUserTrips(trips);
+    
       } catch (error) {
         console.error('Failed to user trips:', error);
       }
@@ -108,9 +113,12 @@ function App() {
       try {
         const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
         const response = await fetch(query);
+        
         if (!response.ok) throw new Error('Network error while fetching day assets.');
+        
         const assets = await response.json();
         setCurrentAssets(assets);
+      
       } catch (error) {
         console.error('Failed to fetch trip days:', error);
       }
@@ -120,10 +128,9 @@ function App() {
 
   // --------------- EFFECTS
 
-
   return (
     <>
-    {/* a map background with alternating locations to create an appealing selection screen */}
+    {/* a map background with alternating locations */}
     {!currentTrip ? <BackgroundMap /> : null}
 
     {/* conditional rendering of trip selector, trip creation and actual trip view */}
@@ -132,35 +139,81 @@ function App() {
 
     <div className='parent'>
       
-      <TripTitle className={"trip-title"} trip={currentTrip} setCurrentTrip={setCurrentTrip} setCurrentDay={setCurrentDay}/>
+
+      <TripTitle        className={"trip-title"} 
+                        trip={currentTrip} 
+                        setCurrentTrip={setCurrentTrip} 
+                        setCurrentDay={setCurrentDay}
+      />
       
-      <Timeline className={"timeline"} currentTripDays={currentTripDays} setCurrentDay={setCurrentDay} currentDay={currentDay}/>
+
+      <Timeline         className={"timeline"} 
+                        currentTripDays={currentTripDays} 
+                        setCurrentDay={setCurrentDay} 
+                        currentDay={currentDay}
+      />
       
-      <DateControl currentDay={currentDay} setCurrentDay={setCurrentDay} currentTripDays={currentTripDays}/>
+
+      <DateControl      currentDay={currentDay} 
+                        setCurrentDay={setCurrentDay} 
+                        currentTripDays={currentTripDays}
+      />
       
-      <DayInfo currentDay={currentDay}/>
+
+      <DayInfo          currentDay={currentDay} />
       
-      <BlogContainer currentDay={currentDay} setCurrentDay={setCurrentDay} currentTrip={currentTrip} currentTripDays={currentTripDays}/>
-      
-      {/* TO DO: rename component to "ADD DAY" */}
-      <AddNewDayButton setCurrentDay={setCurrentDay} currentTrip={currentTrip} currentTripDays={currentTripDays} />
-      
-      <Map className={"map"} currentAssets={currentAssets} />
-      
+
+      <BlogContainer    currentDay={currentDay} 
+                        setCurrentDay={setCurrentDay} 
+                        currentTrip={currentTrip} 
+                        setCurrentTrip={setCurrentTrip} 
+                        currentTripDays={currentTripDays}
+      />
+
+
+      <AddNewDayButton setCurrentDay={setCurrentDay} 
+                       currentTrip={currentTrip} 
+                       currentTripDays={currentTripDays}
+                       setCurrentTripDays={setCurrentTripDays} 
+      />
+
+
+      <Map className={"map"} 
+           currentAssets={currentAssets}
+      />
+
+
       {/* ASSET BUTTON */}
+
         {/* show add assets only when "uploadMode" is true. -> useState*/}
-        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId} />}  
+      
+        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} 
+                                      currentTrip={currentTrip} 
+                                      setCurrentDay={setCurrentDay} 
+                                      currentDay={currentDay} 
+                                      setCurrentTrip={setCurrentTrip} 
+                                      currentUserId={currentUserId} 
+                                      setCurrentAssets={setCurrentAssets}
+                                      currentAssets = {currentAssets}
+                                      fetchCurrentDayAssets={fetchCurrentDayAssets}
+
+                        />}  
+      
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
-        <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
+        <AddAssetsButton setUploadMode={setUploadMode} 
+                         uploadMode={uploadMode}
+        />
     
     </div>
-
+    
     : 
+    
     // Show trip list if no trip is selected
-    <TripList currentUserTrips={currentUserTrips} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId} />
-    
+    <TripList currentUserTrips={currentUserTrips} 
+              setCurrentTrip={setCurrentTrip} 
+              currentUserId={currentUserId} 
+    />
     }
-    
     </>
   )
 }

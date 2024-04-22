@@ -52,6 +52,7 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
           const formData = new FormData();
           formData.append('file', file);
     
+          // MOVE THIS TO THE API HELPERS FILE
           // post formData which includes the JPG
           const response = await fetch(`http://localhost:3000/assets/trip/${currentTrip.id}/day/${currentDay.id}`, {
             method: 'POST',
@@ -68,7 +69,7 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
 
         // for conditional rendering change the upload mode and reset the currentDay for a refresh
         setUploadMode(false);
-        setCurrentDay(currentDay);
+        setCurrentDay({...currentDay});
     } catch (err) {
       console.error('Error uploading files: ' + err);
       setUploadMode(false);

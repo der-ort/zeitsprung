@@ -34,6 +34,7 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       if (name === "name") newTrip = { ...newTrip, name: value};
       if (name === "description") newTrip = { ...newTrip, description: value};
       if (name === "start") newTrip = { ...newTrip, start:  value};
+      // newTrip = { ...newTrip, [name]: value} <- replace previous code with this
       if (name === "end") {
         // ADD check for start < enddate and vice versa
         newTrip = { ...newTrip, end: value} // when submitting and there is no value default to start date later
@@ -55,8 +56,6 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
     const convertedEnd = new Date(trip.end).getTime();
 
     const newTrip = {...trip, start: convertedStart, end: convertedEnd}
-    console.log('newTrip')
-    console.log(newTrip)
 
     // create new trip on server
     try {
@@ -74,9 +73,9 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
         //update the newly created days
         // fetchCurrentTripDays(createdTrip.id);
       }
+      
       // update the trip to get the new days
       setCurrentTrip(createdTrip);
-
 
     } catch (err) {
       console.error('Error creating Trip: ' + err + 'when creating ' + trip )
@@ -127,8 +126,13 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       </div>
 
       <div className="button-group">
-        <button onClick={() => setEditTrip(false)}><FeatherIcon.X size={48} color='#aaaaaa'/></button>
-        <button type="submit"><FeatherIcon.ArrowRight size={48}/></button>
+        <button onClick={() => setEditTrip(false)}>
+          <FeatherIcon.X size={48} color='#aaaaaa'/>
+        </button>
+
+        <button type="submit">
+          <FeatherIcon.ArrowRight size={48}/>
+        </button>
       </div>
     </form>
     </>

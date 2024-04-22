@@ -1,23 +1,36 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import DOMPurify from 'dompurify'; // Ensure DOMPurify is imported
 import { Day } from '../../models/types';
 import BlogEditor from '../BlogEditor/BlogEditor';
 
 interface BlogContainerProps {
   currentDay: Day;
-  setCurrentDay: (day: Day) => void; // Ensure setCurrentDay is included in props
+  setCurrentDay: (day: Day) => void; 
 }
 
-const BlogContainer: FC<BlogContainerProps> = ({ currentDay, setCurrentDay }) => {
+const BlogContainer: FC<BlogContainerProps> = ({ currentDay, setCurrentDay, currentTrip, setCurrentTrip }) => {
   const [blogEditMode, setBlogEditMode] = useState(false);
-  const cleanBlogEntry = DOMPurify.sanitize(currentDay.blogEntry);
+  const [cleanBlogEntry, setCleanBlogEntry] = useState('');
+  
+  useEffect(() => {
+    const sanitizedBlog = DOMPurify.sanitize(currentDay.blogEntry);
+    setCleanBlogEntry(sanitizedBlog);
+  }, [currentDay]);
 
   return (
     <>
       <div className="blog-container">
         {blogEditMode
-          ? <BlogEditor currentDay={currentDay} setCurrentDay={setCurrentDay} setBlogEditMode={setBlogEditMode} />
-          : <p className="blog-entry" onDoubleClick={() => setBlogEditMode(!blogEditMode)} dangerouslySetInnerHTML={{ __html: cleanBlogEntry }}></p>
+          ? <BlogEditor currentDay={currentDay} 
+                        setCurrentDay={setCurrentDay} 
+                        setBlogEditMode={setBlogEditMode} 
+                        currentTrip={currentTrip} 
+                        setCurrentTrip={setCurrentTrip}
+            />
+          : <p className="blog-entry" 
+               onDoubleClick={() => setBlogEditMode(!blogEditMode)} 
+               dangerouslySetInnerHTML={{ __html: cleanBlogEntry }}>
+          </p>
         }
       </div>
     </>

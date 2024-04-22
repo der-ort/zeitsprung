@@ -11,7 +11,7 @@ interface AddNewDayButtonProps {
 // REFACTOR: IT IS ACTUALLY THE "ADD DAY BUTTON" NOW
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const AddNewDayButton: FC<AddNewDayButtonProps> = ({setCurrentDay, currentTrip, currentTripDays}) => {
+const AddNewDayButton: FC<AddNewDayButtonProps> = ({setCurrentDay, currentTrip, currentTripDays, setCurrentTripDays}) => {
 
   const handleClick = async () => {
     // get the last day of trip: -> could be a function on its own...
@@ -22,8 +22,10 @@ const AddNewDayButton: FC<AddNewDayButtonProps> = ({setCurrentDay, currentTrip, 
 
     try {
       const newDay = await createDay(currentTrip, newDate);
-      //setCurrentDay(newDay);
-    console.log('created new day ' + newDay)
+      console.log('created new day ' + newDay)
+      setCurrentTripDays(prevDays => [...prevDays, newDay]);
+      setCurrentDay(newDay);
+
     } catch(err) {
       console.error('Could not create new Day: ' + err);
     }

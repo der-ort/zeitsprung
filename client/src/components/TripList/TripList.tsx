@@ -30,7 +30,7 @@ const TripList: FC<TripListProps> = ({currentUserTrips, setCurrentTrip, currentU
             {currentUserTrips.map((trip) => (
               <TripListItem key={trip.id} setCurrentTrip={setCurrentTrip} trip={trip} />
             ))}
-            <NewTripButton setEditTrip={setEditTrip}  setCurrentTrip={setCurrentTrip}/>
+              <NewTripButton setEditTrip={setEditTrip}  setCurrentTrip={setCurrentTrip}/>
           </div>
           <h4>TRIPSITTER 2024</h4>
         </div>

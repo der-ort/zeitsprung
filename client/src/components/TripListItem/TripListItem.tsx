@@ -18,6 +18,7 @@ const TripListItem: FC<TripListItemProps> = ({trip, setCurrentTrip}) => {
           {/* SHOW DURATION */}
           <p><FeatherIcon.Clock size={16} />  &nbsp;  {DateTime.fromMillis(Number(trip.start)).toLocaleString()}&nbsp;  <br/>
           <FeatherIcon.ArrowRight size={16} />  &nbsp;  {DateTime.fromMillis(Number(trip.end)).toLocaleString()}</p>
+          <FeatherIcon.XSquare size={16} className='delete-trip'/>
        </div>
     </>
   );

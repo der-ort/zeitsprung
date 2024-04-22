@@ -45,7 +45,8 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         minZoom={3}
         maxZoom={19}
         maxBounds={[[-85.06, -180], [85.06, 180]]}
-        scrollWheelZoom={true}>
+        scrollWheelZoom={true}
+        >
 
         
         {/* ITERATE THROUGH MAP SOURCES AND CREATE LAYER SELECTOR*/}
@@ -90,9 +91,14 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                         >
                             <Popup>
                                 <h3>{asset.description}</h3>
-                                <img src={assetURL} alt="Waypoint view" style={{ width: '100%' }} />
+                                <img src={assetURL} 
+                                     alt="Waypoint view" 
+                                     style={{ width: '100%' }} 
+                                />
                                 <div className='exif-table-wrapper'>
-                                <KeyValueTable data={assetExifData} head={false} /> 
+                                <KeyValueTable data={assetExifData} 
+                                               head={false} 
+                                /> 
                                 </div>
                                 <br />
                                 {DateTime.fromMillis(Number(asset.captureDate)).toLocaleString()} 
