@@ -118,14 +118,40 @@ export async function createDay(trip, date):Promise<Trip> {
 
         if (!response.ok) throw new Error('Network error while creating new day.');
         
-        const createdTrip = await response.json();
+        const createdDay = await response.json();
         console.log(response);
-        return createdTrip;
+        return createdDay;
       } catch (error) {
         console.error('Failed to create day:', error);
       }
 }
 
+export async function updateDay(day):Promise<Day> {
+    const query = apiURL + '/days/' + day.id;
+
+    console.log(day)
+    console.log(day.id)
+
+
+    try {
+        const response = await fetch(query, {
+            method: "PUT",
+            mode: "cors",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(day)
+        });
+
+        if (!response.ok) throw new Error('Network error while updating day.');
+        
+        const updatedDay = await response.json();
+        console.log(response);
+        return updatedDay;
+      } catch (error) {
+        console.error('Failed to create day:', error);
+      }
+}
 
 export async function createDays(trip:Trip):Promise<Trip> {
     

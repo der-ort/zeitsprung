@@ -58,6 +58,17 @@ async function createDay (day) {
    }
 }
 
+async function updateDay (dayId, newDay) {
+   try {
+      const oldDay = await Day.findOne({ where: { id: dayId } })
+      const updatedDay = await oldDay.update(newDay);
+      return updatedDay;
+   } catch (err) {
+      console.log('Error:' , err);
+      return null;
+   }
+}
+
 async function getAllDaysByTripId (tripId) {
    try {
       const days = await Day.findAll({ where: { tripId: tripId } });
@@ -73,4 +84,4 @@ async function getAllDaysByTripId (tripId) {
    }
 }
 
-module.exports = { getAllTripsByUserId, getTripById, createDay, createTrip, deleteTrip, getAllDaysByTripId }
+module.exports = { getAllTripsByUserId, getTripById, createDay, updateDay, createTrip, deleteTrip, getAllDaysByTripId }

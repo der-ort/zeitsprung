@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import * as FeatherIcon from 'react-feather';
 import DOMPurify from 'dompurify';
+import { updateDay } from '../../api.service';
 
 interface BlogEditorProps {
   blogEntry:string;
@@ -14,7 +15,9 @@ const BlogEditor: FC<BlogEditorProps> = ({setBlogEditMode, setCurrentDay, curren
     function onSaveHandler() {
         const newBlogEntry = quillText;
         console.log(newBlogEntry);
-        setCurrentDay({...currentDay, blogEntry: DOMPurify.sanitize(quillText)});
+        const updatedDay = {...currentDay, blogEntry: DOMPurify.sanitize(quillText)}
+        setCurrentDay(updatedDay);
+        updateDay(updatedDay)
         setBlogEditMode(false);
     }
     

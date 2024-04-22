@@ -6,7 +6,7 @@ import Timeline from './components/Timeline/Timeline'
 import DateControl from './components/DateControl/DateControl'
 import DayInfo from './components/DayInfo/DayInfo'
 import BlogContainer from './components/BlogContainer/BlogContainer'
-import BlogFooter from './components/BlogFooter/BlogFooter'
+import AddNewDayButton from './components/AddNewDayButton/AddNewDayButton'
 import AddAssetsButton from './components/AddAssetsButton/AddAssetsButton'
 import AddAssetsForm from './components/AddAssetsForm/AddAssetsForm'
 import TripList from './components/TripList/TripList'
@@ -140,16 +140,16 @@ function App() {
       
       <DayInfo currentDay={currentDay}/>
       
-      <BlogContainer currentDay={currentDay} setCurrentDay={setCurrentDay} />
+      <BlogContainer currentDay={currentDay} setCurrentDay={setCurrentDay} currentTrip={currentTrip} currentTripDays={currentTripDays}/>
       
       {/* TO DO: rename component to "ADD DAY" */}
-      <BlogFooter />
+      <AddNewDayButton setCurrentDay={setCurrentDay} currentTrip={currentTrip} currentTripDays={currentTripDays} />
       
       <Map className={"map"} currentAssets={currentAssets} />
       
       {/* ASSET BUTTON */}
         {/* show add assets only when "uploadMode" is true. -> useState*/}
-        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId}/>}  
+        {uploadMode && <AddAssetsForm setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay} setCurrentTrip={setCurrentTrip} currentUserId={currentUserId} />}  
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
         <AddAssetsButton setUploadMode={setUploadMode} uploadMode={uploadMode}/>
     

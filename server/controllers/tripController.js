@@ -73,3 +73,15 @@ exports.createDay = async ctx=> {
         ctx.status = 500;
     }
 }
+
+exports.updateDay = async ctx=> {
+    try{
+        const dayId = ctx.params.dayId
+        const newDay = ctx.request.body;
+        ctx.body = await tripModel.updateDay(dayId, newDay);
+        ctx.status = 200;
+    } catch (err) {
+        ctx.body = err;
+        ctx.status = 500;
+    }
+}

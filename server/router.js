@@ -37,6 +37,10 @@ const { upload } = require('./multer.config');
     // creates a day for the given trip
     router.post('/trips/:tripId/days', tripController.createDay)
 
+    // updates the day with the given id
+    router.put('/days/:dayId', tripController.updateDay)
+
+
 // ASSETS
     // get all assets for the trip with the given ID
     // request: body contains json object with id -> {id: tripId}

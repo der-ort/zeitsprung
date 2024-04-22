@@ -69,10 +69,14 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       
       // Create days for the trip automatically if checkbox is checked!
 
-      if (autoCreateDays) createDays(createdTrip);
+      if (autoCreateDays) {
+        createDays(createdTrip);
+        //update the newly created days
+        // fetchCurrentTripDays(createdTrip.id);
+      }
+      // update the trip to get the new days
+      setCurrentTrip(createdTrip);
 
-      // update the trip list
-      
 
     } catch (err) {
       console.error('Error creating Trip: ' + err + 'when creating ' + trip )
