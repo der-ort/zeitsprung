@@ -19,7 +19,7 @@ const emptyDay = {
   date: Date.now(),
   id: 3,
   mood: 2,
-
+  locationCenter: [51.50,-0.09]
 }
 
 function App() {

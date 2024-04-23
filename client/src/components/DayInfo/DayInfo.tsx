@@ -2,7 +2,7 @@ import { FC } from 'react';
 import MoodFace from '../MoodFace/MoodFace';
 import { Moon, Hemisphere } from 'lunarphase-js';
 import { Day } from '../../models/types';
-// import { getHistoWeather } from '../../api.service';
+import { getHistoWeather } from '../../api.service';
 
 interface DayInfoProps {
   currentDay: Day;
@@ -44,9 +44,7 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
   }
 
 
-  // const histoWeather = getHistoWeather(currentDay.locationCenter, Number(currentDay.date));
-  //  console.log(histoWeather)
-   
+const histoWeather = getHistoWeather(currentDay);
   
   return (
     <>
@@ -54,7 +52,7 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
         <MoodFace mood={currentDay.mood} />
         <span className='lunarPhase' dangerouslySetInnerHTML={{ __html: getLunarPhaseUTF() }}></span>
         {/* ADD HISTORIC WEATHER LATER */}
-        {/* <HistoWeather day={CurrentDay} />*/}
+        {histoWeather.description}
       </div></>
   );
 };

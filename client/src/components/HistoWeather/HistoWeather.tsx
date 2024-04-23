@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
 import MoodFace from '../MoodFace/MoodFace';
 import { Day } from '../../models/types';
+import KeyValueTable from '../Map/KeyValueTable';
 
 
 // REWRITE THIS -> SHOULD GO ON SERVER; IT CAN TAKE A TIMESPAN AND NOT ONLY A POINT IN TIME
@@ -15,28 +16,22 @@ interface HistoWeatherProps {
 
 // Takes the current day and fetches the historical weather data for the place and day
 // https://open-meteo.com/en/docs/historical-weather-api
-// up to 10k calls per day are free
+// decided for openweathermap -> put API key to env variable
+
 
 
 function async getHistoricalWeather (day) {
+
     const [lat, lon] = [...day.coordinates]
     
-    const params = {
-        "latitude": lat,
-        "longitude": lon,
-        "start_date": "2024-04-03",
-        "end_date": "2024-04-17",
-        "hourly": "temperature_2m"
-    };
+    const API_Key = '3d8383e9e1e7bcbeadd072ba94dd6069'
 
-    const apiURL = 'https://archive-api.open-meteo.com/v1/archive';
+    const apiURL = `https://history.openweathermap.org/data/2.5/history/city?`;
     
     // get lat, lon and unix timestamp from day object
-    
-    const dt = day.date; // date in unix timestamp = milliseconds
-    
+         
     // construct API query
-    const query =  apiURL + `lat=${lat}&lon=${lon}&dt=${dt}&appid=${API key}'`;
+    const query =  apiURL + `lat=${lat}&lon=${lon}&type=hour&start=${day.date}&appid=${API_key}`;
 
     console.log('fetching historic weather data:');
     console.log(query);
@@ -53,10 +48,10 @@ function async getHistoricalWeather (day) {
 }
 
 // Add a prop that is currentDate / waypoint
-const HistoWeather: FC<HistoWeatherProps> = ({day}) => {
+const HistoWeather: FC<HistoWeatherProps> = ({getHistoricalWeather}) => {
   return (
     <>
-        {weatherIcons[weather]}
+        {KeyValueTable(gethisto)}
     </>
   );
 };

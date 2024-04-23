@@ -1,7 +1,6 @@
 import { Trip } from "./models/types";
 import { DateTime, Interval } from "luxon";
-import { fetchWeatherApi } from 'openmeteo';
-
+import { apikey } from "./APIKEY";
 
 // ADD API SERVICES HERE
 const apiURL = 'http://localhost:3000';
@@ -176,112 +175,81 @@ export async function createDays(trip:Trip):Promise<Trip> {
  // get historical weather data:
   // parameters for the openmeteo API
   // lat + lon
-  // date as a unix timestamp
-  export async function getHistoWeather(coordinates, timestamp) {
+  // would prefer pirateweather or the open api by https://open-meteo.com/en/docs/historical-weather-api (without KEY! would be perfect...) or openweathermap
+  // but can't get their api to work
+
+  export async function getHistoWeather(day) {
     
-    const lat = coordinates[0];
-    const lon = coordinates[1];
+    // set the default provider
+    const provider:string = 'pirateweather';
 
-    const date = DateTime.fromMillis(Number(timestamp)).toFormat('yyyy-MM-dd');
-    const date2 = DateTime.fromMillis(Number(timestamp)+86400000 ).toFormat('yyyy-MM-dd');
-    const url = 'https://api.open-meteo.com/v1/archive';
+    console.log(day)
+    const [lat, lon] = [...day.locationCenter]
+    let dateString = DateTime.fromMillis(Number(day.date));
+    let apiURL = '';
+    let query = '';
+    let API_key  = ''
+    let formattedWeather = {};
 
-    const params = {
-        "latitude": Number(lat),
-        "longitude": Number(lon),
-        "start_date": date,
-        "end_date": date2,
-        "daily": ["weather_code", "temperature_2m_max", "temperature_2m_min", "temperature_2m_mean", "apparent_temperature_max", "apparent_temperature_min", "apparent_temperature_mean", "sunrise", "sunset", "daylight_duration", "sunshine_duration", "precipitation_sum", "rain_sum", "snowfall_sum", "precipitation_hours", "wind_speed_10m_max", "wind_gusts_10m_max", "wind_direction_10m_dominant", "shortwave_radiation_sum", "et0_fao_evapotranspiration"],
-        "wind_speed_unit": "ms"
-    };
+    switch (provider) {
+        case 'visualcrossing':
+            dateString = dateString.toFormat('yyyy-MM-dd')
+            API_key = 'ABCDEFGHIJKLMNOPQRSTUVXYZ'
+            apiURL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/`;
+            query =  apiURL + `${lat},${lon}/${dateString}?key=${API_key}&unitGroup=metric`;
+        break;
+
+        case 'pirateweather':
+            dateString = dateString.toISO()
+            API_key = apikey; // you need to create an apikey.tsx file in the same folder with the according keys
+            apiURL = `https://timemachine.pirateweather.net/forecast/`;
+            query =  apiURL + `${API_key}/${lat},${lon},${dateString}`;
+        break;
+
+        case 'openweathermap':
+            API_key = 'ABCDEFGHIJKLMNOPQRSTUVXYZ'
+            apiURL = `https://history.openweathermap.org/data/2.5/history/city?`;
+            query =  apiURL + `lat=${lat}&lon=${lon}&type=hour&start=${day.date}&appid=${API_key}`;
+        break;
+
+        // https://www.weatherbit.io/api/historical-weather-daily
+        case 'weatherbit':
+
+            API_key = ''
+            apiURL = `https://api.weatherbit.io/v2.0/history/daily`;
+            query =  apiURL + `&lat=${lat}&lon=${lon}&start_date=${dateString}&end_date=${dateString}&key=${API_key}`;
+
+        break;
+    }
+    
+    console.log('getting historical data from ' + provider)
+    console.log(query);
+
 
         try {
-            const responses = await fetchWeatherApi(url, { params });
-            console.log(responses[0])
+            const response = await fetch(query);
+            const historicWeather = await response.json();
+        
+            switch (provider) {
+                case 'pirateweather':
+                    formattedWeather = { ...historicWeather };
+                    console.log(historicWeather)
+                    return formattedWeather;
 
-            // taken from openmeteo api
-            
-            // Helper function to form time ranges
-            const range = (start: number, stop: number, step: number) =>
-           Array.from({ length: (stop - start) / step }, (_, i) => start + i * step);
-            
-            // Process first location. Add a for-loop for multiple locations or weather models
-            const response = responses[0];
+                case 'visualcrossing':
+                    formattedWeather = { ...historicWeather.days[0] };
+                    return formattedWeather;
+                case 'openweathermap':
+                    // add formatting
+                break;
+            }
 
-            // Attributes for timezone and location
-            const utcOffsetSeconds = response.utcOffsetSeconds();
-            // const timezone = response.timezone();
-            // const timezoneAbbreviation = response.timezoneAbbreviation();
-            // const latitude = response.latitude();
-            // const longitude = response.longitude();
-
-            const daily = response.daily()!;
-
-            console.log(daily);
-
-            // Note: The order of weather variables in the URL query and the indices below need to match!
-            const weatherData = {
-
-                daily: {
-                    time: range(Number(daily.time()), Number(daily.timeEnd()), daily.interval()).map(
-                        (t) => new Date((t + utcOffsetSeconds) * 1000)
-                    ),
-                    weatherCode: daily.variables(0)!.valuesArray()!,
-                    temperature2mMax: daily.variables(1)!.valuesArray()!,
-                    temperature2mMin: daily.variables(2)!.valuesArray()!,
-                    temperature2mMean: daily.variables(3)!.valuesArray()!,
-                    apparentTemperatureMax: daily.variables(4)!.valuesArray()!,
-                    apparentTemperatureMin: daily.variables(5)!.valuesArray()!,
-                    apparentTemperatureMean: daily.variables(6)!.valuesArray()!,
-                    sunrise: daily.variables(7)!.valuesArray()!,
-                    sunset: daily.variables(8)!.valuesArray()!,
-                    daylightDuration: daily.variables(9)!.valuesArray()!,
-                    sunshineDuration: daily.variables(10)!.valuesArray()!,
-                    precipitationSum: daily.variables(11)!.valuesArray()!,
-                    rainSum: daily.variables(12)!.valuesArray()!,
-                    snowfallSum: daily.variables(13)!.valuesArray()!,
-                    precipitationHours: daily.variables(14)!.valuesArray()!,
-                    windSpeed10mMax: daily.variables(15)!.valuesArray()!,
-                    windGusts10mMax: daily.variables(16)!.valuesArray()!,
-                    windDirection10mDominant: daily.variables(17)!.valuesArray()!,
-                    shortwaveRadiationSum: daily.variables(18)!.valuesArray()!,
-                    et0FaoEvapotranspiration: daily.variables(19)!.valuesArray()!,
-                },
-
-            };
-
-            // `weatherData` now contains a simple structure with arrays for datetime and weather data
-            for (let i = 0; i < weatherData.daily.time.length; i++) {
-                console.log(
-                    weatherData.daily.time[i].toISOString(),
-                    weatherData.daily.weatherCode[i],
-                    weatherData.daily.temperature2mMax[i],
-                    weatherData.daily.temperature2mMin[i],
-                    weatherData.daily.temperature2mMean[i],
-                    weatherData.daily.apparentTemperatureMax[i],
-                    weatherData.daily.apparentTemperatureMin[i],
-                    weatherData.daily.apparentTemperatureMean[i],
-                    weatherData.daily.sunrise[i],
-                    weatherData.daily.sunset[i],
-                    weatherData.daily.daylightDuration[i],
-                    weatherData.daily.sunshineDuration[i],
-                    weatherData.daily.precipitationSum[i],
-                    weatherData.daily.rainSum[i],
-                    weatherData.daily.snowfallSum[i],
-                    weatherData.daily.precipitationHours[i],
-                    weatherData.daily.windSpeed10mMax[i],
-                    weatherData.daily.windGusts10mMax[i],
-                    weatherData.daily.windDirection10mDominant[i],
-                    weatherData.daily.shortwaveRadiationSum[i],
-                    weatherData.daily.et0FaoEvapotranspiration[i]
-                );}
-
-            return responses;
-        } catch (error) {
-            console.error('Failed to retrieve historical weather data:', error);
-            throw error;
+        } catch (err) {
+            console.error('Error fetching historic weather for ' + day.coordinate + ' on the ' + DateTime.fromMillis(Number(day.date)).toLocaleString)
+            return [];
         }
     }
+
 
 // // deletes the Trip from the database and returns the deleted Trip
 // export async function deleteTrip(tripId:number):Trip {
