@@ -31,7 +31,6 @@
     position: relative;
     z-index: 10;
     background: linear-gradient(to right, white, transparent);
-
   }
 
   .triplist {
@@ -97,20 +96,26 @@
     border: inherit;
     display: flex;
   }
-
+  
+  .title-title {
+    padding-left: 10px;
+  }
   /* nowrap title*/
   .trip-title h1 {
-    /* font-size: 32pt; */
+    font-size: 32pt;
     max-width: 90%;
-    white-space: nowrap;
-    overflow: hidden;
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
     text-overflow: ellipsis;
   }
+
+
   .title-chevron {
+      width: 30px;
+      padding-top: 5px;
       margin:0;
       height: 100%;
       color: cornflowerblue ;
-      flex:1;        
   }
 
   .title-chevron:hover {
@@ -263,28 +268,63 @@
 /*------------ DAY INFO */
   .day-info { 
     padding: 15px;
-    grid-area: 3 / 1 / 4 / 2; 
+    grid-area: 3 / 1 / 4 / 2;
+    /* overflow-y: auto;  */
+    display: flex;
     border: inherit;
     font-variant-emoji: text;
   }
+
+  .day-info table {
+    font-size: 10pt;
+  }
+
+  .day-info .right {
+    display: block;
+  }
+
+
+  .day-info td {
+    padding: 0 5px ;
+  }
+
   .lunarPhase {
     font-family: monospace;
     font-size: 32px;
+    margin: 0px 10px 0 0;
   }
       
 /*------------ BLOG SECTION */
   .blog-container { 
       grid-area: 4 / 1 / 5 / 2; 
       border: inherit;
-      padding: 30px;
+      padding: 0;
       font-size: smaller;
       overflow-y: auto;
       display: block;
+      position:relative;
   }
 
   .blog-editor{
     margin:0;
-      height: 80%;
+    height: 99%;
+    border: none;
+    overflow-y: hidden;
+  }
+
+  .blog-editor-icons {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 10;
+    border-radius: 10px;
+    padding: 5px;
+    background: #ffffff;
+  }
+
+  .blog-entry {
+    margin:30px;
+    height: 80%;
   }
   
    .blog-footer { 

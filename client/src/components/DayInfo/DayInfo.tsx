@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import MoodFace from '../MoodFace/MoodFace';
+// import MoodFace from '../MoodFace/MoodFace';
 import { Moon, Hemisphere } from 'lunarphase-js';
 import { Day } from '../../models/types';
 import HistoWeather from '../HistoWeather/HistoWeather';
@@ -46,10 +46,14 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
   return (
     <>
       <div className="day-info">
-        <MoodFace mood={currentDay.mood} />
+        {/* <MoodFace mood={currentDay.mood} /> */}
         <span className='lunarPhase' dangerouslySetInnerHTML={{ __html: getLunarPhaseUTF() }}></span>
-        {/* ADD HISTORIC WEATHER LATER */}
-        <HistoWeather currentDay={currentDay} />
+        
+        <div className="right">
+          <h4>{currentDay.description}</h4>
+          {/* ADD HISTORIC WEATHER LATER */}
+          <HistoWeather currentDay={currentDay} />
+        </div>
       </div></>
   );
 };

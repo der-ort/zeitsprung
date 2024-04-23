@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Day, Trip } from '../../models/types';
-import KeyValueTable from '../Map/KeyValueTable';
-import { getHistoWeather, reverseGeocode } from '../../api.service';
+// import KeyValueTable from '../Map/KeyValueTable';
+// import { getHistoWeather, reverseGeocode } from '../../api.service';
+import { mockWeather_short } from '../../mockWeather';
 // import { DateTime } from "luxon";
 
 
@@ -18,9 +19,8 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
     const fetchHistoricalWeather = async () => {
       setLoading(true);
       try {
-        const histoWeather = await getHistoWeather(currentDay);
+        //const histoWeather = await getHistoWeather(currentDay);
 
-        
         // const beautifulWeather = {
         //   summary : histoWeather.summary,
         //   sunriseTime : DateTime.fromMillis(Number(histoWeather.sunriseTime)).toLocaleString(),
@@ -34,10 +34,14 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
         //   windSpeed : histoWeather.windSpeed,
         //   pressure  : histoWeather.pressure,
         // }
-        const geoLocation = await reverseGeocode(-45.401620, -72.688644)
+        //const geoLocation = await reverseGeocode(-45.401620, -72.688644)
         
-        console.log(geoLocation.address.county + ', ' + geoLocation.address.country)
-        console.log(histoWeather)
+        // console.log(geoLocation.address.county + ', ' + geoLocation.address.country)
+        
+        // MOCK ENTRY FOR DEMO!
+        // const histoWeather = mockWeather_short.daily.data[0];
+        const histoWeather = mockWeather_short;
+        
         setWeatherData(histoWeather);
       } catch (err) {
         console.error('Error getting historic weather data:', err);
@@ -54,7 +58,17 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
       {loading ? (
         <p>Loading historic weather data...</p>
       ) : (
-        weatherData && <KeyValueTable data={weatherData} />
+        weatherData && <span>
+         <table>
+          <td>{weatherData.summary}</td>
+          <td>{weatherData.precipType} </td>
+          <td>{Math.floor(Number(weatherData.temperature))} °C</td>
+         </table>
+           
+          
+          
+
+        </span> //<KeyValueTable data={weatherData} />
       )}
     </>
   );

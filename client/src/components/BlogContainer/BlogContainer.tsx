@@ -21,7 +21,7 @@ const BlogContainer: FC<BlogContainerProps> = ({ currentDay, setCurrentDay, curr
     <>
       <div className="blog-container">
         {blogEditMode
-          ? <BlogEditor currentDay={currentDay} 
+          ? <BlogEditor class className="blog-editor" currentDay={currentDay} 
                         setCurrentDay={setCurrentDay} 
                         setBlogEditMode={setBlogEditMode} 
                         currentTrip={currentTrip} 

@@ -106,23 +106,23 @@ function App() {
     currentTripDays[0] ? setCurrentDay(currentTripDays[0]) : setCurrentDay(emptyDay);
   }, [currentTripDays])
 
+  const fetchCurrentDayAssets = async (dayId:number) => {
+    try {
+      const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
+      const response = await fetch(query);
+      
+      if (!response.ok) throw new Error('Network error while fetching day assets.');
+      
+      const assets = await response.json();
+      setCurrentAssets(assets);
+    
+    } catch (error) {
+      console.error('Failed to fetch trip days:', error);
+    }
+  };
 
   // GET ALL ASSETS FOR THE CURRENT DAY
   useEffect(() => {
-    const fetchCurrentDayAssets = async (dayId:number) => {
-      try {
-        const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
-        const response = await fetch(query);
-        
-        if (!response.ok) throw new Error('Network error while fetching day assets.');
-        
-        const assets = await response.json();
-        setCurrentAssets(assets);
-      
-      } catch (error) {
-        console.error('Failed to fetch trip days:', error);
-      }
-    };
     fetchCurrentDayAssets(currentDay.id);
   }, [currentDay.id]);
 

@@ -29,7 +29,6 @@ const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip, setCurrentDay }) => {
 
         {/* TITLE DIV */}
         <div className='title-title'>        
-          <h2>TRIP TO</h2>
           <h1>{trip.name.toUpperCase()}</h1>
           {trip.description && <h2>{trip.description}</h2>}
           

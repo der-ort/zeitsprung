@@ -24,10 +24,11 @@ const BlogEditor: FC<BlogEditorProps> = ({setBlogEditMode,
 
   return (
     <>
+        <div className='blog-editor-icons'>
         <FeatherIcon.Save size={32} onClick={onSaveHandler} />
-        
+        <br />
         <FeatherIcon.XCircle size={32} onClick={() => { setBlogEditMode(false) }} />
-        
+        </div>
         <ReactQuill className='blog-editor' 
                     theme='snow' 
                     value={quillText} 
