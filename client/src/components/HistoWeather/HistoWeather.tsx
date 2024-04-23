@@ -4,6 +4,8 @@ import { Day, Trip } from '../../models/types';
 // import { getHistoWeather, reverseGeocode } from '../../api.service';
 import { mockWeather_short } from '../../mockWeather';
 // import { DateTime } from "luxon";
+import * as FeatherIcon from 'react-feather';
+
 
 
 interface HistoWeatherProps {
@@ -53,23 +55,37 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
     fetchHistoricalWeather();
   }, [currentDay]); // Dependency array ensures this only reruns if `day` changes
 
+  const weatherIcons = {
+      "clear-day": <FeatherIcon.Sun/>,
+      "clear-night": <FeatherIcon.Moon />,
+      "rain": <FeatherIcon.CloudRain />,
+      "snow": <FeatherIcon.CloudSnow />,
+      "sleet": <FeatherIcon.CloudDrizzle />,
+      "wind": <FeatherIcon.Wind />,
+      "fog": <FeatherIcon.Cloud />,
+      "cloudy": <FeatherIcon.Cloud />,
+      "partly-cloudy-day": <FeatherIcon.Cloud />,
+      "partly-cloudy-night": <FeatherIcon.Moon />,
+      "thunderstorm": <FeatherIcon.CloudLightning />,
+      "droplet": <FeatherIcon.Droplet />,
+      "umbrella": <FeatherIcon.Umbrella />,
+      "thermometer": <FeatherIcon.Thermometer />,
+    };
+
   return (
     <>
       {loading ? (
         <p>Loading historic weather data...</p>
       ) : (
         weatherData && <span>
-         <table>
-          <td>{weatherData.summary}</td>
-          <td>{weatherData.precipType} </td>
-          <td>{Math.floor(Number(weatherData.temperature))} °C</td>
+         <table className='weather-table'>
+          <td>{weatherIcons[weatherData.summary]}<br />{weatherData.summary}</td>
+          <td>{weatherIcons[weatherData.precipType]}<br /> {weatherData.precipType} </td>
+          <td>{weatherIcons['thermometer']}<br />{Math.floor(Number(weatherData.temperature))} °C</td>
          </table>
-           
-          
-          
-
-        </span> //<KeyValueTable data={weatherData} />
+        </span>
       )}
+      
     </>
   );
 };

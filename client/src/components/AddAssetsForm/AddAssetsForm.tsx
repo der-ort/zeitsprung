@@ -8,10 +8,10 @@ interface AddAssetsFormProps {
   currentTrip:Trip;
 }
 
-const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode, currentTrip, currentDay , setCurrentDay}) => {
+const AddAssetsForm: FC<AddAssetsFormProps> = ({setUploadMode, currentTrip, currentDay , setCurrentDay, setCurrentAssets}) => {
   return (
     <>
-      <AddAssetsDropZone setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} currentDay={currentDay}/>
+      <AddAssetsDropZone setUploadMode={setUploadMode} currentTrip={currentTrip} setCurrentDay={setCurrentDay} setCurrentAssets={setCurrentAssets} currentDay={currentDay}/>
     </>
   );
 };

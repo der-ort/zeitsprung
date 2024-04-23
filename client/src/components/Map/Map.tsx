@@ -29,9 +29,9 @@ const Map: FC<MapProps> = ({currentAssets}) => {
       useEffect(() => {
         if (assets.length > 0) {
           const bounds = new L.LatLngBounds(assets.map(asset => asset.coordinates));
-          map.fitBounds(bounds,{ minZoom: 1, padding: [50,50]} );
+          map.fitBounds(bounds,{ maxZoom: 13, minZoom: 3, padding: [100,100]} );
         }
-      }, [assets, map]);
+      }, [assets, map, currentAssets]);
     
       return null;
     };
@@ -43,7 +43,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         center={startCoords} // center the map around the start coords
         zoom={6}
         minZoom={3}
-        maxZoom={19}
+        maxZoom={13}
         maxBounds={[[-85.06, -180], [85.06, 180]]}
         scrollWheelZoom={true}
         >
@@ -65,11 +65,17 @@ const Map: FC<MapProps> = ({currentAssets}) => {
       </LayersControl>
 
         {/* POPULATE THE MAP WITH MARKERS AUTOMATICALLY */}
-
+          
         <MarkerClusterGroup>
-                {currentAssets.map(asset => {
+                {
+                
+                currentAssets.map(asset => {
                   // compose the link for the asset placed on the map file:
-                  const assetURL = 'http://localhost:3000/' + asset.fileLocation; //hardcoded for now
+                  console.log('DAS HIER IST DAS ASSET')
+                  console.log('////////////////////////////////////////////')
+                  console.log(asset)
+                  console.log('////////////////////////////////////////////')
+                  const assetURL = 'http://localhost:3000/' + asset.fileLocation;
                   const assetExifData = JSON.parse(asset.exifData);
                   isNaN(asset.coordinates[0]) || isNaN(asset.coordinates[0]) ? asset.coordinates =  [0,0] : null;
 

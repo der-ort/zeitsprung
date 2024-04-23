@@ -16,7 +16,7 @@ interface AddAssetsDropZoneProps {
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {
+const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay, setCurrentAssets}) => {
   
   async function handleUpload(assets: File[]) {
   
@@ -59,13 +59,17 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
             body: formData,
           });
     
-          const data = await response.json();
-          return data;
+          const newAsset = await response.json();
+          console.log(newAsset)
+          return newAsset;
         });
         
         // actually run the earlier defined function and await all promises
         const results = await Promise.all(uploadPromises);
-        console.log(results);
+        
+        // each result should be an asset object!
+        // set the currentAssets to rerender the map component 
+        setCurrentAssets(prevAssets => [...prevAssets, ...results])
 
         // for conditional rendering change the upload mode and reset the currentDay for a refresh
         setUploadMode(false);

@@ -86,15 +86,8 @@ exports.saveTripAssets = async ctx => {
             associatedTrips: [ctx.params.tripId],
             exifData: JSON.stringify(exifData)
         }
-
-        console.log(newAsset);
-
-        // add the asset to the database!
         
-        await assetsModel.saveTripAssets(newAsset);
+        const createdAsset = await assetsModel.saveTripAssets(newAsset);
 
-        ctx.body = {
-          message: 'File uploaded successfully',
-          filename: file.filename
-        };
+        ctx.body = createdAsset;
       };

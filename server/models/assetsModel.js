@@ -25,8 +25,8 @@ const { Trip, Day, Asset } = require('./databaseModels');
 async function saveTripAssets(asset) {
    try {
       const newAsset = await Asset.create(asset);
-      console.log("Asset stored successfully:", newAsset);
-      return newAsset;
+      console.log("Asset stored successfully:", newAsset.dataValues);
+      return newAsset.dataValues;
    } catch (err) {
       console.error("Failed to create asset:", err);
    }

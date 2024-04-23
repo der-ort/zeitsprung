@@ -1,10 +1,11 @@
 export const mockWeather_short = {
-    "summary": "Cloudy",
+    "summary": "Cloudy".toLowerCase(),
     "precipType": "rain",
     "temperature": '3.17',
     "apparentTemperature": '2.79 °C',
     "pressure": '949.72 hPa',
     "windSpeed": '3.39 km/h',
+    "icon": "rain",
 }
 
 export const mockWeather = {

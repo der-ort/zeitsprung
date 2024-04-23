@@ -199,7 +199,8 @@ function App() {
                                       currentTrip={currentTrip} 
                                       setCurrentDay={setCurrentDay} 
                                       currentDay={currentDay} 
-                                      setCurrentTrip={setCurrentTrip} 
+                                      setCurrentTrip={setCurrentTrip}
+                                      setCurrentTripAssets={setCurrentAssets}
                                       currentUserId={currentUserId} 
                                       setCurrentAssets={setCurrentAssets}
                                       currentAssets = {currentAssets}
@@ -210,6 +211,7 @@ function App() {
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
         <AddAssetsButton setUploadMode={setUploadMode} 
                          uploadMode={uploadMode}
+                         setCurrentTripAssets={setCurrentAssets }
         />
     
     </div>

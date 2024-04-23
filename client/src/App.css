@@ -275,8 +275,15 @@
     font-variant-emoji: text;
   }
 
-  .day-info table {
+  .day-info .weather-table {
     font-size: 10pt;
+    text-align: center;
+  }
+
+  .day-info .weather-table td {
+    font-size: 10pt;
+    width: 80px;
+    text-align: center;
   }
 
   .day-info .right {
@@ -290,7 +297,7 @@
 
   .lunarPhase {
     font-family: monospace;
-    font-size: 32px;
+    font-size: 24px;
     margin: 0px 10px 0 0;
   }
       
