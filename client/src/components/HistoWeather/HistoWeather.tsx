@@ -1,57 +1,61 @@
-import React, { FC } from 'react';
-import { DateTime } from "luxon";
-import * as FeatherIcon from 'react-feather';
-import MoodFace from '../MoodFace/MoodFace';
-import { Day } from '../../models/types';
+import React, { FC, useEffect, useState } from 'react';
+import { Day, Trip } from '../../models/types';
 import KeyValueTable from '../Map/KeyValueTable';
+import { getHistoWeather, reverseGeocode } from '../../api.service';
+// import { DateTime } from "luxon";
 
-
-// REWRITE THIS -> SHOULD GO ON SERVER; IT CAN TAKE A TIMESPAN AND NOT ONLY A POINT IN TIME
-// CAN BE FETCHED ONCE AND THEN BE STORED IN THE DB as an object inside the trip!
 
 interface HistoWeatherProps {
   day: Day;
   trip: Trip;
 }
 
-// Takes the current day and fetches the historical weather data for the place and day
-// https://open-meteo.com/en/docs/historical-weather-api
-// decided for openweathermap -> put API key to env variable
+const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
+  const [weatherData, setWeatherData] = useState({});
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchHistoricalWeather = async () => {
+      setLoading(true);
+      try {
+        const histoWeather = await getHistoWeather(currentDay);
 
+        
+        // const beautifulWeather = {
+        //   summary : histoWeather.summary,
+        //   sunriseTime : DateTime.fromMillis(Number(histoWeather.sunriseTime)).toLocaleString(),
+        //   sunsetTime  : DateTime.fromMillis(Number(histoWeather.sunsetTime)).toLocaleString(),
+        //   moonPhase : histoWeather.moonPhase,
+        //   temperatureHigh : histoWeather.temperatureHigh,
+        //   temperatureLow  : histoWeather.temperatureLow,
+        //   temperatureMin  : histoWeather.temperatureMin,
+        //   temperatureMax  : histoWeather.temperatureMax,
+        //   precipType  : histoWeather.precipType,
+        //   windSpeed : histoWeather.windSpeed,
+        //   pressure  : histoWeather.pressure,
+        // }
+        const geoLocation = await reverseGeocode(-45.401620, -72.688644)
+        
+        console.log(geoLocation.address.county + ', ' + geoLocation.address.country)
+        console.log(histoWeather)
+        setWeatherData(histoWeather);
+      } catch (err) {
+        console.error('Error getting historic weather data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-function async getHistoricalWeather (day) {
+    fetchHistoricalWeather();
+  }, [currentDay]); // Dependency array ensures this only reruns if `day` changes
 
-    const [lat, lon] = [...day.coordinates]
-    
-    const API_Key = '3d8383e9e1e7bcbeadd072ba94dd6069'
-
-    const apiURL = `https://history.openweathermap.org/data/2.5/history/city?`;
-    
-    // get lat, lon and unix timestamp from day object
-         
-    // construct API query
-    const query =  apiURL + `lat=${lat}&lon=${lon}&type=hour&start=${day.date}&appid=${API_key}`;
-
-    console.log('fetching historic weather data:');
-    console.log(query);
-
-    try {
-    const response = await fetch(query);
-    const historicWeather = await response.json();
-
-    return historicWeather;
-    } catch (err) {
-        console.error('Error fetching historic weather for ' + day.coordinate + ' on the ' + DateTime.fromMillis(day.date).toLocaleString)
-        return [];
-    }
-}
-
-// Add a prop that is currentDate / waypoint
-const HistoWeather: FC<HistoWeatherProps> = ({getHistoricalWeather}) => {
   return (
     <>
-        {KeyValueTable(gethisto)}
+      {loading ? (
+        <p>Loading historic weather data...</p>
+      ) : (
+        weatherData && <KeyValueTable data={weatherData} />
+      )}
     </>
   );
 };

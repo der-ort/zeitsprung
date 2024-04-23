@@ -203,7 +203,7 @@ export async function createDays(trip:Trip):Promise<Trip> {
             dateString = dateString.toISO()
             API_key = apikey; // you need to create an apikey.tsx file in the same folder with the according keys
             apiURL = `https://timemachine.pirateweather.net/forecast/`;
-            query =  apiURL + `${API_key}/${lat},${lon},${dateString}`;
+            query =  apiURL + `${API_key}/${lat},${lon},${dateString}?units=ca`;
         break;
 
         case 'openweathermap':
@@ -232,8 +232,7 @@ export async function createDays(trip:Trip):Promise<Trip> {
         
             switch (provider) {
                 case 'pirateweather':
-                    formattedWeather = { ...historicWeather };
-                    console.log(historicWeather)
+                    formattedWeather = { ...historicWeather.daily.data[0] };
                     return formattedWeather;
 
                 case 'visualcrossing':
@@ -250,6 +249,39 @@ export async function createDays(trip:Trip):Promise<Trip> {
         }
     }
 
+// reverse geocoder that
+export function reverseGeocode(lat, lon) {
+
+        const apiURL = 'https://nominatim.openstreetmap.org/reverse';
+    
+        // zoom 8 = county level https://nominatim.org/release-docs/develop/api/Reverse/
+        const query =  apiURL + `?lat=${lat}&lon=${lon}&format=json&zoom=${8}`
+    
+        fetch(query, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'YourApp/1.0 (contact@example.com)'
+            }
+        })
+
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.address) {
+                document.getElementById('address').textContent = 
+                    data.address.road + ', ' +
+                    data.address.city + ', ' +
+                    data.address.country;
+            } else {
+                document.getElementById('address').textContent = 'No address found.';
+            }
+        })
+        
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('address').textContent = 'Failed to retrieve address.';
+        });
+    }
 
 // // deletes the Trip from the database and returns the deleted Trip
 // export async function deleteTrip(tripId:number):Trip {
