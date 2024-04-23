@@ -15,8 +15,8 @@ interface AddAssetsDropZoneProps {
 // TOGGLE DROPZONE WHEN DRAGENTER
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay }) => {
-  
   
   async function handleUpload(assets: File[]) {
   
@@ -69,7 +69,6 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
 
         // for conditional rendering change the upload mode and reset the currentDay for a refresh
         setUploadMode(false);
-        setCurrentDay({...currentDay});
     } catch (err) {
       console.error('Error uploading files: ' + err);
       setUploadMode(false);

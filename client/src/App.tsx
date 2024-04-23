@@ -43,7 +43,7 @@ function App() {
   const [currentTripDays, setCurrentTripDays] = useState([]);
 
   // defines the assets being shown on the map and the blogpost on the left
-  const [currentDay, setCurrentDay] = useState(Date.now());
+  const [currentDay, setCurrentDay] = useState(null);
   
   // currentAssets
   const [currentAssets, setCurrentAssets] = useState([]);
@@ -81,7 +81,7 @@ function App() {
 
 
   // GET ALL DAYS FOR THE CURRENT TRIP
-  useEffect(() => {
+  useEffect(() => { 
     const fetchCurrentTripDays = async (tripId:number):Day[] => {
       try {
         const query = `http://127.0.0.1:3000/trips/${Number(tripId)}/days`;
@@ -97,15 +97,16 @@ function App() {
         console.error('Failed to fetch trip days:', error);
       }
     };
-    fetchCurrentTripDays(currentTrip.id);
-  }, [currentTrip.id]);
+    if (currentTrip) fetchCurrentTripDays(currentTrip.id);
+  }, [currentTrip]);
 
 
   // SET THE CURRENT DAY
   useEffect(() => {
-    currentTripDays[0] ? setCurrentDay(currentTripDays[0]) : setCurrentDay(emptyDay);
+    if (!currentDay && currentTripDays) currentTripDays[0] ? setCurrentDay(currentTripDays[0]) : setCurrentDay(emptyDay);
   }, [currentTripDays])
 
+  
   const fetchCurrentDayAssets = async (dayId:number) => {
     try {
       const query = `http://127.0.0.1:3000/assets/day/${dayId}`;
@@ -123,8 +124,15 @@ function App() {
 
   // GET ALL ASSETS FOR THE CURRENT DAY
   useEffect(() => {
-    fetchCurrentDayAssets(currentDay.id);
-  }, [currentDay.id]);
+    if (currentDay) {
+      fetchCurrentDayAssets(currentDay.id);
+    }  
+  }, [currentDay]);
+
+  useEffect(() => {
+    console.log(currentDay);
+    
+  }, [currentDay])
 
   // --------------- EFFECTS
 

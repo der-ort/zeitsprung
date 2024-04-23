@@ -22,7 +22,7 @@ const AddNewDayButton: FC<AddNewDayButtonProps> = ({setCurrentDay, currentTrip, 
 
     try {
       const newDay = await createDay(currentTrip, newDate);
-      console.log('created new day ' + newDay)
+      console.log('created new day ' , newDay)
       setCurrentTripDays(prevDays => [...prevDays, newDay]);
       setCurrentDay(newDay);
 
