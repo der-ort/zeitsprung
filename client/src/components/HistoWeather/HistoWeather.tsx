@@ -67,15 +67,16 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
         weatherData && <span>
          <table className='weather-table'>
          <td>
-            <FeatherIcon.ArrowUpCircle size={16} />
+            <FeatherIcon.Clock size={16} /> <br />
+            &#8673;&nbsp;
               {DateTime.fromISO(weatherData.sunrise).toFormat('HH:mm')}
             <br />
-            <FeatherIcon.ArrowDownCircle size={16} />
+            &#8675;&nbsp;
               {DateTime.fromISO(weatherData.sunset).toFormat('HH:mm')}
           </td>
           <td>{weatherIcons['clear-day']}<br />{Math.round(weatherData.sunshine_duration / 3600)} h</td>
           <td>{weatherIcons['umbrella']}<br /> {weatherData.precipitation_sum} mm <br/> {weatherData.precipitation_hours} h  </td>
-          <td>{weatherIcons['thermometer']}<br />{weatherData.temperature_2m_min} - {weatherData.temperature_2m_max} °C</td>
+          <td>{weatherIcons['thermometer']}<br />{weatherData.temperature_2m_min} °C <br /> {weatherData.temperature_2m_max} °C</td>
          </table>
         </span>
       )}

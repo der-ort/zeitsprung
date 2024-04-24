@@ -2,6 +2,7 @@ import  { FC } from 'react';
 import * as FeatherIcon from 'react-feather';
 
 interface NewTripButtonProps {
+  setEditTrip: (status:boolean) => void;
 }
 
 const NewTripButton: FC<NewTripButtonProps> = ({setEditTrip}) => {

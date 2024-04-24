@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { DateTime } from "luxon";
-import { Trip } from '../../models/types';
+import { Day, Trip } from '../../models/types';
 import * as FeatherIcon from 'react-feather';
 
 // TRIP TITLE:
@@ -8,6 +8,8 @@ import * as FeatherIcon from 'react-feather';
 
 interface TitleProps {
   trip: Trip;
+  setCurrentTrip: (trip:Trip) => void;
+  setCurrentDay: (day:Day) => void
 }
 
 const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip, setCurrentDay }) => {

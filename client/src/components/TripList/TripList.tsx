@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import TripListItem from '../TripListItem/TripListItem';
 import NewTripButton from './NewTripButton';
 import AddTripForm from '../AddTripForm/AddTripForm';
+import { Trip } from '../../models/types';
 
 // LANDING PAGE TO SHOW THE TRIPS FOR THE CURRENT USER
 // TO DO:
@@ -9,6 +10,9 @@ import AddTripForm from '../AddTripForm/AddTripForm';
 
 interface TripListProps {
   userId:number;
+  currentUserTrips:Trip[];
+  setCurrentTrip:(trip:Trip) => void;
+  currentUserId: number;
 }
 
 const TripList: FC<TripListProps> = ({currentUserTrips, setCurrentTrip, currentUserId}) => {

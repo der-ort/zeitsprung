@@ -283,7 +283,7 @@
   .day-info .weather-table td {
     font-size: 8pt;
     width: 80px;
-    text-align: center;
+    text-align: left;
   }
 
   .day-info .right {

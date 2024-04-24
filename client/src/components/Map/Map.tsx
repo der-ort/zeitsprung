@@ -15,10 +15,11 @@ interface MapProps {
 
 const Map: FC<MapProps> = ({currentAssets}) => {
 
-    // define the coordinates where to center the map. should later be taken from the trip.locationCenter-property
+    // define the coordinates where to center the map. 
+    // TO DO: should later be taken from the trip.locationCenter-property
     const startCoords = [51.505, -0.09];
 
-    // Function that gets called everytime the map refreshes to set the bounds of the map to show all assets of the day on the map
+    // Function that gets called every time the map refreshes to set the bounds of the map to show all assets of the day on the map
     const MapBoundsAdjuster = ({ assets }) => {
       const map = useMap();
     
@@ -49,7 +50,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         <LayersControl>
           {mapLayers.map((mapLayer) => (
             <LayersControl.BaseLayer 
-              {...(mapLayer.name === 'Stadia Outdoor' ? { checked: true } : {})} // Put the name of the default map here... move up with variable and ultimately put it in .env 
+              {...(mapLayer.name === 'Stadia Outdoor' ? { checked: true } : {})} // Put the name of the default map here... TO DO: move up with variable and ultimately put it in .env 
               key={mapLayer.name} 
               name={mapLayer.name}>
               <TileLayer

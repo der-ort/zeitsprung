@@ -1,4 +1,5 @@
 // A COLLECTION OF MAP SOURCES FOR THE PROJECT TAKEN FROM https://leaflet-extras.github.io/leaflet-providers/preview/
+// TO DO: CONVERT TO JSON AND PARSE ACCORDINGLY
 
 export const mapLayers = [
     {

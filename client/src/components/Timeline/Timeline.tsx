@@ -5,6 +5,7 @@ import { Day } from '../../models/types';
 interface TimelineProps {
     currentTripDays: Day[];
     currentDay:Day;
+    setCurrentDay: (day:Day) => void;
 }
 
 // TIMELINE ON TOP OF THE PAGE

@@ -50,8 +50,6 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
         <span className='lunarPhase' dangerouslySetInnerHTML={{ __html: getLunarPhaseUTF() }}></span>
         
         <div className="right">
-          <h4>{currentDay.description}</h4>
-
           {/* ADD HISTORIC WEATHER LATER */}
           <HistoWeather currentDay={currentDay} />
         </div>

@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
 import { Trip } from '../../models/types';
 
 interface TripListItemProps {
    trip:Trip;
+   setCurrentTrip: (trip: Trip) => void;
 }
 
 const TripListItem: FC<TripListItemProps> = ({trip, setCurrentTrip}) => {
@@ -16,8 +17,11 @@ const TripListItem: FC<TripListItemProps> = ({trip, setCurrentTrip}) => {
           <p></p>
 
           {/* SHOW DURATION */}
-          <p><FeatherIcon.Clock size={16} />  &nbsp;  {DateTime.fromMillis(Number(trip.start)).toLocaleString()}&nbsp;  <br/>
-          <FeatherIcon.ArrowRight size={16} />  &nbsp;  {DateTime.fromMillis(Number(trip.end)).toLocaleString()}</p>
+          <p>
+            <FeatherIcon.Clock size={16} />  &nbsp;  {DateTime.fromMillis(Number(trip.start)).toLocaleString()}&nbsp;  
+            <br/>
+            <FeatherIcon.ArrowRight size={16} />  &nbsp;  {DateTime.fromMillis(Number(trip.end)).toLocaleString()}
+          </p>
           {/* <FeatherIcon.XSquare size={16} className='delete-trip'/> */}
        </div>
     </>

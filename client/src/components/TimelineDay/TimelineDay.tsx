@@ -5,9 +5,8 @@ import { Day } from '../../models/types';
 interface TimelineDayProps {
     day: Day;
     currentDay:Day;
+    setCurrentDay: (day: Day) => void;
 }
-
-// DAY ITEM FOR THE TIMELINE
 
 const TimelineDay: FC<TimelineDayProps> = ({day, setCurrentDay, currentDay}) => {
 
