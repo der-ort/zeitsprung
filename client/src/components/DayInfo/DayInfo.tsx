@@ -53,7 +53,7 @@ const DayInfo: FC<DayInfoProps> = ({currentDay, currentAssets}) => {
   return (
     <>
       <div className="day-info">
-        {currentCoords.join(", ")}
+        {currentCoords.join(" ")}
 
         <span className='lunarPhase' dangerouslySetInnerHTML={{ __html: getLunarPhaseUTF() }}></span>
         
