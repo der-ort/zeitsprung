@@ -14,6 +14,7 @@ export interface Day {
     date: number; //timestamp
     tripId: number, //associated Trip ID 
     description: string,
+    blogEntry: string,
     assets: Asset[],
     locationCenter?: number[],
     mood: number, //mood is a number from 0-5 representing 6 different moods

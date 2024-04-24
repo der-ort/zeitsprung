@@ -30,9 +30,9 @@ const BackgroundMap = () => {
   const currentLayerIndex = randomIndex; 
 
   return (
+    // a map container with all controls disabled
     <MapContainer
-      
-    center={[Math.random() * 140 - 70, Math.random() * 320 - 160]} // random center on each refresh, avoiding polar regions by 20° 
+      center={[Math.random() * 140 - 70, Math.random() * 320 - 160]} // random center on each refresh, avoiding polar regions by 20° 
       zoom={7}
       className="triplist-background-map"
       style={{ height: '100vh', width: '100vw' }}
@@ -45,10 +45,12 @@ const BackgroundMap = () => {
       keyboard={false}
       attributionControl={false}>
 
+      
       <TileLayer
         attribution={tileLayers[currentLayerIndex].attribution}
         url={tileLayers[currentLayerIndex].url}
       />
+
     </MapContainer>
   );
 };

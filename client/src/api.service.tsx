@@ -181,15 +181,16 @@ export async function createDays(trip:Trip):Promise<Trip> {
   export async function getHistoWeather(day) {
     
     // set the default provider
-    const provider:string = 'pirateweather';
+    const provider:string = 'openmeteo'; // store this in the .env in the end
 
-    console.log(day)
-    const [lat, lon] = [...day.locationCenter]
-    let dateString = DateTime.fromMillis(Number(day.date));
-    let apiURL = '';
-    let query = '';
-    let API_key  = ''
-    let formattedWeather = {};
+        console.log(day)
+        const [lat, lon] = [...day.locationCenter]
+        let dateString = DateTime.fromMillis(Number(day.date));
+        let apiURL = '';
+        let query = '';
+        let API_key  = ''
+        let formattedWeather = {};
+        let params = [];
 
     switch (provider) {
         case 'visualcrossing':
@@ -212,13 +213,49 @@ export async function createDays(trip:Trip):Promise<Trip> {
             query =  apiURL + `lat=${lat}&lon=${lon}&type=hour&start=${day.date}&appid=${API_key}`;
         break;
 
-        // https://www.weatherbit.io/api/historical-weather-daily
-        case 'weatherbit':
+        // weather_code 	WMO code 	The most severe weather condition on a given day
+        // temperature_2m_max
+        // temperature_2m_min 	°C (°F) 	Maximum and minimum daily air temperature at 2 meters above ground
+        // apparent_temperature_max
+        // apparent_temperature_min 	°C (°F) 	Maximum and minimum daily apparent temperature
+        // precipitation_sum 	mm 	Sum of daily precipitation (including rain, showers and snowfall)
+        // rain_sum 	mm 	Sum of daily rain
+        // snowfall_sum 	cm 	Sum of daily snowfall
+        // precipitation_hours 	hours 	The number of hours with rain
+        // sunrise
+        // sunset 	iso8601 	Sun rise and set times
+        // sunshine_duration 	seconds 	The number of seconds of sunshine per day is determined by calculating direct normalized irradiance exceeding 120 W/m², following the WMO definition. Sunshine duration will consistently be less than daylight duration due to dawn and dusk.
+        // daylight_duration 	seconds 	Number of seconds of daylight per day
+        // wind_speed_10m_max
+        // wind_gusts_10m_max 	km/h (mph, m/s, knots) 	Maximum wind speed and gusts on a day
+        // wind_direction_10m_dominant 	° 	Dominant wind direction
+        // shortwave_radiation_sum 	MJ/m² 	The sum of solar radiaion on a given day in Megajoules
+        // et0_fao_evapotranspiration 	mm 	Daily sum of ET₀ Reference Evapotranspiration of a well watered grass field
 
-            API_key = ''
-            apiURL = `https://api.weatherbit.io/v2.0/history/daily`;
-            query =  apiURL + `&lat=${lat}&lon=${lon}&start_date=${dateString}&end_date=${dateString}&key=${API_key}`;
-
+        case 'openmeteo':
+            dateString = dateString.toFormat('yyyy-MM-dd')
+            apiURL = `https://archive-api.open-meteo.com/v1/era5?`;
+            params = [
+                'weather_code',
+                'temperature_2m_max',
+                'temperature_2m_min',
+                'apparent_temperature_max',
+                'apparent_temperature_min',
+                'precipitation_sum',
+                'rain_sum',
+                'snowfall_sum',
+                'precipitation_hours',
+                'sunrise',
+                'sunset',
+                'sunshine_duration',
+                'daylight_duration',
+                'wind_speed_10m_max',
+                'wind_gusts_10m_max',
+                'wind_direction_10m_dominant',
+                'shortwave_radiation_sum',
+                'et0_fao_evapotranspiration'
+            ]
+            query =  apiURL + `latitude=${lat}&longitude=${lon}&start_date=${dateString}&end_date=${dateString}&daily=${params.join(',')}`;
         break;
     }
     
@@ -231,6 +268,10 @@ export async function createDays(trip:Trip):Promise<Trip> {
             const historicWeather = await response.json();
         
             switch (provider) {
+                case 'openmeteo':
+                    formattedWeather = { ...historicWeather };
+                    return formattedWeather;
+
                 case 'pirateweather':
                     formattedWeather = { ...historicWeather.daily.data[0] };
                     return formattedWeather;

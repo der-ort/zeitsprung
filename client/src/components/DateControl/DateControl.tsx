@@ -5,16 +5,19 @@ import { Day } from '../../models/types';
 
 interface DateControlProps {
   currentDay:Day;
+  setCurrentDay: (day: Day) => void; 
+  currentTripDays: Day[]
 }
 
-// DATE CONTROL MAKES YOU MOVE TO THE PREVIOUS AND NEXT DAY USING ARROW. IT ALSO SHOWS THE CURRENT DAY
+// DATE CONTROL MAKES YOU MOVE TO THE PREVIOUS AND NEXT DAY USING ARROWS. 
+// IT ALSO SHOWS THE CURRENT DAYS DATE
 
 const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay, currentTripDays}) => {
 
   // change currentDay by clicking on arrows
   function onClickHandler(action:string) {
     
-    const currentIndex = currentTripDays.indexOf(currentDay);
+    const currentIndex:number = currentTripDays.indexOf(currentDay);
     let newDay = currentDay;
 
     switch(action) {
@@ -25,19 +28,29 @@ const DateControl: FC<DateControlProps> = ({currentDay, setCurrentDay, currentTr
         newDay = currentIndex < currentTripDays.length -1 ? currentTripDays[currentIndex + 1] : currentDay;
         break;
     }
+
     setCurrentDay(newDay);
   }
 
   return (
     <>
       <div className="date-control">
-        <div className="date-prevnext" onClick={() => onClickHandler('prevDate')}><FeatherIcon.ChevronLeft size={36} className='date-chevron' /></div>
-              <div className='date-current'>
-                <h2>{DateTime.fromMillis(Number(currentDay.date)).toLocaleString()}</h2>
-              </div>
-        <div className="date-prevnext" onClick={() =>onClickHandler('nextDate')}><FeatherIcon.ChevronRight size={36} className='date-chevron'/></div>
-      
-      </div></>
+        <div className="date-prevnext" onClick={() => onClickHandler('prevDate')}>
+          <FeatherIcon.ChevronLeft size={36} className='date-chevron' />
+        </div>
+        
+        <div className='date-current'>
+          <h2>
+            {DateTime.fromMillis(Number(currentDay.date)).toLocaleString()}
+          </h2>
+        </div>
+        
+        <div className="date-prevnext" onClick={() =>onClickHandler('nextDate')}>
+          <FeatherIcon.ChevronRight size={36} className='date-chevron'/>
+        </div>
+      </div>
+
+    </>
   );
 };
 

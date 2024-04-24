@@ -8,6 +8,9 @@ import { Trip } from '../../models/types';
 
 
 interface AddTripFormProps {
+  setEditTrip: (mode: boolean) => void;
+  setCurrentTrip: (trip: Trip) => void;
+  currentUserId: number;
 }
 
 
@@ -35,10 +38,14 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       if (name === "description") newTrip = { ...newTrip, description: value};
       if (name === "start") newTrip = { ...newTrip, start:  value};
       // newTrip = { ...newTrip, [name]: value} <- replace previous code with this
+      // but unexpected behaviour with the following code when the checks are added?
+
       if (name === "end") {
+        // TO DO:
         // ADD check for start < enddate and vice versa
         newTrip = { ...newTrip, end: value} // when submitting and there is no value default to start date later
       }
+      // toggle the checkbox
       if (name === "autoCreateDays") {
         setAutoCreateDays(!autoCreateDays);
       }
@@ -47,6 +54,7 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
     };
 
   // Handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('creating Trip:', trip);
@@ -67,12 +75,8 @@ const AddTripForm: FC<AddTripFormProps> = ({setEditTrip, setCurrentTrip, current
       setCurrentTrip(createdTrip);
       
       // Create days for the trip automatically if checkbox is checked!
-
-      if (autoCreateDays) {
-        createDays(createdTrip);
-        //update the newly created days
-        // fetchCurrentTripDays(createdTrip.id);
-      }
+      // is broken for now? (24.04.24)
+      if (autoCreateDays) createDays(createdTrip);
       
       // update the trip to get the new days
       setCurrentTrip(createdTrip);

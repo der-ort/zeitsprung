@@ -1,16 +1,17 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Day, Trip } from '../../models/types';
 // import KeyValueTable from '../Map/KeyValueTable';
-// import { getHistoWeather, reverseGeocode } from '../../api.service';
-import { mockWeather_short } from '../../mockWeather';
-// import { DateTime } from "luxon";
+import { getHistoWeather } from '../../api.service';
+// import { mockWeather_short } from '../../mockWeather';
+import { DateTime } from "luxon";
 import * as FeatherIcon from 'react-feather';
 
 
 
 interface HistoWeatherProps {
-  day: Day;
-  trip: Trip;
+    day: Day;
+    trip: Trip;
+    currentDay: Day
 }
 
 const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
@@ -24,30 +25,12 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
 
         // commented out for demo reasons
 
-        //const histoWeather = await getHistoWeather(currentDay);
+        const rawWeather = await getHistoWeather(currentDay);
 
-        // const beautifulWeather = {
-        //   summary : histoWeather.summary,
-        //   sunriseTime : DateTime.fromMillis(Number(histoWeather.sunriseTime)).toLocaleString(),
-        //   sunsetTime  : DateTime.fromMillis(Number(histoWeather.sunsetTime)).toLocaleString(),
-        //   moonPhase : histoWeather.moonPhase,
-        //   temperatureHigh : histoWeather.temperatureHigh,
-        //   temperatureLow  : histoWeather.temperatureLow,
-        //   temperatureMin  : histoWeather.temperatureMin,
-        //   temperatureMax  : histoWeather.temperatureMax,
-        //   precipType  : histoWeather.precipType,
-        //   windSpeed : histoWeather.windSpeed,
-        //   pressure  : histoWeather.pressure,
-        // }
-        //const geoLocation = await reverseGeocode(-45.401620, -72.688644)
-        
-        // console.log(geoLocation.address.county + ', ' + geoLocation.address.country)
-        
-        // MOCK ENTRY FOR DEMO!
-        // const histoWeather = mockWeather_short.daily.data[0];
-        const histoWeather = mockWeather_short;
-        
-        setWeatherData(histoWeather);
+        const histoWeather = rawWeather.daily;
+  
+       setWeatherData(histoWeather);
+  
       } catch (err) {
         console.error('Error getting historic weather data:', err);
       } finally {
@@ -58,21 +41,22 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
     fetchHistoricalWeather();
   }, [currentDay]); // Dependency array ensures this only reruns if `day` changes
 
+  // weather icons to show according to the returned string
   const weatherIcons = {
-      "clear-day": <FeatherIcon.Sun/>,
-      "clear-night": <FeatherIcon.Moon />,
-      "rain": <FeatherIcon.CloudRain />,
-      "snow": <FeatherIcon.CloudSnow />,
-      "sleet": <FeatherIcon.CloudDrizzle />,
-      "wind": <FeatherIcon.Wind />,
-      "fog": <FeatherIcon.Cloud />,
-      "cloudy": <FeatherIcon.Cloud />,
-      "partly-cloudy-day": <FeatherIcon.Cloud />,
-      "partly-cloudy-night": <FeatherIcon.Moon />,
-      "thunderstorm": <FeatherIcon.CloudLightning />,
-      "droplet": <FeatherIcon.Droplet />,
-      "umbrella": <FeatherIcon.Umbrella />,
-      "thermometer": <FeatherIcon.Thermometer />,
+      "clear-day": <FeatherIcon.Sun size={16}/>,
+      "clear-night": <FeatherIcon.Moon size={16}/>,
+      "rain": <FeatherIcon.CloudRain size={16}/>,
+      "snow": <FeatherIcon.CloudSnow size={16}/>,
+      "sleet": <FeatherIcon.CloudDrizzle size={16}/>,
+      "wind": <FeatherIcon.Wind size={16}/>,
+      "fog": <FeatherIcon.Cloud size={16}/>,
+      "cloudy": <FeatherIcon.Cloud size={16}/>,
+      "partly-cloudy-day": <FeatherIcon.Cloud size={16}/>,
+      "partly-cloudy-night": <FeatherIcon.Moon size={16}/>,
+      "thunderstorm": <FeatherIcon.CloudLightning size={16}/>,
+      "droplet": <FeatherIcon.Droplet size={16}/>,
+      "umbrella": <FeatherIcon.Umbrella size={16}/>,
+      "thermometer": <FeatherIcon.Thermometer size={16}/>,
     };
 
   return (
@@ -82,9 +66,16 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
       ) : (
         weatherData && <span>
          <table className='weather-table'>
-          <td>{weatherIcons[weatherData.summary]}<br />{weatherData.summary}</td>
-          <td>{weatherIcons[weatherData.precipType]}<br /> {weatherData.precipType} </td>
-          <td>{weatherIcons['thermometer']}<br />{Math.floor(Number(weatherData.temperature))} °C</td>
+         <td>
+            <FeatherIcon.ArrowUpCircle size={16} />
+              {DateTime.fromISO(weatherData.sunrise).toFormat('HH:mm')}
+            <br />
+            <FeatherIcon.ArrowDownCircle size={16} />
+              {DateTime.fromISO(weatherData.sunset).toFormat('HH:mm')}
+          </td>
+          <td>{weatherIcons['clear-day']}<br />{Math.round(weatherData.sunshine_duration / 3600)} h</td>
+          <td>{weatherIcons['umbrella']}<br /> {weatherData.precipitation_sum} mm <br/> {weatherData.precipitation_hours} h  </td>
+          <td>{weatherIcons['thermometer']}<br />{weatherData.temperature_2m_min} - {weatherData.temperature_2m_max} °C</td>
          </table>
         </span>
       )}

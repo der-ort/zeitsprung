@@ -2,7 +2,8 @@ import { FC } from 'react';
 import * as FeatherIcon from 'react-feather';
 
 interface AddAssetsButtonProps {
-  // ADD PROPS
+  uploadMode: boolean;
+  setUploadMode: (uploadMode: boolean) => void;
 }
 
 // Add a prop that is currentDate, pervDate, nextDate etc...

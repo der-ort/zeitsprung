@@ -9,9 +9,7 @@ interface BlogEditorProps {
   blogEntry:string;
 }
 
-const BlogEditor: FC<BlogEditorProps> = ({setBlogEditMode, 
-                                          setCurrentDay, 
-                                          currentDay}) => {
+const BlogEditor: FC<BlogEditorProps> = ({setBlogEditMode, setCurrentDay, currentDay}) => {
 
     const [quillText, setQuillText] = useState(currentDay.blogEntry);
 
@@ -24,17 +22,21 @@ const BlogEditor: FC<BlogEditorProps> = ({setBlogEditMode,
 
   return (
     <>
+        {/* ICONS TO SAVE OR CANCEL EDITING */}
         <div className='blog-editor-icons'>
-        <FeatherIcon.Save size={32} onClick={onSaveHandler} />
-        <br />
-        <FeatherIcon.XCircle size={32} onClick={() => { setBlogEditMode(false) }} />
+          <FeatherIcon.Save size={32} onClick={onSaveHandler} />
+          <br />
+          <FeatherIcon.XCircle size={32} onClick={() => { setBlogEditMode(false) }} />
         </div>
+
+        {/* RTF EDITOR */}
         <ReactQuill className='blog-editor' 
                     theme='snow' 
                     value={quillText} 
                     onChange={setQuillText} 
         />
     </>
+
   );
 };
 

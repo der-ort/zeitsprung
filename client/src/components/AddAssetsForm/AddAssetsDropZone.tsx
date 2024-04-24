@@ -1,22 +1,21 @@
 import { FC } from 'react';
 import Dropzone from 'react-dropzone';
 import * as FeatherIcon from 'react-feather';
-import { Day, Trip } from '../../models/types';
+import { Asset, Day, Trip } from '../../models/types';
 
 interface AddAssetsDropZoneProps {
   currentDay: Day;
   currentTrip: Trip;
   setUploadMode: (mode: boolean) => void;
   setCurrentDay: (day: Day) => void;
+  setCurrentAssets: (assets: Asset) => void;
 }
 
 // TO DO:
 // https://www.smashingmagazine.com/2020/02/html-drag-drop-api-react/
-// TOGGLE DROPZONE WHEN DRAGENTER
+// TOGGLE DROPZONE WHEN DRAGGING FILES OVER THE MAP
 
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentDay, setCurrentAssets}) => {
+const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentTrip, currentDay, setCurrentAssets}) => {
   
   async function handleUpload(assets: File[]) {
   
@@ -27,8 +26,11 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
     }
 
     // SET ALLOWED FILETYPES FOR UPLOAD
-    // const allowedFileTypes = ['image/jpeg'];
-
+    // these are currently supported by exifr but cannot necessarily be displayed by the browser!
+    // TO DO: 
+    //        - file type filter in the fileselector
+    //        - file conversion on the server (imagemagick? / ffmpeg (comes in handy for videos later...))
+  
     const allowedFileTypes = [
       'image/jpeg',           // for .jpg
       'image/tiff',           // for .tif
@@ -39,7 +41,7 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
   ];
 
     // UPLOAD EACH FILE ONE AFTER THE OTHER
-    // a constant that includes a function that then can be awaited :)
+    // TO DO: MOVE FUNCTIONALITY TO api.services.tsx
     try {
       const uploadPromises = assets.map(async (file) => {
         // FILETYPE CHECK
@@ -53,7 +55,7 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
           formData.append('file', file);
     
           // MOVE THIS TO THE API HELPERS FILE
-          // post formData which includes the JPG
+          // post formData which includes the file
           const response = await fetch(`http://localhost:3000/assets/trip/${currentTrip.id}/day/${currentDay.id}`, {
             method: 'POST',
             body: formData,
@@ -67,12 +69,12 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
         // actually run the earlier defined function and await all promises
         const results = await Promise.all(uploadPromises);
         
-        // each result should be an asset object!
         // set the currentAssets to rerender the map component 
         setCurrentAssets(prevAssets => [...prevAssets, ...results])
 
-        // for conditional rendering change the upload mode and reset the currentDay for a refresh
+        // change the upload state to toggle the DropZone
         setUploadMode(false);
+
     } catch (err) {
       console.error('Error uploading files: ' + err);
       setUploadMode(false);
@@ -81,16 +83,25 @@ const AddAssetsDropZone: FC<AddAssetsDropZoneProps> = ({ setUploadMode, currentT
 
   return (
     <>
+      {/* react-dropzone package */}
       <div className='dropzone-wrapper'>
+        {/* TO DO: add more filetypes like in the handleUpload function */}
         <Dropzone onDrop={handleUpload} accept="image/jpeg">
+        
           {({ getRootProps, getInputProps }) => (
+        
             <div {...getRootProps()} className='add-assets-dropzone'>
+            
               <input {...getInputProps()} />
+            
               <div className='dropzone-text'>
+            
                 <FeatherIcon.Image size="64" />
                 <h2>Drop images here</h2>
                 <p>(or click to select files)</p>
+            
               </div>
+            
             </div>
           )}
         </Dropzone>

@@ -9,7 +9,7 @@ interface DayInfoProps {
 }
 
 // DayInfo:
-// Shows the description/title, mood, historical weather and the moon phase of the day
+// Shows the description/title, historical weather and the moon phase of the day
 
 
 const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
@@ -25,9 +25,8 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
     // get the actual moon phase
     const lunarPhase = Moon.lunarPhase(moonDate, moonHemisphere).replace(/\s/g, '').toLowerCase();
 
-    // lunar Phases as HTML unicode  
-    // another option: https://github.com/tommoor/react-emoji-render
-    // with a custom iconset... but for now this works...
+    // lunar Phases as HTML unicode to show as an icon
+   
     const lunarPhasesUTF = {
       new :               '&#x1F311;&#xFE0E;',
       waxingcrescent :    '&#x1F312;&#xFE0E;',
@@ -40,17 +39,19 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
       crescent:           '&#x1F319;&#xFE0E;'
     }
 
-    return lunarPhasesUTF[lunarPhase];
+    const lunarCharacter:string = lunarPhasesUTF[lunarPhase]
+
+    return lunarCharacter;
   }
   
   return (
     <>
       <div className="day-info">
-        {/* <MoodFace mood={currentDay.mood} /> */}
         <span className='lunarPhase' dangerouslySetInnerHTML={{ __html: getLunarPhaseUTF() }}></span>
         
         <div className="right">
           <h4>{currentDay.description}</h4>
+
           {/* ADD HISTORIC WEATHER LATER */}
           <HistoWeather currentDay={currentDay} />
         </div>

@@ -3,7 +3,6 @@ import { MapContainer, Marker, Popup, TileLayer, LayersControl, useMap} from 're
 import L from 'leaflet';
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
-import { DateTime } from "luxon";
 import { Asset } from '../../models/types';
 import { mapLayers } from './MapSources';
 import KeyValueTable from './KeyValueTable';
@@ -18,9 +17,6 @@ const Map: FC<MapProps> = ({currentAssets}) => {
 
     // define the coordinates where to center the map. should later be taken from the trip.locationCenter-property
     const startCoords = [51.505, -0.09];
-
-    //const mapRef = useRef(null); // create a handler that can later be used to manipulate the map data... seems deprecated
-
 
     // Function that gets called everytime the map refreshes to set the bounds of the map to show all assets of the day on the map
     const MapBoundsAdjuster = ({ assets }) => {
@@ -39,13 +35,13 @@ const Map: FC<MapProps> = ({currentAssets}) => {
     return (
     <>
         <MapContainer
-        className="map"
-        center={startCoords} // center the map around the start coords
-        zoom={6}
-        minZoom={3}
-        maxZoom={18}
-        maxBounds={[[-85.06, -180], [85.06, 180]]}
-        scrollWheelZoom={true}
+          className="map"
+          center={startCoords} // center the map around the start coords
+          zoom={6}
+          minZoom={3}
+          maxZoom={18}
+          maxBounds={[[-85.06, -180], [85.06, 180]]} // TO DO: make the map center dynamic to the center of the actual trip
+          scrollWheelZoom={true}
         >
 
         
