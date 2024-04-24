@@ -8,7 +8,7 @@ You will need a PostgreSQL server running and specify its port in the `server/in
 Install all dependencies. Server and client are two separate projects that need their respective packages to be installed via npm 
 
 *server*:
-````
+```
 from the root directory:
 
 cd server
@@ -16,7 +16,7 @@ npm i
 ```
 
 *client*:
-````
+```
 from the root directory:
 
 cd client
@@ -26,7 +26,7 @@ npm i
 ### run commands:
 
 To run the *server*:
-````
+```
 from the root directory:
 
 cd server
@@ -34,7 +34,7 @@ node run index.js
 ```
 
 To run the *client*:
-````
+```
 from the root directory:
 
 cd client 
