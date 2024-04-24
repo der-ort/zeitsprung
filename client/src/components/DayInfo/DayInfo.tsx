@@ -3,16 +3,18 @@ import { FC } from 'react';
 import { Moon, Hemisphere } from 'lunarphase-js';
 import { Day } from '../../models/types';
 import HistoWeather from '../HistoWeather/HistoWeather';
+import { getCenterOfBounds } from '../../geotools.service';
 
 interface DayInfoProps {
   currentDay: Day;
+  currentAssets: Asset[];
 }
 
 // DayInfo:
 // Shows the description/title, historical weather and the moon phase of the day
 
 
-const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
+const DayInfo: FC<DayInfoProps> = ({currentDay, currentAssets}) => {
   // get the current lunar phase and emoji
   function getLunarPhaseUTF() {
 
@@ -44,9 +46,15 @@ const DayInfo: FC<DayInfoProps> = ({currentDay}) => {
     return lunarCharacter;
   }
   
+  const currentPosition = getCenterOfBounds(currentAssets);
+  const currentCoords = [currentPosition.latitude, currentPosition.longitude]
+  // const currentPlace = reverseGeocode(currentCoords);
+
   return (
     <>
       <div className="day-info">
+        {currentCoords.join(", ")}
+
         <span className='lunarPhase' dangerouslySetInnerHTML={{ __html: getLunarPhaseUTF() }}></span>
         
         <div className="right">

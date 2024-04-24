@@ -115,6 +115,7 @@ function App() {
       if (!response.ok) throw new Error('Network error while fetching day assets.');
       
       const assets = await response.json();
+      
       setCurrentAssets(assets);
     
     } catch (error) {
@@ -163,7 +164,9 @@ function App() {
       />
       
 
-      <DayInfo          currentDay={currentDay} />
+      <DayInfo          currentDay={currentDay}
+                        currentAssets={currentAssets} 
+      />
       
 
       <BlogContainer    currentDay={currentDay} 

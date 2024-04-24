@@ -291,7 +291,9 @@ export async function createDays(trip:Trip):Promise<Trip> {
     }
 
 // reverse geocoder that
-export function reverseGeocode(lat, lon) {
+export function reverseGeocode(coords) {
+        const lat = coords[0]
+        const lon = coords[1]
 
         const apiURL = 'https://nominatim.openstreetmap.org/reverse';
     
