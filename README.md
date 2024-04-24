@@ -9,7 +9,7 @@ Install all dependencies. Server and client are two separate projects that need 
 
 *server*:
 ````
-_from the root directory:_
+from the root directory:
 
 cd server
 npm i
@@ -17,9 +17,9 @@ npm i
 
 *client*:
 ````
-_from the root directory:_
+from the root directory:
 
-cd client server
+cd client
 npm i
 ```
 
@@ -27,7 +27,7 @@ npm i
 
 To run the *server*:
 ````
-_from the root directory:_
+from the root directory:
 
 cd server
 node run index.js
@@ -35,9 +35,9 @@ node run index.js
 
 To run the *client*:
 ````
-_from the root directory:_
+from the root directory:
 
-cd client server
+cd client 
 npm run dev
 ```
 
