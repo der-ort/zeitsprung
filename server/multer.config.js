@@ -2,7 +2,6 @@ const multer = require('@koa/multer');
 const path = require('path');
 const fs = require('fs');
 
-
 // set upload directory for the storage dir used by multer
 // and check if uploadDirectory exists, else create
 const uploadDirectory = path.join(__dirname, 'assets/');
