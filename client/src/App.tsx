@@ -129,11 +129,6 @@ function App() {
     }  
   }, [currentDay]);
 
-  useEffect(() => {
-    console.log(currentDay);
-    
-  }, [currentDay])
-
   // --------------- EFFECTS
 
   return (
@@ -200,7 +195,7 @@ function App() {
                                       setCurrentDay={setCurrentDay} 
                                       currentDay={currentDay} 
                                       setCurrentTrip={setCurrentTrip}
-                                      setCurrentTripAssets={setCurrentAssets}
+                                      setCurrentAssets={setCurrentAssets}
                                       currentUserId={currentUserId} 
                                       setCurrentAssets={setCurrentAssets}
                                       currentAssets = {currentAssets}
@@ -211,7 +206,7 @@ function App() {
         {/* show add assets button only when "uploadMode" is false. -> useState*/}
         <AddAssetsButton setUploadMode={setUploadMode} 
                          uploadMode={uploadMode}
-                         setCurrentTripAssets={setCurrentAssets }
+                         setCurrentAssets={setCurrentAssets }
         />
     
     </div>

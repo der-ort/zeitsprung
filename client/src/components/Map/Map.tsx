@@ -43,7 +43,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
         center={startCoords} // center the map around the start coords
         zoom={6}
         minZoom={3}
-        maxZoom={13}
+        maxZoom={18}
         maxBounds={[[-85.06, -180], [85.06, 180]]}
         scrollWheelZoom={true}
         >
@@ -68,18 +68,13 @@ const Map: FC<MapProps> = ({currentAssets}) => {
           
         <MarkerClusterGroup>
                 {
-                
                 currentAssets.map(asset => {
                   // compose the link for the asset placed on the map file:
-                  console.log('DAS HIER IST DAS ASSET')
-                  console.log('////////////////////////////////////////////')
-                  console.log(asset)
-                  console.log('////////////////////////////////////////////')
                   const assetURL = 'http://localhost:3000/' + asset.fileLocation;
                   const assetExifData = JSON.parse(asset.exifData);
                   isNaN(asset.coordinates[0]) || isNaN(asset.coordinates[0]) ? asset.coordinates =  [0,0] : null;
 
-                  // create a custom Marker that displays the actual photo
+                  // create a new Instance of Marker that displays the actual photo, will get reused down below
                     const imageIcon = new L.Icon({
                         iconUrl: assetURL,
                         iconSize: [64, 64],  
@@ -88,7 +83,7 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                     });
 
                     // TO DO: Add a switch for markers depending on asset type (photo, note, document etc...)
-                    
+                    // then render accordingly
                     return <>
                         <Marker
                             key={asset.id}
@@ -98,24 +93,26 @@ const Map: FC<MapProps> = ({currentAssets}) => {
                             <Popup>
                                 <h3>{asset.description}</h3>
                                 <img src={assetURL} 
-                                     alt="Waypoint view" 
+                                     alt={asset.description}  
                                      style={{ width: '100%' }} 
                                 />
+                                {/* // Rendering EXIF Data in a table */}
                                 <div className='exif-table-wrapper'>
-                                <KeyValueTable data={assetExifData} 
-                                               head={false} 
-                                /> 
+                                  <KeyValueTable data={assetExifData} 
+                                                 head={false} 
+                                  /> 
                                 </div>
+
                                 <br />
-                                {DateTime.fromMillis(Number(asset.captureDate)).toLocaleString()} 
                             </Popup>
                         </Marker>
                     </>
                 })}
             </MarkerClusterGroup>
 
-            {/* ADJUST MAP BOUNDS TO CURRENT MARKERS INSIDE THE MAP */}
+            {/* ADJUST MAP BOUNDS ON EACH RERENDER TO SHOW ALL ASSETS ON MAP */}
             <MapBoundsAdjuster assets={currentAssets} />
+
         </MapContainer>
     </>
   );

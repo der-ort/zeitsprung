@@ -11,7 +11,7 @@ interface TimelineDayProps {
 
 const TimelineDay: FC<TimelineDayProps> = ({day, setCurrentDay, currentDay}) => {
 
-  const formattedDate = DateTime.fromMillis(Number(day.date)).toLocaleString();
+  const formattedDate = DateTime.fromMillis(Number(day.date)).toFormat('dd. MMM yyyy');
   
   return (
     <>

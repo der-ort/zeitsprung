@@ -21,6 +21,9 @@ const HistoWeather: FC<HistoWeatherProps> = ({ currentDay }) => {
     const fetchHistoricalWeather = async () => {
       setLoading(true);
       try {
+
+        // commented out for demo reasons
+
         //const histoWeather = await getHistoWeather(currentDay);
 
         // const beautifulWeather = {

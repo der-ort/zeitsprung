@@ -9,14 +9,6 @@ export interface Trip {
     length?: () => void // add a length function to automatically set the length
 }
 
-export interface Waypoint {
-    id: number,
-    description: string,
-    imageURL: string,
-    captureDate: number, 
-    coordinates: number[]
-}
-
 export interface Day {
     id: number,
     date: number; //timestamp
@@ -25,7 +17,7 @@ export interface Day {
     assets: Asset[],
     locationCenter?: number[],
     mood: number, //mood is a number from 0-5 representing 6 different moods
-
+    weather: any; // 
 }
 
 export const moods = [
@@ -41,7 +33,7 @@ export interface Asset {
     id: number;
     description: string;
     name: string;
-    assetType: string;              //image / note / waypoint
+    assetType: string;              //image / note 
     fileLocation: string;
     coordinates: number[] | null; 
     captureDate: number; 

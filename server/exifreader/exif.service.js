@@ -18,7 +18,7 @@ async function exifGetCoordinates (image) {
     }
 }
 
-// gets all info from the exif-data
+// gets all exif-data from the images
 // returns empty object on error
 async function exifGetAll (image) {
     try {
