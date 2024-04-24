@@ -3,61 +3,7 @@ import { DateTime, Interval } from "luxon";
 import { apikey } from "./APIKEY";
 
 // ADD API SERVICES HERE
-const apiURL = 'http://localhost:3000';
-
-// get all Trip Objects for the given User
-// is it necessary to return all Trip objects or would it be enough to simply get Ids and descriptions?
-// the trip itself can be fetched later with the following function 
-
-
-// REQUIRES MORE WORK!
-// refactor to try/catch instead of promise chain
-
-// export async function getAllTripsByUserId(userId:number):Promise<Trip[]> {
-
-//     // add check for userId
-//     const query = apiURL + '/user/trips/' + userId;
-
-//     // return await fetchHandler(query);
-
-//     // fetch all trips for user
-//     const tripsArr = fetch(query)
-
-//         .then(response => {
-//             if (!response.ok) {
-//                 throw new Error('Network error?');
-//             }
-//             return response.json();
-//         })
-//         .then(trips => {
-//             console.log(trips);
-//             return trips;
-//         })
-//         .catch(error => {
-//             console.error('Problem fetching all trips for user: ', error);
-//         });
-// }
-
-
-// REQUIRES MORE WORK!
-
-// get trip with the given ID and return a Trip object if successful
-// export async function getTripById(tripId:number):Promise<Trip[]> {
-//     // create query
-//     const query = apiURL + '/trips/' + tripId;
-    
-//     try {
-//         const trip = fetch(query)
-//         console.log(trip);
-//         return trip.json();
-//     } catch (err) {
-//         console.error('Problem fetching all trips for user: ', error);    
-//     }
-
-// }
-
-
-// REQUIRES MORE WORK!
+const apiURL = 'http://localhost:3000';  // TO DO: add this to a config file
 
 // creates a Trip in the database and returns the new Trip object
 export async function createTrip(userId:number, trip:Trip):Promise<Trip> {
@@ -168,34 +114,34 @@ export async function createDays(trip:Trip):Promise<Trip> {
     let currentDate = tripStart; //--> DB needs a timestamp and not a date
     for (let i = 0; i < tripLength; i++) {
         createDay(trip, currentDate);
-        currentDate += 86400000; //day in millis, ok for now, maybe there is luxon func for this...
+        currentDate += 86400000; //day in millis, ok for now // TO DO: use luxon?
     }
 }
 
- // get historical weather data:
-  // parameters for the openmeteo API
-  // lat + lon
-  // would prefer pirateweather or the open api by https://open-meteo.com/en/docs/historical-weather-api (without KEY! would be perfect...) or openweathermap
-  // but can't get their api to work
-
+ // get historical weather data
+ // can use different APIs -> for now only works with openmeteo!
+ // lat + lon
   export async function getHistoWeather(day) {
     
     // set the default provider
-    const provider:string = 'openmeteo'; // store this in the .env in the end
+    const provider:string = 'openmeteo'; // store this in the .env in the end -> for now only openmeteo and pirateweather are working
 
         console.log(day)
         const [lat, lon] = [...day.locationCenter]
+        
+        // create variables using let so they can be altered inside the switch
+        
         let dateString = DateTime.fromMillis(Number(day.date));
-        let apiURL = '';
-        let query = '';
-        let API_key  = ''
-        let formattedWeather = {};
+        let apiURL:string;
+        let query:string;
+        let API_key:string;
+        let formattedWeather = {}; //TO DO: define a weather Datatype that unifies all available params from the different APIs
         let params = [];
 
     switch (provider) {
         case 'visualcrossing':
             dateString = dateString.toFormat('yyyy-MM-dd')
-            API_key = 'ABCDEFGHIJKLMNOPQRSTUVXYZ'
+            API_key = 'ABCDEFGHIJKLMNOPQRSTUVXYZ' // TO DO: change it
             apiURL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/`;
             query =  apiURL + `${lat},${lon}/${dateString}?key=${API_key}&unitGroup=metric`;
         break;
@@ -213,24 +159,25 @@ export async function createDays(trip:Trip):Promise<Trip> {
             query =  apiURL + `lat=${lat}&lon=${lon}&type=hour&start=${day.date}&appid=${API_key}`;
         break;
 
-        // weather_code 	WMO code 	The most severe weather condition on a given day
+        // OPENMETEO PARAMETERS:
+        // weather_code 	                WMO code 	            The most severe weather condition on a given day
         // temperature_2m_max
-        // temperature_2m_min 	°C (°F) 	Maximum and minimum daily air temperature at 2 meters above ground
+        // temperature_2m_min 	            °C (°F) 	            Maximum and minimum daily air temperature at 2 meters above ground
         // apparent_temperature_max
-        // apparent_temperature_min 	°C (°F) 	Maximum and minimum daily apparent temperature
-        // precipitation_sum 	mm 	Sum of daily precipitation (including rain, showers and snowfall)
-        // rain_sum 	mm 	Sum of daily rain
-        // snowfall_sum 	cm 	Sum of daily snowfall
-        // precipitation_hours 	hours 	The number of hours with rain
+        // apparent_temperature_min 	    °C (°F) 	            Maximum and minimum daily apparent temperature
+        // precipitation_sum 	            mm 	                    Sum of daily precipitation (including rain, showers and snowfall)
+        // rain_sum 	                    mm 	                    Sum of daily rain
+        // snowfall_sum 	                cm 	                    Sum of daily snowfall
+        // precipitation_hours 	            hours 	                The number of hours with rain
         // sunrise
-        // sunset 	iso8601 	Sun rise and set times
-        // sunshine_duration 	seconds 	The number of seconds of sunshine per day is determined by calculating direct normalized irradiance exceeding 120 W/m², following the WMO definition. Sunshine duration will consistently be less than daylight duration due to dawn and dusk.
-        // daylight_duration 	seconds 	Number of seconds of daylight per day
+        // sunset 	                        iso8601 	            Sun rise and set times
+        // sunshine_duration 	            seconds 	            The number of seconds of sunshine per day is determined by calculating direct normalized irradiance exceeding 120 W/m², following the WMO definition. Sunshine duration will consistently be less than daylight duration due to dawn and dusk.
+        // daylight_duration 	            seconds 	            Number of seconds of daylight per day
         // wind_speed_10m_max
-        // wind_gusts_10m_max 	km/h (mph, m/s, knots) 	Maximum wind speed and gusts on a day
-        // wind_direction_10m_dominant 	° 	Dominant wind direction
-        // shortwave_radiation_sum 	MJ/m² 	The sum of solar radiaion on a given day in Megajoules
-        // et0_fao_evapotranspiration 	mm 	Daily sum of ET₀ Reference Evapotranspiration of a well watered grass field
+        // wind_gusts_10m_max 	            km/h (mph, m/s, knots) 	Maximum wind speed and gusts on a day
+        // wind_direction_10m_dominant 	    ° 	                    Dominant wind direction
+        // shortwave_radiation_sum 	        MJ/m² 	                The sum of solar radiaion on a given day in Megajoules
+        // et0_fao_evapotranspiration 	    mm 	                    Daily sum of ET₀ Reference Evapotranspiration of a well watered grass field
 
         case 'openmeteo':
             dateString = dateString.toFormat('yyyy-MM-dd')
@@ -263,6 +210,7 @@ export async function createDays(trip:Trip):Promise<Trip> {
     console.log(query);
 
 
+        // TO DO: BRING ALL THE APIs into a consistent form!
         try {
             const response = await fetch(query);
             const historicWeather = await response.json();
@@ -290,43 +238,9 @@ export async function createDays(trip:Trip):Promise<Trip> {
         }
     }
 
-// reverse geocoder that
-export function reverseGeocode(coords) {
-        const lat = coords[0]
-        const lon = coords[1]
-
-        const apiURL = 'https://nominatim.openstreetmap.org/reverse';
+    // TO DO: MAKE THIS WORK... should be easy, just never got to the point to implement it
     
-        // zoom 8 = county level https://nominatim.org/release-docs/develop/api/Reverse/
-        const query =  apiURL + `?lat=${lat}&lon=${lon}&format=json&zoom=${8}`
-    
-        fetch(query, {
-            method: 'GET',
-            headers: {
-                'User-Agent': 'YourApp/1.0 (contact@example.com)'
-            }
-        })
-
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data.address) {
-                document.getElementById('address').textContent = 
-                    data.address.road + ', ' +
-                    data.address.city + ', ' +
-                    data.address.country;
-            } else {
-                document.getElementById('address').textContent = 'No address found.';
-            }
-        })
-        
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('address').textContent = 'Failed to retrieve address.';
-        });
-    }
-
-// // deletes the Trip from the database and returns the deleted Trip
+// deletes the Trip from the database and returns the deleted Trip
 // export async function deleteTrip(tripId:number):Trip {
 //     try {
 //         return tripId;
@@ -342,9 +256,3 @@ export function reverseGeocode(coords) {
 //         console.log('Error getting all days for trip: ' + err);
 //     }
 // }
-
-// ADD API functions for historic weather data
-
-
-
-// add functions for the moon phase

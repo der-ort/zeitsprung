@@ -21,15 +21,6 @@ export interface Day {
     weather: any; // 
 }
 
-export const moods = [
-    'sad',
-    'upset',
-    'happy',
-    'neutral',
-    'euphoric',
-    'shocked'
-]
-
 export interface Asset {
     id: number;
     description: string;
