@@ -21,7 +21,6 @@ const TripTitle: FC<TitleProps> = ({ trip, setCurrentTrip, setCurrentDay }) => {
   return (
     <>
       <div className="trip-title">
-
         {/* RETURN TO MAIN MENU */}
           <div className='title-chevron'>
             <FeatherIcon.ChevronLeft size={36} onClick={() => {
