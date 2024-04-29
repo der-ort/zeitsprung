@@ -1,4 +1,4 @@
-import { Trip } from "./models/types";
+import { Day, Trip } from "./models/types";
 import { DateTime, Interval } from "luxon";
 import { apikey } from "./APIKEY";
 
