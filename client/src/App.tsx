@@ -61,7 +61,7 @@ function App() {
   // GET ALL TRIPS FOR THE CURRENT USER
   useEffect(() => {
 
-    const fetchCurrentUserTrips = async (userId) => {
+    const fetchCurrentUserTrips = async (userId:number) => {
     
       try {
         const query = `http://127.0.0.1:3000/user/${userId}/trips`;
